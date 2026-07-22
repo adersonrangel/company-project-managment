@@ -24,7 +24,7 @@ Implementación de una API REST en .NET 10 con Clean Architecture para administr
     - Tests: `FsCheck.Xunit`, `NSubstitute`, `FluentAssertions`, `Microsoft.AspNetCore.Mvc.Testing`, `Microsoft.EntityFrameworkCore.InMemory`
     - _Requirements: Dependencias técnicas del diseño_
 
-- [ ] 2. Implementar capa de dominio
+- [x] 2. Implementar capa de dominio
   - [x] 2.1 Crear entidades de dominio (Empresa y Proyecto)
     - Crear clase `Empresa` con propiedades: Id, Nombre (max 200), Identificacion (max 50, único), Telefono (max 20), Direccion (max 300), EstadoHabilitacion (default true), colección de Proyectos
     - Crear clase `Proyecto` con propiedades: Id, Nombre (max 200, único por empresa), FechaHabilitacion (DateOnly), EstadoHabilitacion (default true), EmpresaId (FK), navegación a Empresa
@@ -41,66 +41,66 @@ Implementación de una API REST en .NET 10 con Clean Architecture para administr
     - Definir `IProyectoRepository` con métodos: CrearAsync, ListarPorEmpresaAsync, ObtenerPorIdAsync, ExisteNombreEnEmpresaAsync, ActualizarAsync, EliminarAsync
     - _Requirements: 1.1, 2.1, 2.3, 3.1, 4.1, 5.1, 6.1, 6.2, 7.1, 8.1_
 
-- [ ] 3. Implementar capa de infraestructura (EF Core)
-  - [ ] 3.1 Crear DbContext y configuraciones de entidades
+- [x] 3. Implementar capa de infraestructura (EF Core)
+  - [x] 3.1 Crear DbContext y configuraciones de entidades
     - Crear `ApplicationDbContext` heredando de `DbContext` con DbSets para Empresa y Proyecto
     - Crear `EmpresaConfiguration` (IEntityTypeConfiguration): clave primaria, índice único en Identificacion, longitudes máximas, relación HasMany con Proyecto y DeleteBehavior.Restrict
     - Crear `ProyectoConfiguration` (IEntityTypeConfiguration): clave primaria, índice compuesto único (EmpresaId, Nombre), longitudes máximas, valor por defecto en EstadoHabilitacion
     - _Requirements: 9.1, 9.2, 10.2, 5.4_
 
-  - [ ] 3.2 Implementar repositorios
+  - [x] 3.2 Implementar repositorios
     - Implementar `EmpresaRepository` usando ApplicationDbContext con todas las operaciones CRUD, incluyendo verificación de existencia de identificación y de proyectos asociados
     - Implementar `ProyectoRepository` usando ApplicationDbContext con todas las operaciones CRUD, incluyendo verificación de nombre único por empresa
     - _Requirements: 1.1, 2.1, 2.3, 3.1, 4.1, 5.1, 6.1, 7.1, 8.1_
 
-  - [ ] 3.3 Crear migración inicial
+  - [x] 3.3 Crear migración inicial
     - Ejecutar `dotnet ef migrations add InitialCreate` para generar la migración de base de datos
     - _Requirements: Infraestructura de base de datos_
 
-- [ ] 4. Implementar capa de aplicación (DTOs, validadores y servicios)
-  - [ ] 4.1 Crear DTOs de solicitud y respuesta
+- [x] 4. Implementar capa de aplicación (DTOs, validadores y servicios)
+  - [x] 4.1 Crear DTOs de solicitud y respuesta
     - Crear records de solicitud: `CrearEmpresaRequest`, `ActualizarEmpresaRequest`, `CrearProyectoRequest`, `ActualizarProyectoRequest`
     - Crear records de respuesta: `EmpresaResponse`, `EmpresaListResponse`, `EmpresaDetalleResponse`, `ProyectoResponse`, `ProyectoListResponse`, `ProyectoDetalleResponse`
     - Crear record `ErrorResponse` con campo Mensaje y diccionario opcional de Errores
     - _Requirements: 1.1, 2.1, 2.3, 5.1, 6.1, 6.2_
 
-  - [ ] 4.2 Crear validadores con FluentValidation
+  - [x] 4.2 Crear validadores con FluentValidation
     - Implementar `CrearEmpresaValidator`: Nombre obligatorio (1-200), Identificacion obligatoria (1-50), Telefono obligatorio (1-20, regex dígitos/+/espacios/guiones), Direccion obligatoria (1-300)
     - Implementar `ActualizarEmpresaValidator`: mismas reglas que creación para todos los campos
     - Implementar `CrearProyectoValidator`: Nombre obligatorio (1-200), FechaHabilitacion obligatoria (formato ISO 8601, rango 2000-2099)
     - Implementar `ActualizarProyectoValidator`: al menos un campo presente, validar campos proporcionados
     - _Requirements: 1.3, 1.4, 3.3, 5.3, 7.3, 7.4, 10.1, 10.2, 10.3, 10.4, 10.6, 11.1, 11.2, 11.4_
 
-  - [ ] 4.3 Implementar servicios de Empresa
+  - [x] 4.3 Implementar servicios de Empresa
     - Crear interfaz `IEmpresaService` con métodos: CrearAsync, ListarAsync, ObtenerPorIdAsync, ActualizarAsync, EliminarAsync
     - Implementar `EmpresaService` con lógica de negocio: validación mediante FluentValidation, verificación de unicidad de identificación, verificación de proyectos asociados antes de eliminar, mapeo entre entidades y DTOs
     - _Requirements: 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 2.4, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 4.4, 10.5, 10.7_
 
-  - [ ] 4.4 Implementar servicios de Proyecto
+  - [x] 4.4 Implementar servicios de Proyecto
     - Crear interfaz `IProyectoService` con métodos: CrearAsync, ListarPorEmpresaAsync, ObtenerPorIdAsync, ActualizarAsync, EliminarAsync
     - Implementar `ProyectoService` con lógica de negocio: validación, verificación de existencia de empresa, verificación de unicidad de nombre por empresa, mapeo entre entidades y DTOs
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 6.1, 6.2, 6.3, 6.4, 7.1, 7.2, 7.3, 7.4, 8.1, 8.2, 8.3, 9.1, 9.2, 9.4, 11.3_
 
-- [ ] 5. Checkpoint - Verificar compilación y lógica de negocio
+- [x] 5. Checkpoint - Verificar compilación y lógica de negocio
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 6. Implementar capa de API (Controllers y middleware)
-  - [ ] 6.1 Crear middleware de manejo global de errores
+- [x] 6. Implementar capa de API (Controllers y middleware)
+  - [x] 6.1 Crear middleware de manejo global de errores
     - Implementar `GlobalExceptionMiddleware` que capture: `ValidationException` → 400 con detalle de campos, `EntityNotFoundException` → 404, `DuplicateIdentificationException` → 409, `ReferentialIntegrityException` → 409, excepciones no controladas → 500 genérico
     - Usar el formato estándar `ErrorResponse` para todas las respuestas de error
     - _Requirements: 1.2, 1.3, 2.4, 3.2, 3.3, 3.4, 4.3, 4.4, 5.2, 5.3, 5.4, 6.3, 6.4, 7.2, 7.3, 8.2, 8.3, 9.4, 9.5, 10.6, 10.7, 11.4_
 
-  - [ ] 6.2 Crear EmpresaController
+  - [x] 6.2 Crear EmpresaController
     - Implementar endpoints REST: POST /api/empresas (201 Created), GET /api/empresas (200 OK), GET /api/empresas/{id} (200 OK con proyectos), PUT /api/empresas/{id} (200 OK), DELETE /api/empresas/{id} (204 No Content)
     - Delegar toda la lógica al IEmpresaService
     - _Requirements: 1.1, 2.1, 2.3, 3.1, 4.1_
 
-  - [ ] 6.3 Crear ProyectoController
+  - [x] 6.3 Crear ProyectoController
     - Implementar endpoints REST anidados: POST /api/empresas/{empresaId}/proyectos (201 Created), GET /api/empresas/{empresaId}/proyectos (200 OK), GET /api/empresas/{empresaId}/proyectos/{proyectoId} (200 OK), PUT /api/empresas/{empresaId}/proyectos/{proyectoId} (200 OK), DELETE /api/empresas/{empresaId}/proyectos/{proyectoId} (204 No Content)
     - Delegar toda la lógica al IProyectoService
     - _Requirements: 5.1, 6.1, 6.2, 7.1, 8.1_
 
-  - [ ] 6.4 Configurar inyección de dependencias y Program.cs
+  - [x] 6.4 Configurar inyección de dependencias y Program.cs
     - Registrar DbContext con cadena de conexión
     - Registrar repositorios (IEmpresaRepository → EmpresaRepository, IProyectoRepository → ProyectoRepository)
     - Registrar servicios (IEmpresaService → EmpresaService, IProyectoService → ProyectoService)
@@ -108,18 +108,18 @@ Implementación de una API REST en .NET 10 con Clean Architecture para administr
     - Agregar middleware de manejo global de errores al pipeline
     - _Requirements: Configuración transversal de toda la aplicación_
 
-- [ ] 7. Checkpoint - Verificar que la API compila y endpoints responden
+- [x] 7. Checkpoint - Verificar que la API compila y endpoints responden
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 8. Pruebas de propiedades (Property-Based Tests)
-  - [ ]* 8.1 Crear generadores personalizados (Arbitrary) para FsCheck
+- [x] 8. Pruebas de propiedades (Property-Based Tests)
+  - [x]* 8.1 Crear generadores personalizados (Arbitrary) para FsCheck
     - Crear generador para `CrearEmpresaRequest` con datos válidos respetando restricciones de longitud y patrón de teléfono
     - Crear generador para `CrearProyectoRequest` con datos válidos y fecha en rango correcto (2000-2099)
     - Crear generador para cadenas inválidas (vacías, solo espacios, que exceden longitud máxima)
     - Crear generador para teléfonos con caracteres no permitidos
     - _Requirements: Soporte técnico para Properties 1-12_
 
-  - [ ]* 8.2 Escribir prueba de propiedad: Round-trip de creación de Empresa
+  - [ ] 8.2 Escribir prueba de propiedad: Round-trip de creación de Empresa
     - **Property 1: Round-trip de creación de Empresa**
     - Verificar que para cualquier combinación válida de datos, al crear y consultar una empresa, todos los campos retornados coinciden exactamente
     - **Validates: Requirements 1.1, 2.3, 3.1**
@@ -139,7 +139,7 @@ Implementación de una API REST en .NET 10 con Clean Architecture para administr
     - Verificar que cadenas con caracteres fuera del conjunto permitido (dígitos, +, espacios, guiones) son rechazadas
     - **Validates: Requirements 10.3**
 
-  - [ ]* 8.6 Escribir prueba de propiedad: Validación de FechaHabilitación de Proyecto
+  - [x]* 8.6 Escribir prueba de propiedad: Validación de FechaHabilitación de Proyecto
     - **Property 5: Validación de FechaHabilitación de Proyecto**
     - Verificar que fechas inválidas (formato incorrecto o fuera del rango 2000-2099) son rechazadas
     - **Validates: Requirements 11.2**
@@ -179,8 +179,8 @@ Implementación de una API REST en .NET 10 con Clean Architecture para administr
     - Verificar que al consultar una empresa con N proyectos, la respuesta incluye exactamente esos N proyectos
     - **Validates: Requirements 2.3, 6.1, 9.3**
 
-- [ ] 9. Pruebas de integración
-  - [ ]* 9.1 Configurar WebApplicationFactory y base de datos en memoria para pruebas
+- [x] 9. Pruebas de integración
+  - [x]* 9.1 Configurar WebApplicationFactory y base de datos en memoria para pruebas
     - Crear clase `CustomWebApplicationFactory` que configure EF Core con base de datos InMemory
     - Configurar un HttpClient de prueba para invocar los endpoints
     - _Requirements: Infraestructura de pruebas_
