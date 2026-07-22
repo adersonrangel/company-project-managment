@@ -25,18 +25,18 @@ Implementación de una API REST en .NET 10 con Clean Architecture para administr
     - _Requirements: Dependencias técnicas del diseño_
 
 - [ ] 2. Implementar capa de dominio
-  - [ ] 2.1 Crear entidades de dominio (Empresa y Proyecto)
+  - [x] 2.1 Crear entidades de dominio (Empresa y Proyecto)
     - Crear clase `Empresa` con propiedades: Id, Nombre (max 200), Identificacion (max 50, único), Telefono (max 20), Direccion (max 300), EstadoHabilitacion (default true), colección de Proyectos
     - Crear clase `Proyecto` con propiedades: Id, Nombre (max 200, único por empresa), FechaHabilitacion (DateOnly), EstadoHabilitacion (default true), EmpresaId (FK), navegación a Empresa
     - _Requirements: 1.4, 10.1, 10.2, 10.3, 10.4, 11.1, 11.2_
 
-  - [ ] 2.2 Crear excepciones personalizadas
+  - [x] 2.2 Crear excepciones personalizadas
     - Crear `EntityNotFoundException` para recursos no encontrados (404)
     - Crear `DuplicateIdentificationException` para identificaciones/nombres duplicados (409)
     - Crear `ReferentialIntegrityException` para violaciones de integridad referencial (409)
     - _Requirements: 1.2, 2.4, 3.2, 3.4, 4.3, 4.4, 5.2, 5.4, 6.3, 6.4, 8.2, 8.3, 9.4, 9.5_
 
-  - [ ] 2.3 Crear interfaces de repositorios
+  - [x] 2.3 Crear interfaces de repositorios
     - Definir `IEmpresaRepository` con métodos: CrearAsync, ListarAsync, ObtenerPorIdAsync, ObtenerPorIdentificacionAsync, ExisteIdentificacionAsync, ActualizarAsync, EliminarAsync, TieneProyectosAsync
     - Definir `IProyectoRepository` con métodos: CrearAsync, ListarPorEmpresaAsync, ObtenerPorIdAsync, ExisteNombreEnEmpresaAsync, ActualizarAsync, EliminarAsync
     - _Requirements: 1.1, 2.1, 2.3, 3.1, 4.1, 5.1, 6.1, 6.2, 7.1, 8.1_
