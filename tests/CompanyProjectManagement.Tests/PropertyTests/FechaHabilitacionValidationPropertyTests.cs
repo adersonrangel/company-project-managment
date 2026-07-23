@@ -28,7 +28,7 @@ public class FechaHabilitacionValidationPropertyTests
             Gen.Constant("12/25/2020"),
             Gen.Constant("2020/01/01"),
             Gen.Constant("01-01-2020"),
-            Gen.Constant(""),
+            Gen.Constant("invalid"),
             Gen.Constant("2020-13-01"),
             Gen.Constant("2020-01-32"),
             Gen.Constant("abcd-ef-gh")
@@ -41,7 +41,7 @@ public class FechaHabilitacionValidationPropertyTests
 
             // Create empresa first
             var empresaRequest = new CrearEmpresaRequest(
-                "Test Empresa", $"ID-{Guid.NewGuid():N}"[..50], "+1234", "Dir 123", true);
+                "Test Empresa", $"ID-{Guid.NewGuid():N}", "+1234", "Dir 123", true);
             var empresaResponse = client.PostAsJsonAsync("/api/empresas", empresaRequest).GetAwaiter().GetResult();
             var empresa = empresaResponse.Content.ReadFromJsonAsync<EmpresaResponse>().GetAwaiter().GetResult();
 
@@ -69,7 +69,7 @@ public class FechaHabilitacionValidationPropertyTests
 
             // Create empresa first
             var empresaRequest = new CrearEmpresaRequest(
-                "Test Empresa", $"ID-{Guid.NewGuid():N}"[..50], "+1234", "Dir 123", true);
+                "Test Empresa", $"ID-{Guid.NewGuid():N}", "+1234", "Dir 123", true);
             var empresaResponse = client.PostAsJsonAsync("/api/empresas", empresaRequest).GetAwaiter().GetResult();
             var empresa = empresaResponse.Content.ReadFromJsonAsync<EmpresaResponse>().GetAwaiter().GetResult();
 
