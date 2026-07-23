@@ -9,7 +9,7 @@ using CompanyProjectManagement.Application.DTOs.Responses;
 using CompanyProjectManagement.Tests.Generators;
 using CompanyProjectManagement.Tests.Infrastructure;
 
-namespace CompanyProjectManagement.Tests.Properties;
+namespace CompanyProjectManagement.Tests.PropertyTests;
 
 /// <summary>
 /// Property 2: Round-trip de creación de Proyecto
@@ -39,18 +39,18 @@ public class ProyectoRoundTripPropertyTests : IDisposable
     [Property(MaxTest = 20)]
     public Property RoundTrip_CrearYConsultarProyecto_CamposCoinciden()
     {
-        return Prop.ForAll(
-            Arbitraries.ValidCrearProyectoRequest(),
-            proyectoRequest => RoundTripProyectoAsync(proyectoRequest).GetAwaiter().GetResult()
-        );
+        return Prop.ForAll(Arbitraries.ValidCrearProyectoRequest(), proyectoRequest =>
+        {
+            RoundTripProyectoAsync(proyectoRequest).GetAwaiter().GetResult();
+        });
     }
 
-    private async Task<bool> RoundTripProyectoAsync(CrearProyectoRequest originalRequest)
+    private async Task RoundTripProyectoAsync(CrearProyectoRequest originalRequest)
     {
         // 1. Create a fresh empresa with unique Identificacion
         var empresaRequest = new CrearEmpresaRequest(
             Nombre: $"Empresa-{Guid.NewGuid()}",
-            Identificacion: Guid.NewGuid().ToString()[..50],
+            Identificacion: Guid.NewGuid().ToString(),
             Telefono: "+57 300 1234567",
             Direccion: "Calle 100 #15-20, Bogotá",
             EstadoHabilitacion: true
@@ -125,7 +125,5 @@ public class ProyectoRoundTripPropertyTests : IDisposable
         {
             createdProyecto.EstadoHabilitacion.Should().Be(uniqueRequest.EstadoHabilitacion.Value);
         }
-
-        return true;
     }
 }

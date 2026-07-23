@@ -8,7 +8,7 @@ using FsCheck;
 using FsCheck.Fluent;
 using FsCheck.Xunit;
 
-namespace CompanyProjectManagement.Tests.Properties;
+namespace CompanyProjectManagement.Tests.PropertyTests;
 
 /// <summary>
 /// Property 3: Validación de campos de Empresa rechaza datos inválidos

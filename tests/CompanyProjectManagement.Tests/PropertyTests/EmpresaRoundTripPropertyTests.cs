@@ -9,42 +9,56 @@ using CompanyProjectManagement.Application.DTOs.Responses;
 using CompanyProjectManagement.Tests.Generators;
 using CompanyProjectManagement.Tests.Infrastructure;
 
-namespace CompanyProjectManagement.Tests.Properties;
+namespace CompanyProjectManagement.Tests.PropertyTests;
 
 /// <summary>
-/// Property 1: Round-trip de creación de Empresa
+/// Feature: company-project-management, Property 1: Round-trip de creación de Empresa
 /// Para cualquier combinación válida de datos de empresa, al crear la empresa y luego consultarla,
 /// todos los campos retornados deben coincidir exactamente con los datos enviados.
 /// 
 /// **Validates: Requirements 1.1, 2.3, 3.1**
 /// </summary>
-public class EmpresaRoundTripPropertyTests
+public class EmpresaRoundTripPropertyTests : IDisposable
 {
-    [Property(MaxTest = 5)]
+    private readonly CustomWebApplicationFactory _factory;
+    private readonly HttpClient _client;
+
+    public EmpresaRoundTripPropertyTests()
+    {
+        _factory = new CustomWebApplicationFactory();
+        _client = _factory.CreateClient();
+    }
+
+    public void Dispose()
+    {
+        _client.Dispose();
+        _factory.Dispose();
+    }
+
+    [Property(MaxTest = 100)]
     public Property RoundTrip_CrearEmpresa_AllFieldsMatch()
     {
         return Prop.ForAll(Arbitraries.ValidCrearEmpresaRequest(), request =>
         {
-            // Make Identificacion unique to avoid conflicts between test iterations
-            var combinedId = $"{request.Identificacion}_{Guid.NewGuid():N}";
-            var uniqueRequest = request with
-            {
-                Identificacion = combinedId.Length > 50 ? combinedId[..50] : combinedId
-            };
+            // Ensure Identificacion is unique AND within 50 chars.
+            // The generator produces Identificacion of 1-50 chars. We replace the last 9 chars
+            // with a short unique suffix to guarantee uniqueness without exceeding 50 chars.
+            var shortId = Guid.NewGuid().ToString("N")[..8]; // 8 chars
+            var baseId = request.Identificacion.Length > 41
+                ? request.Identificacion[..41]
+                : request.Identificacion;
+            var uniqueId = $"{baseId}_{shortId}"; // At most 41 + 1 + 8 = 50 chars
 
-            using var factory = new CustomWebApplicationFactory();
-            using var client = factory.CreateClient();
+            var uniqueRequest = request with { Identificacion = uniqueId };
 
             // POST - Create empresa
-            var postResponse = client.PostAsJsonAsync("/api/empresas", uniqueRequest).GetAwaiter().GetResult();
-            if (postResponse.StatusCode != HttpStatusCode.Created)
-            {
-                var errorBody = postResponse.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                postResponse.StatusCode.Should().Be(HttpStatusCode.Created,
-                    $"Response body: {errorBody}. Request: Nombre.Length={uniqueRequest.Nombre.Length}, " +
-                    $"Id.Length={uniqueRequest.Identificacion.Length}, Tel.Length={uniqueRequest.Telefono.Length}, " +
-                    $"Dir.Length={uniqueRequest.Direccion.Length}");
-            }
+            var postResponse = _client.PostAsJsonAsync("/api/empresas", uniqueRequest).GetAwaiter().GetResult();
+
+            postResponse.StatusCode.Should().Be(HttpStatusCode.Created,
+                $"POST failed. Id.Length={uniqueRequest.Identificacion.Length}, " +
+                $"Nombre.Length={uniqueRequest.Nombre.Length}, " +
+                $"Tel.Length={uniqueRequest.Telefono.Length}, " +
+                $"Dir.Length={uniqueRequest.Direccion.Length}");
 
             var created = postResponse.Content.ReadFromJsonAsync<EmpresaResponse>().GetAwaiter().GetResult();
             created.Should().NotBeNull();
@@ -56,7 +70,7 @@ public class EmpresaRoundTripPropertyTests
             created.EstadoHabilitacion.Should().Be(uniqueRequest.EstadoHabilitacion ?? true);
 
             // GET by ID - Retrieve empresa
-            var getResponse = client.GetAsync($"/api/empresas/{created.Id}").GetAwaiter().GetResult();
+            var getResponse = _client.GetAsync($"/api/empresas/{created.Id}").GetAwaiter().GetResult();
             getResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
             var detail = getResponse.Content.ReadFromJsonAsync<EmpresaDetalleResponse>().GetAwaiter().GetResult();

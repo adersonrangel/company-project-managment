@@ -14,30 +14,25 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     {
         builder.ConfigureServices(services =>
         {
-            // Remove the ApplicationDbContext and its options registrations
-            var dbContextDescriptor = services.SingleOrDefault(
-                d => d.ServiceType == typeof(DbContextOptions<ApplicationDbContext>));
-            if (dbContextDescriptor != null)
-                services.Remove(dbContextDescriptor);
-
-            // Remove the generic DbContextOptions if registered
-            var dbContextOptionsDescriptor = services.SingleOrDefault(
-                d => d.ServiceType == typeof(DbContextOptions));
-            if (dbContextOptionsDescriptor != null)
-                services.Remove(dbContextOptionsDescriptor);
-
-            // Remove any SqlServer-specific IDbContextOptionsExtension registrations
-            // by removing all services whose implementation type is from SqlServer
-            var sqlServerDescriptors = services
-                .Where(d => d.ServiceType.FullName?.Contains("SqlServer") == true
-                         || d.ImplementationType?.FullName?.Contains("SqlServer") == true)
+            // Remove ALL DbContext-related registrations to avoid provider conflicts.
+            // EF Core 10 requires exactly one provider per service provider.
+            var descriptorsToRemove = services
+                .Where(d =>
+                    d.ServiceType == typeof(DbContextOptions<ApplicationDbContext>)
+                    || d.ServiceType == typeof(DbContextOptions)
+                    || d.ServiceType == typeof(ApplicationDbContext)
+                    || (d.ServiceType.FullName?.Contains("EntityFrameworkCore") == true)
+                    || (d.ServiceType.FullName?.Contains("SqlServer") == true)
+                    || (d.ImplementationType?.FullName?.Contains("SqlServer") == true)
+                    || (d.ImplementationType?.FullName?.Contains("EntityFrameworkCore") == true))
                 .ToList();
-            foreach (var descriptor in sqlServerDescriptors)
+
+            foreach (var descriptor in descriptorsToRemove)
             {
                 services.Remove(descriptor);
             }
 
-            // Add InMemory database for testing with a fixed name per factory instance
+            // Add InMemory database for testing with a unique name per factory instance
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseInMemoryDatabase(_databaseName);

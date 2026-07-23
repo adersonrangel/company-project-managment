@@ -119,12 +119,12 @@ Implementación de una API REST en .NET 10 con Clean Architecture para administr
     - Crear generador para teléfonos con caracteres no permitidos
     - _Requirements: Soporte técnico para Properties 1-12_
 
-  - [ ] 8.2 Escribir prueba de propiedad: Round-trip de creación de Empresa
+  - [x] 8.2 Escribir prueba de propiedad: Round-trip de creación de Empresa
     - **Property 1: Round-trip de creación de Empresa**
     - Verificar que para cualquier combinación válida de datos, al crear y consultar una empresa, todos los campos retornados coinciden exactamente
     - **Validates: Requirements 1.1, 2.3, 3.1**
 
-  - [ ]* 8.3 Escribir prueba de propiedad: Round-trip de creación de Proyecto
+  - [x] 8.3 Escribir prueba de propiedad: Round-trip de creación de Proyecto
     - **Property 2: Round-trip de creación de Proyecto**
     - Verificar que para cualquier combinación válida de datos y empresa existente, al crear y consultar un proyecto, todos los campos retornados coinciden y la asociación a empresa es correcta
     - **Validates: Requirements 5.1, 6.2**
