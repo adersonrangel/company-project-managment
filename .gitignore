@@ -267,6 +267,9 @@ ServiceFabricBackup/
 # Node.js
 node_modules/
 
+# Frontend build output
+frontend/dist/
+
 # OS files
 .DS_Store
 Thumbs.db
