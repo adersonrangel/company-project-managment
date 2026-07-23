@@ -129,52 +129,52 @@ Implementación de una API REST en .NET 10 con Clean Architecture para administr
     - Verificar que para cualquier combinación válida de datos y empresa existente, al crear y consultar un proyecto, todos los campos retornados coinciden y la asociación a empresa es correcta
     - **Validates: Requirements 5.1, 6.2**
 
-  - [ ]* 8.4 Escribir prueba de propiedad: Validación de campos de Empresa rechaza datos inválidos
+  - [x] 8.4 Escribir prueba de propiedad: Validación de campos de Empresa rechaza datos inválidos
     - **Property 3: Validación de campos de Empresa rechaza datos inválidos**
     - Verificar que solicitudes con al menos un campo inválido son rechazadas sin crear ni modificar registros
     - **Validates: Requirements 1.3, 1.4, 3.3, 10.1, 10.2, 10.4, 10.6**
 
-  - [ ]* 8.5 Escribir prueba de propiedad: Validación de patrón de Teléfono
+  - [x] 8.5 Escribir prueba de propiedad: Validación de patrón de Teléfono
     - **Property 4: Validación de patrón de Teléfono**
     - Verificar que cadenas con caracteres fuera del conjunto permitido (dígitos, +, espacios, guiones) son rechazadas
     - **Validates: Requirements 10.3**
 
-  - [x]* 8.6 Escribir prueba de propiedad: Validación de FechaHabilitación de Proyecto
+  - [x] 8.6 Escribir prueba de propiedad: Validación de FechaHabilitación de Proyecto
     - **Property 5: Validación de FechaHabilitación de Proyecto**
     - Verificar que fechas inválidas (formato incorrecto o fuera del rango 2000-2099) son rechazadas
     - **Validates: Requirements 11.2**
 
-  - [ ]* 8.7 Escribir prueba de propiedad: Unicidad de Identificación de Empresa
+  - [x]* 8.7 Escribir prueba de propiedad: Unicidad de Identificación de Empresa
     - **Property 6: Unicidad de Identificación de Empresa**
     - Verificar que crear o actualizar una empresa con Identificación duplicada es rechazado
     - **Validates: Requirements 1.2, 3.4, 10.7**
 
-  - [ ]* 8.8 Escribir prueba de propiedad: Unicidad de Nombre de Proyecto por Empresa
+  - [x]* 8.8 Escribir prueba de propiedad: Unicidad de Nombre de Proyecto por Empresa
     - **Property 7: Unicidad de Nombre de Proyecto por Empresa**
     - Verificar que proyectos con el mismo nombre en la misma empresa son rechazados, pero permitidos en empresas diferentes
     - **Validates: Requirements 5.4**
 
-  - [ ]* 8.9 Escribir prueba de propiedad: Integridad referencial — Empresa con Proyectos no eliminable
+  - [x]* 8.9 Escribir prueba de propiedad: Integridad referencial — Empresa con Proyectos no eliminable
     - **Property 8: Integridad referencial — Empresa con Proyectos no eliminable**
     - Verificar que eliminar una empresa con proyectos es rechazado y se preservan todos los registros
     - **Validates: Requirements 4.3, 9.5**
 
-  - [ ]* 8.10 Escribir prueba de propiedad: Eliminación permanente de Empresa
+  - [x]* 8.10 Escribir prueba de propiedad: Eliminación permanente de Empresa
     - **Property 9: Eliminación permanente de Empresa**
     - Verificar que tras eliminar una empresa sin proyectos, no aparece en listados ni consultas
     - **Validates: Requirements 4.1, 4.2**
 
-  - [ ]* 8.11 Escribir prueba de propiedad: Eliminación permanente de Proyecto
+  - [x]* 8.11 Escribir prueba de propiedad: Eliminación permanente de Proyecto
     - **Property 10: Eliminación permanente de Proyecto**
     - Verificar que tras eliminar un proyecto, no aparece en listados ni consultas de su empresa
     - **Validates: Requirements 8.1**
 
-  - [ ]* 8.12 Escribir prueba de propiedad: Consistencia del listado de Empresas
+  - [x]* 8.12 Escribir prueba de propiedad: Consistencia del listado de Empresas
     - **Property 11: Consistencia del listado de Empresas**
     - Verificar que tras crear N empresas con identificaciones únicas, el listado retorna al menos esas N empresas con campos correctos
     - **Validates: Requirements 2.1**
 
-  - [ ]* 8.13 Escribir prueba de propiedad: Consulta de Empresa incluye todos sus Proyectos
+  - [x]* 8.13 Escribir prueba de propiedad: Consulta de Empresa incluye todos sus Proyectos
     - **Property 12: Consulta de Empresa incluye todos sus Proyectos**
     - Verificar que al consultar una empresa con N proyectos, la respuesta incluye exactamente esos N proyectos
     - **Validates: Requirements 2.3, 6.1, 9.3**
@@ -185,17 +185,17 @@ Implementación de una API REST en .NET 10 con Clean Architecture para administr
     - Configurar un HttpClient de prueba para invocar los endpoints
     - _Requirements: Infraestructura de pruebas_
 
-  - [ ]* 9.2 Escribir pruebas de integración para endpoints de Empresa
+  - [x]* 9.2 Escribir pruebas de integración para endpoints de Empresa
     - Probar flujo completo CRUD: crear (201), listar (200), obtener por ID (200 con proyectos), actualizar (200), eliminar (204)
     - Probar casos de error: duplicado de identificación (409), empresa no encontrada (404), validación fallida (400), eliminar con proyectos (409)
     - _Requirements: 1.1, 1.2, 1.3, 2.1, 2.3, 2.4, 3.1, 3.3, 3.4, 4.1, 4.3, 4.4_
 
-  - [ ]* 9.3 Escribir pruebas de integración para endpoints de Proyecto
+  - [x]* 9.3 Escribir pruebas de integración para endpoints de Proyecto
     - Probar flujo completo CRUD: crear (201), listar por empresa (200), obtener por ID (200), actualizar (200), eliminar (204)
     - Probar casos de error: empresa inexistente (404), proyecto no encontrado (404), nombre duplicado en misma empresa (409), validación fallida (400)
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 6.1, 6.2, 6.3, 6.4, 7.1, 7.2, 7.3, 8.1, 8.2, 8.3_
 
-- [ ] 10. Checkpoint final - Verificar que todas las pruebas pasan
+- [x] 10. Checkpoint final - Verificar que todas las pruebas pasan
   - Ensure all tests pass, ask the user if questions arise.
 
 ## Notes

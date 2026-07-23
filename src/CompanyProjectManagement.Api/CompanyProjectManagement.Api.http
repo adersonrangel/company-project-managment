@@ -1,6 +1,95 @@
 @CompanyProjectManagement.Api_HostAddress = http://localhost:5113
 
-GET {{CompanyProjectManagement.Api_HostAddress}}/weatherforecast/
+### ===========================
+### EMPRESAS
+### ===========================
+
+### Crear Empresa
+POST {{CompanyProjectManagement.Api_HostAddress}}/api/empresas
+Content-Type: application/json
+
+{
+  "nombre": "Empresa Demo",
+  "identificacion": "EMP-001",
+  "telefono": "+573001234567",
+  "direccion": "Calle 123 #45-67, Bogotá",
+  "estadoHabilitacion": true
+}
+
+###
+
+### Listar Empresas
+GET {{CompanyProjectManagement.Api_HostAddress}}/api/empresas
 Accept: application/json
+
+###
+
+### Obtener Empresa por Id
+GET {{CompanyProjectManagement.Api_HostAddress}}/api/empresas/1
+Accept: application/json
+
+###
+
+### Actualizar Empresa
+PUT {{CompanyProjectManagement.Api_HostAddress}}/api/empresas/1
+Content-Type: application/json
+
+{
+  "nombre": "Empresa Demo Actualizada",
+  "identificacion": "EMP-001",
+  "telefono": "+573009876543",
+  "direccion": "Carrera 78 #12-34, Medellín",
+  "estadoHabilitacion": true
+}
+
+###
+
+### Eliminar Empresa
+DELETE {{CompanyProjectManagement.Api_HostAddress}}/api/empresas/1
+
+###
+
+### ===========================
+### PROYECTOS
+### ===========================
+
+### Crear Proyecto
+POST {{CompanyProjectManagement.Api_HostAddress}}/api/empresas/1/proyectos
+Content-Type: application/json
+
+{
+  "nombre": "Proyecto Alpha",
+  "fechaHabilitacion": "2026-08-01",
+  "estadoHabilitacion": true
+}
+
+###
+
+### Listar Proyectos de una Empresa
+GET {{CompanyProjectManagement.Api_HostAddress}}/api/empresas/1/proyectos
+Accept: application/json
+
+###
+
+### Obtener Proyecto por Id
+GET {{CompanyProjectManagement.Api_HostAddress}}/api/empresas/1/proyectos/1
+Accept: application/json
+
+###
+
+### Actualizar Proyecto
+PUT {{CompanyProjectManagement.Api_HostAddress}}/api/empresas/1/proyectos/1
+Content-Type: application/json
+
+{
+  "nombre": "Proyecto Alpha v2",
+  "fechaHabilitacion": "2026-09-15",
+  "estadoHabilitacion": false
+}
+
+###
+
+### Eliminar Proyecto
+DELETE {{CompanyProjectManagement.Api_HostAddress}}/api/empresas/1/proyectos/1
 
 ###

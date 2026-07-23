@@ -32,7 +32,7 @@ public class TelefonoValidationPropertyTests
 
                 var request = new CrearEmpresaRequest(
                     "Empresa Válida",
-                    $"ID-{Guid.NewGuid():N}"[..50],
+                    $"ID-{Guid.NewGuid():N}",
                     invalidPhone,
                     "Dirección Válida 123",
                     true);
