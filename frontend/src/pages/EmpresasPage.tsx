@@ -1,7 +1,9 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { empresaService } from '@/services/empresaService';
 import EmpresaFormModal from '@/components/EmpresaFormModal';
+import ConfirmDialog from '@/components/ConfirmDialog';
+import Notificacion from '@/components/Notificacion';
 import type { Empresa } from '@/types/empresa';
 
 interface ModalState {
@@ -22,6 +24,19 @@ function EmpresasPage() {
   const navigate = useNavigate();
   const triggerButtonRef = useRef<HTMLButtonElement | null>(null);
 
+  // Confirm dialog state
+  const [confirmState, setConfirmState] = useState<{ isOpen: boolean; empresaId: number | null }>({
+    isOpen: false,
+    empresaId: null,
+  });
+
+  // Notification state
+  const [notificacion, setNotificacion] = useState<{ mensaje: string; tipo: 'exito' | 'error'; visible: boolean }>({
+    mensaje: '',
+    tipo: 'exito',
+    visible: false,
+  });
+
   useEffect(() => {
     cargarEmpresas();
   }, []);
@@ -38,15 +53,26 @@ function EmpresasPage() {
     }
   };
 
-  const eliminar = async (id: number) => {
-    if (!confirm('¿Estás seguro de eliminar esta empresa?')) return;
+  const solicitarEliminar = (id: number) => {
+    setConfirmState({ isOpen: true, empresaId: id });
+  };
+
+  const confirmarEliminar = async () => {
+    const empresaId = confirmState.empresaId;
+    setConfirmState({ isOpen: false, empresaId: null });
+    if (empresaId === null) return;
     try {
-      await empresaService.eliminar(id);
-      setEmpresas((prev) => prev.filter((e) => e.id !== id));
+      await empresaService.eliminar(empresaId);
+      setEmpresas((prev) => prev.filter((e) => e.id !== empresaId));
+      setNotificacion({ mensaje: 'Empresa eliminada exitosamente', tipo: 'exito', visible: true });
     } catch {
-      setError('Error al eliminar la empresa');
+      setNotificacion({ mensaje: 'Error al eliminar la empresa', tipo: 'error', visible: true });
     }
   };
+
+  const cancelarEliminar = useCallback(() => {
+    setConfirmState({ isOpen: false, empresaId: null });
+  }, []);
 
   const abrirModalCrear = (e: React.MouseEvent<HTMLButtonElement>) => {
     triggerButtonRef.current = e.currentTarget;
@@ -62,13 +88,19 @@ function EmpresasPage() {
     setModalState({ isOpen: false, modo: 'crear', empresa: null });
   };
 
+  const cerrarNotificacion = useCallback(() => {
+    setNotificacion((prev) => ({ ...prev, visible: false }));
+  }, []);
+
   const handleSuccess = (empresa: Empresa) => {
     if (modalState.modo === 'crear') {
       setEmpresas((prev) => [empresa, ...prev]);
+      setNotificacion({ mensaje: 'Empresa creada exitosamente', tipo: 'exito', visible: true });
     } else {
       setEmpresas((prev) =>
         prev.map((e) => (e.id === empresa.id ? empresa : e))
       );
+      setNotificacion({ mensaje: 'Empresa actualizada exitosamente', tipo: 'exito', visible: true });
     }
   };
 
@@ -77,6 +109,12 @@ function EmpresasPage() {
 
   return (
     <div>
+      <Notificacion
+        mensaje={notificacion.mensaje}
+        tipo={notificacion.tipo}
+        visible={notificacion.visible}
+        onClose={cerrarNotificacion}
+      />
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
         <h1>Empresas</h1>
         <button className="primary" onClick={abrirModalCrear}>
@@ -95,6 +133,7 @@ function EmpresasPage() {
                 <th>Nombre</th>
                 <th>Dirección</th>
                 <th>Teléfono</th>
+                <th>Estado</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -105,6 +144,21 @@ function EmpresasPage() {
                   <td>{empresa.nombre}</td>
                   <td>{empresa.direccion}</td>
                   <td>{empresa.telefono}</td>
+                  <td>
+                    <span
+                      style={{
+                        display: 'inline-block',
+                        padding: '0.25rem 0.75rem',
+                        borderRadius: 'var(--radius)',
+                        fontSize: '0.85rem',
+                        fontWeight: 500,
+                        backgroundColor: empresa.estadoHabilitacion ? 'var(--color-success-bg, #d4edda)' : 'var(--color-danger-bg, #f8d7da)',
+                        color: empresa.estadoHabilitacion ? 'var(--color-success-text, #155724)' : 'var(--color-danger-text, #721c24)',
+                      }}
+                    >
+                      {empresa.estadoHabilitacion ? 'Habilitada' : 'Deshabilitada'}
+                    </span>
+                  </td>
                   <td style={{ display: 'flex', gap: '0.5rem' }}>
                     <button
                       className="primary"
@@ -117,7 +171,7 @@ function EmpresasPage() {
                     >
                       Editar
                     </button>
-                    <button className="danger" onClick={() => eliminar(empresa.id)}>
+                    <button className="danger" onClick={() => solicitarEliminar(empresa.id)}>
                       Eliminar
                     </button>
                   </td>
@@ -135,6 +189,16 @@ function EmpresasPage() {
         empresaInicial={modalState.empresa}
         onClose={cerrarModal}
         onSuccess={handleSuccess}
+      />
+
+      <ConfirmDialog
+        isOpen={confirmState.isOpen}
+        title="Eliminar Empresa"
+        message="¿Estás seguro de que deseas eliminar esta empresa? Esta acción no se puede deshacer."
+        confirmLabel="Eliminar"
+        cancelLabel="Cancelar"
+        onConfirm={confirmarEliminar}
+        onCancel={cancelarEliminar}
       />
     </div>
   );

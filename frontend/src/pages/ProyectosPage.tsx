@@ -1,14 +1,35 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { proyectoService } from '@/services/proyectoService';
-import type { Proyecto } from '@/types/proyecto';
+import type { ProyectoListResponse, ProyectoResponse } from '@/types/proyecto';
+import ProyectoFormModal from '@/components/ProyectoFormModal';
+import ConfirmDialog from '@/components/ConfirmDialog';
+import Notificacion from '@/components/Notificacion';
 
 function ProyectosPage() {
   const { empresaId } = useParams<{ empresaId: string }>();
-  const [proyectos, setProyectos] = useState<Proyecto[]>([]);
+  const [proyectos, setProyectos] = useState<ProyectoListResponse[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+
+  // Modal state
+  const [modalAbierto, setModalAbierto] = useState(false);
+  const [modoModal, setModoModal] = useState<'crear' | 'editar'>('crear');
+  const [proyectoEditar, setProyectoEditar] = useState<ProyectoListResponse | null>(null);
+
+  // Notification state
+  const [notificacion, setNotificacion] = useState<{ mensaje: string; tipo: 'exito' | 'error'; visible: boolean }>({
+    mensaje: '',
+    tipo: 'exito',
+    visible: false,
+  });
+
+  // Confirm dialog state
+  const [confirmState, setConfirmState] = useState<{ isOpen: boolean; proyectoId: number | null }>({
+    isOpen: false,
+    proyectoId: null,
+  });
 
   const id = Number(empresaId);
 
@@ -29,21 +50,97 @@ function ProyectosPage() {
     }
   };
 
-  const eliminar = async (proyectoId: number) => {
-    if (!confirm('¿Estás seguro de eliminar este proyecto?')) return;
+  const solicitarEliminar = (proyectoId: number) => {
+    setConfirmState({ isOpen: true, proyectoId });
+  };
+
+  const confirmarEliminar = async () => {
+    const proyectoId = confirmState.proyectoId;
+    setConfirmState({ isOpen: false, proyectoId: null });
+    if (proyectoId === null) return;
     try {
       await proyectoService.eliminar(id, proyectoId);
       setProyectos((prev) => prev.filter((p) => p.id !== proyectoId));
+      setNotificacion({ mensaje: 'Proyecto eliminado exitosamente', tipo: 'exito', visible: true });
     } catch {
-      setError('Error al eliminar el proyecto');
+      setNotificacion({ mensaje: 'Error al eliminar el proyecto', tipo: 'error', visible: true });
     }
   };
+
+  const cancelarEliminar = useCallback(() => {
+    setConfirmState({ isOpen: false, proyectoId: null });
+  }, []);
+
+  const handleAbrirCrear = () => {
+    if (modalAbierto) return;
+    setModoModal('crear');
+    setProyectoEditar(null);
+    setModalAbierto(true);
+  };
+
+  const handleAbrirEditar = (proyecto: ProyectoListResponse | null) => {
+    if (modalAbierto) return;
+    if (!proyecto) {
+      setNotificacion({ mensaje: 'No se pudo abrir el formulario de edición: proyecto no encontrado', tipo: 'error', visible: true });
+      return;
+    }
+    setModoModal('editar');
+    setProyectoEditar(proyecto);
+    setModalAbierto(true);
+  };
+
+  const handleCerrarModal = useCallback(() => {
+    setModalAbierto(false);
+    setProyectoEditar(null);
+  }, []);
+
+  const handleCrearExito = useCallback((proyecto: ProyectoResponse) => {
+    const nuevoItem: ProyectoListResponse = {
+      id: proyecto.id,
+      nombre: proyecto.nombre,
+      fechaHabilitacion: proyecto.fechaHabilitacion,
+      estadoHabilitacion: proyecto.estadoHabilitacion,
+    };
+    setProyectos((prev) => [...prev, nuevoItem]);
+    setNotificacion({ mensaje: 'Proyecto creado exitosamente', tipo: 'exito', visible: true });
+    setModalAbierto(false);
+    setProyectoEditar(null);
+  }, []);
+
+  const handleEditarExito = useCallback((proyecto: ProyectoResponse) => {
+    setProyectos((prev) =>
+      prev.map((p) =>
+        p.id === proyecto.id
+          ? {
+              id: proyecto.id,
+              nombre: proyecto.nombre,
+              fechaHabilitacion: proyecto.fechaHabilitacion,
+              estadoHabilitacion: proyecto.estadoHabilitacion,
+            }
+          : p
+      )
+    );
+    setNotificacion({ mensaje: 'Proyecto actualizado exitosamente', tipo: 'exito', visible: true });
+    setModalAbierto(false);
+    setProyectoEditar(null);
+  }, []);
+
+  const handleCerrarNotificacion = useCallback(() => {
+    setNotificacion((prev) => ({ ...prev, visible: false }));
+  }, []);
 
   if (loading) return <p>Cargando...</p>;
   if (error) return <p style={{ color: 'var(--color-danger)' }}>{error}</p>;
 
   return (
     <div>
+      <Notificacion
+        mensaje={notificacion.mensaje}
+        tipo={notificacion.tipo}
+        visible={notificacion.visible}
+        onClose={handleCerrarNotificacion}
+      />
+
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
         <div>
           <button
@@ -54,6 +151,9 @@ function ProyectosPage() {
           </button>
           <h1>Proyectos de Empresa #{empresaId}</h1>
         </div>
+        <button className="primary" onClick={handleAbrirCrear}>
+          Agregar Proyecto
+        </button>
       </div>
 
       {proyectos.length === 0 ? (
@@ -63,24 +163,37 @@ function ProyectosPage() {
           <table>
             <thead>
               <tr>
-                <th>ID</th>
                 <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Fecha Inicio</th>
-                <th>Fecha Fin</th>
+                <th>Fecha de Habilitación</th>
+                <th>Estado</th>
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
               {proyectos.map((proyecto) => (
                 <tr key={proyecto.id}>
-                  <td>{proyecto.id}</td>
                   <td>{proyecto.nombre}</td>
-                  <td>{proyecto.descripcion}</td>
-                  <td>{new Date(proyecto.fechaInicio).toLocaleDateString('es')}</td>
-                  <td>{proyecto.fechaFin ? new Date(proyecto.fechaFin).toLocaleDateString('es') : '—'}</td>
+                  <td>{new Date(proyecto.fechaHabilitacion + 'T00:00:00').toLocaleDateString('es')}</td>
                   <td>
-                    <button className="danger" onClick={() => eliminar(proyecto.id)}>
+                    <span
+                      style={{
+                        display: 'inline-block',
+                        padding: '0.25rem 0.75rem',
+                        borderRadius: 'var(--radius)',
+                        fontSize: '0.85rem',
+                        fontWeight: 500,
+                        backgroundColor: proyecto.estadoHabilitacion ? 'var(--color-success-bg, #d4edda)' : 'var(--color-danger-bg, #f8d7da)',
+                        color: proyecto.estadoHabilitacion ? 'var(--color-success-text, #155724)' : 'var(--color-danger-text, #721c24)',
+                      }}
+                    >
+                      {proyecto.estadoHabilitacion ? 'Habilitado' : 'Deshabilitado'}
+                    </span>
+                  </td>
+                  <td>
+                    <button onClick={() => handleAbrirEditar(proyecto)} style={{ marginRight: '0.5rem' }}>
+                      Editar
+                    </button>
+                    <button className="danger" onClick={() => solicitarEliminar(proyecto.id)}>
                       Eliminar
                     </button>
                   </td>
@@ -90,6 +203,25 @@ function ProyectosPage() {
           </table>
         </div>
       )}
+
+      <ProyectoFormModal
+        isOpen={modalAbierto}
+        modo={modoModal}
+        empresaId={id}
+        proyectoInicial={proyectoEditar}
+        onClose={handleCerrarModal}
+        onSuccess={modoModal === 'crear' ? handleCrearExito : handleEditarExito}
+      />
+
+      <ConfirmDialog
+        isOpen={confirmState.isOpen}
+        title="Eliminar Proyecto"
+        message="¿Estás seguro de que deseas eliminar este proyecto? Esta acción no se puede deshacer."
+        confirmLabel="Eliminar"
+        cancelLabel="Cancelar"
+        onConfirm={confirmarEliminar}
+        onCancel={cancelarEliminar}
+      />
     </div>
   );
 }
