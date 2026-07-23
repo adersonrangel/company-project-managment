@@ -1,13 +1,26 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { empresaService } from '@/services/empresaService';
+import EmpresaFormModal from '@/components/EmpresaFormModal';
 import type { Empresa } from '@/types/empresa';
+
+interface ModalState {
+  isOpen: boolean;
+  modo: 'crear' | 'editar';
+  empresa: Empresa | null;
+}
 
 function EmpresasPage() {
   const [empresas, setEmpresas] = useState<Empresa[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [modalState, setModalState] = useState<ModalState>({
+    isOpen: false,
+    modo: 'crear',
+    empresa: null,
+  });
   const navigate = useNavigate();
+  const triggerButtonRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     cargarEmpresas();
@@ -35,6 +48,30 @@ function EmpresasPage() {
     }
   };
 
+  const abrirModalCrear = (e: React.MouseEvent<HTMLButtonElement>) => {
+    triggerButtonRef.current = e.currentTarget;
+    setModalState({ isOpen: true, modo: 'crear', empresa: null });
+  };
+
+  const abrirModalEditar = (empresa: Empresa, e: React.MouseEvent<HTMLButtonElement>) => {
+    triggerButtonRef.current = e.currentTarget;
+    setModalState({ isOpen: true, modo: 'editar', empresa });
+  };
+
+  const cerrarModal = () => {
+    setModalState({ isOpen: false, modo: 'crear', empresa: null });
+  };
+
+  const handleSuccess = (empresa: Empresa) => {
+    if (modalState.modo === 'crear') {
+      setEmpresas((prev) => [empresa, ...prev]);
+    } else {
+      setEmpresas((prev) =>
+        prev.map((e) => (e.id === empresa.id ? empresa : e))
+      );
+    }
+  };
+
   if (loading) return <p>Cargando...</p>;
   if (error) return <p style={{ color: 'var(--color-danger)' }}>{error}</p>;
 
@@ -42,6 +79,9 @@ function EmpresasPage() {
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
         <h1>Empresas</h1>
+        <button className="primary" onClick={abrirModalCrear}>
+          Agregar Empresa
+        </button>
       </div>
 
       {empresas.length === 0 ? (
@@ -72,6 +112,11 @@ function EmpresasPage() {
                     >
                       Proyectos
                     </button>
+                    <button
+                      onClick={(e) => abrirModalEditar(empresa, e)}
+                    >
+                      Editar
+                    </button>
                     <button className="danger" onClick={() => eliminar(empresa.id)}>
                       Eliminar
                     </button>
@@ -82,6 +127,15 @@ function EmpresasPage() {
           </table>
         </div>
       )}
+
+      <EmpresaFormModal
+        key={modalState.empresa?.id ?? 'crear'}
+        isOpen={modalState.isOpen}
+        modo={modalState.modo}
+        empresaInicial={modalState.empresa}
+        onClose={cerrarModal}
+        onSuccess={handleSuccess}
+      />
     </div>
   );
 }

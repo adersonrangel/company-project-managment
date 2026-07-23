@@ -1,4 +1,5 @@
 import api from './api';
+import type { AxiosRequestConfig } from 'axios';
 import type { Empresa, CrearEmpresaRequest, ActualizarEmpresaRequest } from '@/types/empresa';
 
 export const empresaService = {
@@ -12,13 +13,13 @@ export const empresaService = {
     return data;
   },
 
-  crear: async (request: CrearEmpresaRequest): Promise<Empresa> => {
-    const { data } = await api.post<Empresa>('/empresas', request);
+  crear: async (request: CrearEmpresaRequest, config?: AxiosRequestConfig): Promise<Empresa> => {
+    const { data } = await api.post<Empresa>('/empresas', request, config);
     return data;
   },
 
-  actualizar: async (id: number, request: ActualizarEmpresaRequest): Promise<Empresa> => {
-    const { data } = await api.put<Empresa>(`/empresas/${id}`, request);
+  actualizar: async (id: number, request: ActualizarEmpresaRequest, config?: AxiosRequestConfig): Promise<Empresa> => {
+    const { data } = await api.put<Empresa>(`/empresas/${id}`, request, config);
     return data;
   },
 
