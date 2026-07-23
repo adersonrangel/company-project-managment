@@ -1,6 +1,16 @@
 @CompanyProjectManagement.Api_HostAddress = http://localhost:5113
 
 ### ===========================
+### DASHBOARD
+### ===========================
+
+### Obtener Estadísticas del Dashboard
+GET {{CompanyProjectManagement.Api_HostAddress}}/api/dashboard/estadisticas
+Accept: application/json
+
+###
+
+### ===========================
 ### EMPRESAS
 ### ===========================
 
@@ -10,7 +20,7 @@ Content-Type: application/json
 
 {
   "nombre": "Empresa Demo",
-  "identificacion": "EMP-001",
+  "identificacion": "EMP-002",
   "telefono": "+573001234567",
   "direccion": "Calle 123 #45-67, Bogotá",
   "estadoHabilitacion": true

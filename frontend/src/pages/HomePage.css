@@ -1,0 +1,50 @@
+.dashboard {
+  padding: 1.5rem;
+}
+
+.dashboard__titulo {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Tarjetas de resumen */
+.dashboard__tarjetas {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.dashboard__tarjetas > * {
+  min-width: 280px;
+}
+
+/* Gráficas */
+.dashboard__graficas {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.dashboard__grafica {
+  background: var(--color-surface, #fff);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard__grafica--full {
+  grid-column: 1 / -1;
+}
+
+/* Responsivo: < 1024px */
+@media (max-width: 1023px) {
+  .dashboard__tarjetas {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dashboard__graficas {
+    grid-template-columns: 1fr;
+  }
+}

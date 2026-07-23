@@ -22,10 +22,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Register repositories
 builder.Services.AddScoped<IEmpresaRepository, EmpresaRepository>();
 builder.Services.AddScoped<IProyectoRepository, ProyectoRepository>();
+builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
 
 // Register services
 builder.Services.AddScoped<IEmpresaService, EmpresaService>();
 builder.Services.AddScoped<IProyectoService, ProyectoService>();
+builder.Services.AddScoped<IDashboardService, DashboardService>();
 
 // Register FluentValidation validators from assembly
 builder.Services.AddValidatorsFromAssemblyContaining<CrearEmpresaValidator>();
