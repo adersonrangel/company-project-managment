@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace CompanyProjectManagement.Infrastructure.Migrations
+namespace CompanyProjectManagement.Infrastructure.Migrations.SqlServer
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
