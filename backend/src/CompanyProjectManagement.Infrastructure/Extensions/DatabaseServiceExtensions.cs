@@ -31,7 +31,11 @@ public static class DatabaseServiceExtensions
             {
                 case "PostgreSQL":
                     options.UseNpgsql(connectionString, npgsql =>
-                        npgsql.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName));
+                    {
+                        npgsql.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName);
+                        npgsql.MigrationsHistoryTable("__EFMigrationsHistory");
+                    })
+                    .UseSnakeCaseNamingConvention();
                     break;
                 case "SqlServer":
                     options.UseSqlServer(connectionString, sql =>

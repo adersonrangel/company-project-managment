@@ -16,16 +16,23 @@ public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<Applicatio
             ?? throw new InvalidOperationException($"Connection string '{provider}' not found in configuration.");
 
         var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+        var assemblyName = typeof(ApplicationDbContext).Assembly.FullName;
 
         switch (provider)
         {
             case "PostgreSQL":
-                optionsBuilder.UseNpgsql(connectionString,
-                    npgsql => npgsql.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName));
+                optionsBuilder.UseNpgsql(connectionString, npgsql =>
+                {
+                    npgsql.MigrationsAssembly(assemblyName);
+                    
+                })
+                .UseSnakeCaseNamingConvention();
                 break;
             default: // SqlServer
-                optionsBuilder.UseSqlServer(connectionString,
-                    sql => sql.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName));
+                optionsBuilder.UseSqlServer(connectionString, sql =>
+                {
+                    sql.MigrationsAssembly(assemblyName);
+                });
                 break;
         }
 
