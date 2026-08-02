@@ -2,10 +2,10 @@ using CompanyProjectManagement.Api.Middleware;
 using CompanyProjectManagement.Application.Services;
 using CompanyProjectManagement.Application.Validators;
 using CompanyProjectManagement.Domain.Repositories;
-using CompanyProjectManagement.Infrastructure.Data;
 using CompanyProjectManagement.Infrastructure.Data.Repositories;
+using CompanyProjectManagement.Infrastructure.Extensions;
+using CompanyProjectManagement.Infrastructure.HealthChecks;
 using FluentValidation;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,9 +15,8 @@ builder.Services.AddControllers();
 // Configure OpenAPI
 builder.Services.AddOpenApi();
 
-// Configure DbContext
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+// Configure database provider
+builder.Services.AddDatabaseProvider(builder.Configuration);
 
 // Register repositories
 builder.Services.AddScoped<IEmpresaRepository, EmpresaRepository>();
@@ -33,6 +32,9 @@ builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddValidatorsFromAssemblyContaining<CrearEmpresaValidator>();
 
 var app = builder.Build();
+
+// Validate database connectivity at startup
+await DatabaseHealthCheck.ValidateConnectivityAsync(app.Services, app.Configuration, app.Logger);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
