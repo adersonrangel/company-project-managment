@@ -1,0 +1,128 @@
+{
+  "pbtResults": {
+    "1. Write bug condition exploration test": {
+      "status": "passed",
+      "failingExample": "Bug confirmed on unfixed Layout.css. Counterexample input: {\"isDesktop\":true,\"collapsed\":true,\"element\":\"sidebar__link\",\"labelText\":\"Inicio\"} (same for \"Empresas\").\n\nMeasurements (link box = 72px collapsed width - 2*12px nav padding = 48px wide):\n- Req 2.1 centering: |iconCenter - boxCenter| = 30.56px, exceeds 1px tolerance. The hidden \"Inicio\" label (opacity:0, still in flow, ~47.52px reserved) plus gap:0.85rem (13.6px) shift the centered (icon+gap+label) group so the icon lands ~30.56px left of the true box center.\n- Req 2.2 label reserved width: expected 0, got 47.52px. `.layout.is-collapsed .sidebar__label { opacity: 0 }` leaves intrinsic width intact — label still reserves layout space.\n- Req 2.3 containment: icon.left = -17.56px (< 0). The link's horizontal padding (0.85rem=13.6px each side) plus icon min-width(22px) plus reserved label+gap exceed the 48px link box, so the icon overflows the left bound of the rounded link box.",
+      "lastRunTimestamp": 1787751436222
+    },
+    "2. Write preservation property tests (BEFORE implementing fix)": {
+      "status": "passed",
+      "lastRunTimestamp": 1787751841247
+    },
+    "3.2 Verify bug condition exploration test now passes": {
+      "status": "passed",
+      "lastRunTimestamp": 1787752074674
+    }
+  },
+  "executionHistory": {
+    "1. Write bug condition exploration test": [
+      {
+        "executionId": "fddda11a-2e55-41d0-8666-2a61fb405f31",
+        "chatSessionId": "sess_eb88fea8-b7f8-44b9-b976-e23b1136b6c3",
+        "timestamp": 1787751206137
+      },
+      {
+        "executionId": "fddda11a-2e55-41d0-8666-2a61fb405f31",
+        "chatSessionId": "sess_eb88fea8-b7f8-44b9-b976-e23b1136b6c3",
+        "timestamp": 1787751220663
+      },
+      {
+        "executionId": "fddda11a-2e55-41d0-8666-2a61fb405f31",
+        "chatSessionId": "sess_eb88fea8-b7f8-44b9-b976-e23b1136b6c3",
+        "timestamp": 1787751487195
+      }
+    ],
+    "2. Write preservation property tests (BEFORE implementing fix)": [
+      {
+        "executionId": "fddda11a-2e55-41d0-8666-2a61fb405f31",
+        "chatSessionId": "sess_eb88fea8-b7f8-44b9-b976-e23b1136b6c3",
+        "timestamp": 1787751207093
+      },
+      {
+        "executionId": "fddda11a-2e55-41d0-8666-2a61fb405f31",
+        "chatSessionId": "sess_eb88fea8-b7f8-44b9-b976-e23b1136b6c3",
+        "timestamp": 1787751493985
+      },
+      {
+        "executionId": "fddda11a-2e55-41d0-8666-2a61fb405f31",
+        "chatSessionId": "sess_eb88fea8-b7f8-44b9-b976-e23b1136b6c3",
+        "timestamp": 1787751869001
+      }
+    ],
+    "3.1 Implement the fix in `frontend/src/components/Layout.css`": [
+      {
+        "executionId": "fddda11a-2e55-41d0-8666-2a61fb405f31",
+        "chatSessionId": "sess_eb88fea8-b7f8-44b9-b976-e23b1136b6c3",
+        "timestamp": 1787751208210
+      },
+      {
+        "executionId": "fddda11a-2e55-41d0-8666-2a61fb405f31",
+        "chatSessionId": "sess_eb88fea8-b7f8-44b9-b976-e23b1136b6c3",
+        "timestamp": 1787751874777
+      },
+      {
+        "executionId": "fddda11a-2e55-41d0-8666-2a61fb405f31",
+        "chatSessionId": "sess_eb88fea8-b7f8-44b9-b976-e23b1136b6c3",
+        "timestamp": 1787752022735
+      }
+    ],
+    "3.2 Verify bug condition exploration test now passes": [
+      {
+        "executionId": "fddda11a-2e55-41d0-8666-2a61fb405f31",
+        "chatSessionId": "sess_eb88fea8-b7f8-44b9-b976-e23b1136b6c3",
+        "timestamp": 1787751209129
+      },
+      {
+        "executionId": "fddda11a-2e55-41d0-8666-2a61fb405f31",
+        "chatSessionId": "sess_eb88fea8-b7f8-44b9-b976-e23b1136b6c3",
+        "timestamp": 1787752029566
+      },
+      {
+        "executionId": "fddda11a-2e55-41d0-8666-2a61fb405f31",
+        "chatSessionId": "sess_eb88fea8-b7f8-44b9-b976-e23b1136b6c3",
+        "timestamp": 1787752095506
+      }
+    ],
+    "3.3 Verify preservation tests still pass": [
+      {
+        "executionId": "fddda11a-2e55-41d0-8666-2a61fb405f31",
+        "chatSessionId": "sess_eb88fea8-b7f8-44b9-b976-e23b1136b6c3",
+        "timestamp": 1787751209782
+      },
+      {
+        "executionId": "fddda11a-2e55-41d0-8666-2a61fb405f31",
+        "chatSessionId": "sess_eb88fea8-b7f8-44b9-b976-e23b1136b6c3",
+        "timestamp": 1787752099837
+      },
+      {
+        "executionId": "fddda11a-2e55-41d0-8666-2a61fb405f31",
+        "chatSessionId": "sess_eb88fea8-b7f8-44b9-b976-e23b1136b6c3",
+        "timestamp": 1787752161419
+      }
+    ],
+    "4. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "fddda11a-2e55-41d0-8666-2a61fb405f31",
+        "chatSessionId": "sess_eb88fea8-b7f8-44b9-b976-e23b1136b6c3",
+        "timestamp": 1787751208588
+      },
+      {
+        "executionId": "fddda11a-2e55-41d0-8666-2a61fb405f31",
+        "chatSessionId": "sess_eb88fea8-b7f8-44b9-b976-e23b1136b6c3",
+        "timestamp": 1787752168487
+      },
+      {
+        "executionId": "fddda11a-2e55-41d0-8666-2a61fb405f31",
+        "chatSessionId": "sess_eb88fea8-b7f8-44b9-b976-e23b1136b6c3",
+        "timestamp": 1787752435935
+      }
+    ],
+    "3. Fix collapsed-sidebar icon centering and containment (CSS-only, scoped to `.layout.is-collapsed`)": [
+      {
+        "executionId": "fddda11a-2e55-41d0-8666-2a61fb405f31",
+        "chatSessionId": "sess_eb88fea8-b7f8-44b9-b976-e23b1136b6c3",
+        "timestamp": 1787752163020
+      }
+    ]
+  }
+}
