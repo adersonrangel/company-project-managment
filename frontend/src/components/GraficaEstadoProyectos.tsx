@@ -1,21 +1,22 @@
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import type { PieLabelRenderProps } from 'recharts';
 import { calcularPorcentaje } from '@/utils/dashboardUtils';
+import { getChartColors } from '@/utils/chartTheme';
 
 interface GraficaEstadoProyectosProps {
   habilitados: number;
   deshabilitados: number;
 }
 
-const COLORES = ['#22c55e', '#ef4444'];
-
 function GraficaEstadoProyectos({ habilitados, deshabilitados }: GraficaEstadoProyectosProps) {
   const total = habilitados + deshabilitados;
+  const colores = getChartColors();
+  const COLORES = [colores.chart2, colores.chart3];
 
   if (total === 0) {
     return (
       <div style={{ textAlign: 'center', padding: '2rem' }}>
-        <p style={{ color: '#64748b', fontSize: '0.875rem' }}>No hay datos disponibles</p>
+        <p style={{ color: colores.mutedForeground, fontSize: '0.875rem' }}>No hay datos disponibles</p>
       </div>
     );
   }

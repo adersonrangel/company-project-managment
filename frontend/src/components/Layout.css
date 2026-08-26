@@ -4,7 +4,7 @@
   --sidebar-width-collapsed: 72px;
   --topbar-height: 60px;
   min-height: 100vh;
-  background-color: var(--color-bg);
+  background-color: hsl(var(--background));
 }
 
 /* ===== Sidebar ===== */
@@ -14,8 +14,8 @@
   left: 0;
   bottom: 0;
   width: var(--sidebar-width);
-  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
-  color: #f1f5f9;
+  background-color: hsl(var(--sidebar));
+  color: hsl(var(--sidebar-foreground));
   display: flex;
   flex-direction: column;
   z-index: 40;
@@ -40,7 +40,7 @@
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: linear-gradient(135deg, #3b82f6, #6366f1);
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--sidebar-active)));
   font-weight: 700;
   font-size: 0.9rem;
   color: #fff;
@@ -49,7 +49,7 @@
 .sidebar__title {
   font-size: 1.05rem;
   font-weight: 700;
-  color: #fff;
+  color: hsl(var(--sidebar-foreground));
   margin: 0;
   transition: opacity 0.2s ease;
 }
@@ -69,7 +69,7 @@
   padding: 0.7rem 0.85rem;
   border-radius: 10px;
   text-decoration: none;
-  color: #94a3b8;
+  color: hsl(var(--sidebar-muted));
   font-size: 0.9rem;
   font-weight: 500;
   white-space: nowrap;
@@ -79,6 +79,11 @@
 .sidebar__link:hover {
   background-color: rgba(255, 255, 255, 0.06);
   color: #e2e8f0;
+}
+
+.sidebar__link:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px hsl(var(--sidebar-active));
 }
 
 .sidebar__link.is-active {
@@ -102,7 +107,7 @@
 .sidebar__footer {
   padding: 0.85rem 1.25rem;
   font-size: 0.72rem;
-  color: #64748b;
+  color: hsl(var(--sidebar-muted));
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   white-space: nowrap;
 }
@@ -153,9 +158,9 @@
   gap: 1rem;
   height: var(--topbar-height);
   padding: 0 1.5rem;
-  background: rgba(255, 255, 255, 0.85);
+  background: hsl(var(--card) / 0.85);
   backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid hsl(var(--border));
 }
 
 .topbar__toggle {
@@ -166,18 +171,19 @@
   padding: 0;
   border-radius: 10px;
   background: transparent;
-  color: var(--color-text);
+  color: hsl(var(--foreground));
   font-size: 1.25rem;
   transition: background-color 0.15s ease;
 }
 
 .topbar__toggle:hover {
-  background-color: var(--color-border);
+  background-color: hsl(var(--muted));
 }
 
 .topbar__title {
   font-size: 1.05rem;
   font-weight: 600;
+  color: hsl(var(--foreground));
   margin: 0;
 }
 

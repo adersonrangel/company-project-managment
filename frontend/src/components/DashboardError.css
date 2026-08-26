@@ -13,31 +13,31 @@
 .dashboard-error__mensaje {
   font-size: 1rem;
   font-weight: 500;
-  color: #991b1b;
+  color: hsl(var(--danger));
 }
 
 .dashboard-error__retry {
   padding: 0.5rem 1.25rem;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #ffffff;
-  background-color: #3b82f6;
+  color: hsl(var(--primary-foreground));
+  background-color: hsl(var(--primary));
   border: none;
-  border-radius: var(--radius, 6px);
+  border-radius: var(--radius-md, 6px);
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
 .dashboard-error__retry:hover:not(:disabled) {
-  background-color: #2563eb;
+  background-color: hsl(var(--primary-hover));
 }
 
 .dashboard-error__retry:disabled {
-  background-color: #9ca3af;
+  background-color: hsl(var(--muted-foreground));
   cursor: not-allowed;
 }
 
 .dashboard-error__disabled-msg {
   font-size: 0.875rem;
-  color: #6b7280;
+  color: hsl(var(--muted-foreground));
 }

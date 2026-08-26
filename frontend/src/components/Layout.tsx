@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
+import ThemeToggle from './ui/ThemeToggle';
 import './Layout.css';
 
 const NAV_ITEMS = [
@@ -126,6 +127,7 @@ function Layout() {
           </button>
           <h2 className="topbar__title">{getPageTitle(location.pathname)}</h2>
           <div className="topbar__spacer" />
+          <ThemeToggle />
         </header>
 
         <main className="content">
