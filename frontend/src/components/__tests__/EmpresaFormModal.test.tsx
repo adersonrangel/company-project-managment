@@ -108,10 +108,12 @@ describe('EmpresaFormModal', () => {
 
       // Fill in valid data so submit proceeds
       const nombreInput = screen.getByLabelText('Nombre');
+      const identificacionInput = screen.getByLabelText('Identificación');
       const direccionInput = screen.getByLabelText('Dirección');
       const telefonoInput = screen.getByLabelText('Teléfono');
 
       await userEvent.type(nombreInput, 'Empresa Valid');
+      await userEvent.type(identificacionInput, 'NIT-123456');
       await userEvent.type(direccionInput, 'Dirección Válida 123');
       await userEvent.type(telefonoInput, '1234567');
 
@@ -141,10 +143,12 @@ describe('EmpresaFormModal', () => {
       const { container } = render(<EmpresaFormModal {...defaultProps} onClose={onClose} />);
 
       const nombreInput = screen.getByLabelText('Nombre');
+      const identificacionInput = screen.getByLabelText('Identificación');
       const direccionInput = screen.getByLabelText('Dirección');
       const telefonoInput = screen.getByLabelText('Teléfono');
 
       await userEvent.type(nombreInput, 'Empresa Valid');
+      await userEvent.type(identificacionInput, 'NIT-123456');
       await userEvent.type(direccionInput, 'Dirección Válida 123');
       await userEvent.type(telefonoInput, '1234567');
 
@@ -235,6 +239,7 @@ describe('EmpresaFormModal', () => {
       render(<EmpresaFormModal {...defaultProps} />);
 
       await userEvent.type(screen.getByLabelText('Nombre'), 'Empresa Valid');
+      await userEvent.type(screen.getByLabelText('Identificación'), 'NIT-123456');
       await userEvent.type(screen.getByLabelText('Dirección'), 'Dirección Válida 123');
       await userEvent.type(screen.getByLabelText('Teléfono'), '1234567');
 

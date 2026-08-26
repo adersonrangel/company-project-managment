@@ -53,8 +53,10 @@ describe('useEmpresaForm', () => {
 
       expect(result.current.formData).toEqual({
         nombre: '',
+        identificacion: '',
         direccion: '',
         telefono: '',
+        estadoHabilitacion: true,
       });
       expect(result.current.errores).toEqual({});
       expect(result.current.errorServidor).toBeNull();
@@ -73,8 +75,10 @@ describe('useEmpresaForm', () => {
 
       expect(result.current.formData).toEqual({
         nombre: empresaInicial.nombre,
+        identificacion: empresaInicial.identificacion,
         direccion: empresaInicial.direccion,
         telefono: empresaInicial.telefono,
+        estadoHabilitacion: empresaInicial.estadoHabilitacion,
       });
     });
   });
@@ -118,6 +122,7 @@ describe('useEmpresaForm', () => {
       // Fill in valid form data
       act(() => {
         result.current.handleChange('nombre', validFormData.nombre);
+        result.current.handleChange('identificacion', validFormData.identificacion);
         result.current.handleChange('direccion', validFormData.direccion);
         result.current.handleChange('telefono', validFormData.telefono);
       });
@@ -129,8 +134,10 @@ describe('useEmpresaForm', () => {
       expect(mockedEmpresaService.crear).toHaveBeenCalledWith(
         {
           nombre: validFormData.nombre,
+          identificacion: validFormData.identificacion,
           direccion: validFormData.direccion,
           telefono: validFormData.telefono,
+          estadoHabilitacion: true,
         },
         { timeout: 30000 }
       );
@@ -176,8 +183,10 @@ describe('useEmpresaForm', () => {
         empresaInicial.id,
         {
           nombre: 'Nombre Actualizado',
+          identificacion: empresaInicial.identificacion,
           direccion: empresaInicial.direccion,
           telefono: empresaInicial.telefono,
+          estadoHabilitacion: empresaInicial.estadoHabilitacion,
         },
         { timeout: 30000 }
       );
@@ -200,6 +209,7 @@ describe('useEmpresaForm', () => {
 
       act(() => {
         result.current.handleChange('nombre', validFormData.nombre);
+        result.current.handleChange('identificacion', validFormData.identificacion);
         result.current.handleChange('direccion', validFormData.direccion);
         result.current.handleChange('telefono', validFormData.telefono);
       });
@@ -258,6 +268,7 @@ describe('useEmpresaForm', () => {
 
       act(() => {
         result.current.handleChange('nombre', validFormData.nombre);
+        result.current.handleChange('identificacion', validFormData.identificacion);
         result.current.handleChange('direccion', validFormData.direccion);
         result.current.handleChange('telefono', validFormData.telefono);
       });
@@ -296,6 +307,7 @@ describe('useEmpresaForm', () => {
 
       act(() => {
         result.current.handleChange('nombre', validFormData.nombre);
+        result.current.handleChange('identificacion', validFormData.identificacion);
         result.current.handleChange('direccion', validFormData.direccion);
         result.current.handleChange('telefono', validFormData.telefono);
       });
@@ -335,6 +347,7 @@ describe('useEmpresaForm', () => {
 
       act(() => {
         result.current.handleChange('nombre', validFormData.nombre);
+        result.current.handleChange('identificacion', validFormData.identificacion);
         result.current.handleChange('direccion', validFormData.direccion);
         result.current.handleChange('telefono', validFormData.telefono);
       });
@@ -371,6 +384,7 @@ describe('useEmpresaForm', () => {
 
       act(() => {
         result.current.handleChange('nombre', validFormData.nombre);
+        result.current.handleChange('identificacion', validFormData.identificacion);
         result.current.handleChange('direccion', validFormData.direccion);
         result.current.handleChange('telefono', validFormData.telefono);
       });
@@ -433,6 +447,7 @@ describe('useEmpresaForm', () => {
       // Fill valid data and submit to trigger server error
       act(() => {
         result.current.handleChange('nombre', validFormData.nombre);
+        result.current.handleChange('identificacion', validFormData.identificacion);
         result.current.handleChange('direccion', validFormData.direccion);
         result.current.handleChange('telefono', validFormData.telefono);
       });

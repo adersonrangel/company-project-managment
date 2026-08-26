@@ -258,23 +258,23 @@ describe('ProyectosPage Integration Tests', () => {
       const user = userEvent.setup();
       vi.mocked(proyectoService.eliminar).mockResolvedValue(undefined);
 
-      // Mock window.confirm to return true
-      const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(true);
-
       renderPage();
 
       await waitFor(() => {
         expect(screen.getByText('Proyecto Alpha')).toBeInTheDocument();
       });
 
-      // Click "Eliminar" on the first row
-      const deleteButtons = screen.getAllByRole('button', { name: /eliminar/i });
+      // Click "Eliminar" on the first row to open the confirmation dialog
+      const deleteButtons = screen.getAllByRole('button', { name: /^eliminar$/i });
       await user.click(deleteButtons[0]!);
 
-      // Verify confirm was called
-      expect(confirmSpy).toHaveBeenCalledWith('¿Estás seguro de eliminar este proyecto?');
+      // Locate the confirmation dialog and confirm the deletion.
+      // The row action button and the dialog confirm button share the name
+      // "Eliminar", so scope the query with within(dialog) to disambiguate.
+      const dialog = await screen.findByRole('dialog');
+      await user.click(within(dialog).getByRole('button', { name: /^eliminar$/i }));
 
-      // Verify service was called
+      // Verify service was called with (empresaId, proyectoId) = (1, 1)
       await waitFor(() => {
         expect(proyectoService.eliminar).toHaveBeenCalledWith(1, 1);
       });
@@ -290,8 +290,6 @@ describe('ProyectosPage Integration Tests', () => {
       // Verify success notification
       expect(screen.getByRole('alert')).toBeInTheDocument();
       expect(screen.getByText('Proyecto eliminado exitosamente')).toBeInTheDocument();
-
-      confirmSpy.mockRestore();
     }, 15000);
   });
 });

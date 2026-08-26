@@ -75,10 +75,12 @@ describe('EmpresasPage Integration Tests', () => {
       // Fill fields inside the modal
       const dialog = screen.getByRole('dialog');
       const nombreInput = within(dialog).getByLabelText(/nombre/i);
+      const identificacionInput = within(dialog).getByLabelText(/identificación/i);
       const direccionInput = within(dialog).getByLabelText(/dirección/i);
       const telefonoInput = within(dialog).getByLabelText(/teléfono/i);
 
       await user.type(nombreInput, 'Empresa Nueva');
+      await user.type(identificacionInput, 'NIT-003');
       await user.type(direccionInput, 'Calle Nueva #789');
       await user.type(telefonoInput, '9876543');
 
@@ -89,7 +91,13 @@ describe('EmpresasPage Integration Tests', () => {
       // Verify service was called with correct data
       await waitFor(() => {
         expect(empresaService.crear).toHaveBeenCalledWith(
-          { nombre: 'Empresa Nueva', direccion: 'Calle Nueva #789', telefono: '9876543' },
+          {
+            nombre: 'Empresa Nueva',
+            identificacion: 'NIT-003',
+            direccion: 'Calle Nueva #789',
+            telefono: '9876543',
+            estadoHabilitacion: true,
+          },
           { timeout: 30000 }
         );
       });
@@ -163,7 +171,13 @@ describe('EmpresasPage Integration Tests', () => {
       await waitFor(() => {
         expect(empresaService.actualizar).toHaveBeenCalledWith(
           1,
-          { nombre: 'Empresa A Modificada', direccion: 'Calle Modificada #999', telefono: '1111111' },
+          {
+            nombre: 'Empresa A Modificada',
+            identificacion: 'NIT-001',
+            direccion: 'Calle Modificada #999',
+            telefono: '1111111',
+            estadoHabilitacion: true,
+          },
           { timeout: 30000 }
         );
       });
@@ -218,6 +232,7 @@ describe('EmpresasPage Integration Tests', () => {
 
       // Fill valid data
       await user.type(within(dialog).getByLabelText(/nombre/i), 'Test Empresa');
+      await user.type(within(dialog).getByLabelText(/identificación/i), 'NIT-500');
       await user.type(within(dialog).getByLabelText(/dirección/i), 'Direccion de prueba');
       await user.type(within(dialog).getByLabelText(/teléfono/i), '1234567');
 
@@ -265,6 +280,7 @@ describe('EmpresasPage Integration Tests', () => {
 
       const dialog = screen.getByRole('dialog');
       await user.type(within(dialog).getByLabelText(/nombre/i), 'Empresa Creada');
+      await user.type(within(dialog).getByLabelText(/identificación/i), 'NIT-004');
       await user.type(within(dialog).getByLabelText(/dirección/i), 'Direccion creada');
       await user.type(within(dialog).getByLabelText(/teléfono/i), '7777777');
 
@@ -317,7 +333,13 @@ describe('EmpresasPage Integration Tests', () => {
         expect(empresaService.actualizar).toHaveBeenCalledTimes(1);
         expect(empresaService.actualizar).toHaveBeenCalledWith(
           2,
-          { nombre: 'Empresa B Editada', direccion: 'Avenida 2 #456', telefono: '7654321' },
+          {
+            nombre: 'Empresa B Editada',
+            identificacion: 'NIT-002',
+            direccion: 'Avenida 2 #456',
+            telefono: '7654321',
+            estadoHabilitacion: true,
+          },
           { timeout: 30000 }
         );
         expect(empresaService.crear).not.toHaveBeenCalled();

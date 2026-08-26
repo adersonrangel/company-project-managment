@@ -1,0 +1,278 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1. Establecer y registrar la línea base de fallas": [
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787757968727
+      },
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787759032213
+      },
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787759334983
+      }
+    ],
+    "2.1 Actualizar las pruebas de inicialización al conjunto de 5 campos": [
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787757971644
+      },
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787757996979
+      },
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787758184499
+      }
+    ],
+    "2.2 Actualizar las pruebas de éxito de crear/editar para que pasen validación y afirmen el payload de 5 campos": [
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787757972486
+      },
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787758534873
+      },
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787758649752
+      }
+    ],
+    "2.3 Actualizar las pruebas de error de servidor para alcanzar el bloque `catch`": [
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787757973930
+      },
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787758654113
+      },
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787758790537
+      }
+    ],
+    "2.4 Re-ejecutar el archivo del hook y confirmar las pruebas del Clúster A en verde": [
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787757975044
+      },
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787758797007
+      },
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787758859162
+      }
+    ],
+    "3.1 Rellenar el input \"Identificación\" y afirmar el payload de 5 campos": [
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787757976683
+      },
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787758006057
+      },
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787758186379
+      }
+    ],
+    "3.2 Re-ejecutar el archivo de integración y confirmar en verde": [
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787757978472
+      },
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787758535661
+      },
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787758643636
+      }
+    ],
+    "4.1 Proveer `identificacion` válido para que `submitting` se vuelva `true`": [
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787757980366
+      },
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787758007813
+      },
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787758187789
+      }
+    ],
+    "4.2 Re-ejecutar el archivo del modal y confirmar en verde": [
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787757981358
+      },
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787758536384
+      },
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787758645418
+      }
+    ],
+    "5.1 Hacer avanzar el envío en \"should set submitting to true during async operation and false after\"": [
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787757982412
+      },
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787758869460
+      },
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787758956308
+      }
+    ],
+    "5.2 Re-ejecutar el archivo del hook y confirmar la prueba de `submitting` en verde": [
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787757983589
+      },
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787758962709
+      },
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787759016005
+      }
+    ],
+    "6.1 Reemplazar el espía de `window.confirm` por interacción con `ConfirmDialog`": [
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787757984080
+      },
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787758009248
+      },
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787758189417
+      }
+    ],
+    "6.2 Re-ejecutar el archivo de la página de proyectos y confirmar en verde": [
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787757983195
+      },
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787758537097
+      },
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787758646820
+      }
+    ],
+    "7. Checkpoint final — Suite completa en verde sin regresiones": [
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787757984060
+      },
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787759343198
+      },
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787759510890
+      }
+    ],
+    "3. Clúster A — Corregir `frontend/src/pages/__tests__/EmpresasPage.integration.test.tsx` (5 pruebas)": [
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787758644561
+      }
+    ],
+    "4. Clúster B — Corregir `frontend/src/components/__tests__/EmpresaFormModal.test.tsx` (3 pruebas)": [
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787758646248
+      }
+    ],
+    "6. Clúster C — Corregir la prueba de eliminación en `frontend/src/pages/__tests__/ProyectosPage.test.tsx`": [
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787758647683
+      }
+    ],
+    "2. Clúster A — Corregir `frontend/src/hooks/__tests__/useEmpresaForm.test.ts` (10 pruebas de forma de formulario)": [
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787758860860
+      }
+    ],
+    "5. Clúster B — Corregir la prueba de ciclo de vida de `submitting` en `frontend/src/hooks/__tests__/useEmpresaForm.test.ts`": [
+      {
+        "executionId": "73d15e23-1d79-41a2-bbf2-b9cbc4fc4ecb",
+        "chatSessionId": "sess_2ff699a2-40f2-40c4-90fc-ece7011d12a2",
+        "timestamp": 1787759017744
+      }
+    ]
+  }
+}
