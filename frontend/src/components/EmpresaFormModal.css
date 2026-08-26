@@ -54,6 +54,22 @@
   color: var(--color-text);
 }
 
+.form-field .checkbox-label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.form-field .checkbox-label input[type='checkbox'] {
+  order: -1;
+  width: auto;
+  margin: 0;
+  flex: 0 0 auto;
+}
+
 .form-field input.input-error {
   border-color: var(--color-danger);
 }
