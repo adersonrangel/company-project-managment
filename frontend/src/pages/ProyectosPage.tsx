@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { ArrowLeft, FolderPlus, Pencil, Trash2 } from 'lucide-react';
 import { proyectoService } from '@/services/proyectoService';
 import type { ProyectoListResponse, ProyectoResponse } from '@/types/proyecto';
 import ProyectoFormModal from '@/components/ProyectoFormModal';
@@ -157,15 +158,17 @@ function ProyectosPage() {
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <div>
           <button
-            className="mb-1 inline-flex items-center bg-transparent p-0 text-sm text-primary hover:underline outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
+            className="mb-1 inline-flex items-center gap-1 bg-transparent p-0 text-sm text-primary hover:underline outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
             onClick={() => navigate('/empresas')}
           >
-            ← Volver a Empresas
+            <ArrowLeft size={16} aria-hidden="true" />
+            Volver a Empresas
           </button>
           <h1 className="text-2xl font-bold text-foreground m-0">Proyectos de Empresa #{empresaId}</h1>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <Button variant="primary" onClick={handleAbrirCrear}>
+            <FolderPlus size={18} aria-hidden="true" />
             Agregar Proyecto
           </Button>
         </div>
@@ -202,9 +205,11 @@ function ProyectosPage() {
                   <Td>
                     <div className="flex flex-wrap gap-2">
                       <Button variant="secondary" size="sm" onClick={() => handleAbrirEditar(proyecto)}>
+                        <Pencil size={16} aria-hidden="true" />
                         Editar
                       </Button>
                       <Button variant="danger" size="sm" onClick={() => solicitarEliminar(proyecto.id)}>
+                        <Trash2 size={16} aria-hidden="true" />
                         Eliminar
                       </Button>
                     </div>

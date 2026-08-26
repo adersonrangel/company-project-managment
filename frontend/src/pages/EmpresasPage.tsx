@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Building2, FolderKanban, Pencil, Trash2 } from 'lucide-react';
 import { empresaService } from '@/services/empresaService';
 import EmpresaFormModal from '@/components/EmpresaFormModal';
 import ConfirmDialog from '@/components/ConfirmDialog';
@@ -132,6 +133,7 @@ function EmpresasPage() {
         <h1 className="text-2xl font-bold text-foreground m-0">Empresas</h1>
         <div className="flex flex-wrap items-center gap-2">
           <Button variant="primary" onClick={abrirModalCrear}>
+            <Building2 size={18} aria-hidden="true" />
             Agregar Empresa
           </Button>
         </div>
@@ -174,12 +176,15 @@ function EmpresasPage() {
                         size="sm"
                         onClick={() => navigate(`/empresas/${empresa.id}/proyectos`)}
                       >
+                        <FolderKanban size={16} aria-hidden="true" />
                         Proyectos
                       </Button>
                       <Button variant="secondary" size="sm" onClick={(e) => abrirModalEditar(empresa, e)}>
+                        <Pencil size={16} aria-hidden="true" />
                         Editar
                       </Button>
                       <Button variant="danger" size="sm" onClick={() => solicitarEliminar(empresa.id)}>
+                        <Trash2 size={16} aria-hidden="true" />
                         Eliminar
                       </Button>
                     </div>
