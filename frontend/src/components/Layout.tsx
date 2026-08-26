@@ -1,60 +1,138 @@
+import { useEffect, useState } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
+import './Layout.css';
+
+const NAV_ITEMS = [
+  { to: '/', label: 'Inicio', icon: '🏠', exact: true },
+  { to: '/empresas', label: 'Empresas', icon: '🏢', exact: false },
+];
+
+function getPageTitle(pathname: string): string {
+  if (pathname === '/') return 'Inicio';
+  if (pathname.startsWith('/empresas') && pathname.includes('/proyectos')) return 'Proyectos';
+  if (pathname.startsWith('/empresas')) return 'Empresas';
+  return 'CPM Dashboard';
+}
+
+function useIsMobile(breakpoint = 1023): boolean {
+  const query = `(max-width: ${breakpoint}px)`;
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia(query).matches
+  );
+
+  useEffect(() => {
+    const mql = window.matchMedia(query);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mql.addEventListener('change', handler);
+    setIsMobile(mql.matches);
+    return () => mql.removeEventListener('change', handler);
+  }, [query]);
+
+  return isMobile;
+}
 
 function Layout() {
   const location = useLocation();
+  const isMobile = useIsMobile();
 
-  const isActive = (path: string) => location.pathname === path || location.pathname.startsWith(path + '/');
+  // Desktop: sidebar colapsado a íconos. Móvil: sidebar oculto por defecto.
+  const [collapsed, setCollapsed] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  // Cierra el menú móvil al navegar.
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [location.pathname]);
+
+  // Al pasar a móvil, asegurar que el menú empiece cerrado.
+  useEffect(() => {
+    if (isMobile) setMobileOpen(false);
+  }, [isMobile]);
+
+  const isActive = (item: (typeof NAV_ITEMS)[number]) =>
+    item.exact
+      ? location.pathname === item.to
+      : location.pathname === item.to || location.pathname.startsWith(item.to + '/');
+
+  const toggleMenu = () => {
+    if (isMobile) {
+      setMobileOpen((v) => !v);
+    } else {
+      setCollapsed((v) => !v);
+    }
+  };
+
+  const layoutClass = [
+    'layout',
+    !isMobile && collapsed ? 'is-collapsed' : '',
+    isMobile && mobileOpen ? 'is-mobile-open' : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh' }}>
-      {/* Sidebar */}
-      <aside
-        style={{
-          width: '240px',
-          backgroundColor: '#1e293b',
-          color: '#f1f5f9',
-          padding: '1.5rem 0',
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
-        <div style={{ padding: '0 1.5rem', marginBottom: '2rem' }}>
-          <h1 style={{ fontSize: '1.125rem', fontWeight: 700, color: '#ffffff' }}>
-            CPM Dashboard
-          </h1>
+    <div className={layoutClass}>
+      <aside className="sidebar">
+        <div className="sidebar__header">
+          <span className="sidebar__logo">CPM</span>
+          <h1 className="sidebar__title">CPM Dashboard</h1>
         </div>
-        <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-          <NavLink to="/" label="Inicio" active={location.pathname === '/'} />
-          <NavLink to="/empresas" label="Empresas" active={isActive('/empresas')} />
+
+        <nav className="sidebar__nav">
+          {NAV_ITEMS.map((item) => (
+            <Link
+              key={item.to}
+              to={item.to}
+              className={`sidebar__link${isActive(item) ? ' is-active' : ''}`}
+              title={item.label}
+            >
+              <span className="sidebar__icon" aria-hidden="true">
+                {item.icon}
+              </span>
+              <span className="sidebar__label">{item.label}</span>
+            </Link>
+          ))}
         </nav>
+
+        <div className="sidebar__footer">Company Project Management</div>
       </aside>
 
-      {/* Main content */}
-      <main style={{ flex: 1, padding: '2rem' }}>
-        <Outlet />
-      </main>
-    </div>
-  );
-}
+      {/* Overlay para cerrar el menú en móvil */}
+      <button
+        type="button"
+        className="layout__overlay"
+        aria-label="Cerrar menú"
+        onClick={() => setMobileOpen(false)}
+      />
 
-function NavLink({ to, label, active }: { to: string; label: string; active: boolean }) {
-  return (
-    <Link
-      to={to}
-      style={{
-        display: 'block',
-        padding: '0.625rem 1.5rem',
-        textDecoration: 'none',
-        color: active ? '#ffffff' : '#94a3b8',
-        backgroundColor: active ? 'rgba(255,255,255,0.1)' : 'transparent',
-        borderLeft: active ? '3px solid #3b82f6' : '3px solid transparent',
-        fontSize: '0.875rem',
-        fontWeight: active ? 600 : 400,
-        transition: 'all 0.15s',
-      }}
-    >
-      {label}
-    </Link>
+      <div className="layout__main">
+        <header className="topbar">
+          <button
+            type="button"
+            className="topbar__toggle"
+            onClick={toggleMenu}
+            aria-label={
+              isMobile
+                ? mobileOpen
+                  ? 'Cerrar menú'
+                  : 'Abrir menú'
+                : collapsed
+                  ? 'Expandir menú'
+                  : 'Colapsar menú'
+            }
+            aria-expanded={isMobile ? mobileOpen : !collapsed}
+          >
+            ☰
+          </button>
+          <h2 className="topbar__title">{getPageTitle(location.pathname)}</h2>
+          <div className="topbar__spacer" />
+        </header>
+
+        <main className="content">
+          <Outlet />
+        </main>
+      </div>
+    </div>
   );
 }
 

@@ -1,23 +1,19 @@
 .dashboard {
-  padding: 1.5rem;
+  padding: 0;
 }
 
 .dashboard__titulo {
   margin-bottom: 1.5rem;
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* Tarjetas de resumen */
 .dashboard__tarjetas {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
   margin-bottom: 2rem;
-}
-
-.dashboard__tarjetas > * {
-  min-width: 280px;
 }
 
 /* Gráficas */
@@ -41,10 +37,17 @@
 /* Responsivo: < 1024px */
 @media (max-width: 1023px) {
   .dashboard__tarjetas {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .dashboard__graficas {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Responsivo: móvil */
+@media (max-width: 560px) {
+  .dashboard__tarjetas {
     grid-template-columns: 1fr;
   }
 }
