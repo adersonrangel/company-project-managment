@@ -115,17 +115,20 @@ function EmpresasPage() {
         visible={notificacion.visible}
         onClose={cerrarNotificacion}
       />
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-        <h1>Empresas</h1>
-        <button className="primary" onClick={abrirModalCrear}>
-          Agregar Empresa
-        </button>
+      <div className="page-toolbar">
+        <h1 className="page-toolbar__title">Empresas</h1>
+        <div className="page-toolbar__actions">
+          <button className="primary" onClick={abrirModalCrear}>
+            Agregar Empresa
+          </button>
+        </div>
       </div>
 
       {empresas.length === 0 ? (
-        <p style={{ color: 'var(--color-text-muted)' }}>No hay empresas registradas.</p>
+        <p className="empty-state">No hay empresas registradas.</p>
       ) : (
-        <div style={{ backgroundColor: 'var(--color-surface)', borderRadius: 'var(--radius)', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+        <div className="table-card">
+          <div className="table-scroll">
           <table>
             <thead>
               <tr>
@@ -145,40 +148,31 @@ function EmpresasPage() {
                   <td>{empresa.direccion}</td>
                   <td>{empresa.telefono}</td>
                   <td>
-                    <span
-                      style={{
-                        display: 'inline-block',
-                        padding: '0.25rem 0.75rem',
-                        borderRadius: 'var(--radius)',
-                        fontSize: '0.85rem',
-                        fontWeight: 500,
-                        backgroundColor: empresa.estadoHabilitacion ? 'var(--color-success-bg, #d4edda)' : 'var(--color-danger-bg, #f8d7da)',
-                        color: empresa.estadoHabilitacion ? 'var(--color-success-text, #155724)' : 'var(--color-danger-text, #721c24)',
-                      }}
-                    >
+                    <span className={`badge ${empresa.estadoHabilitacion ? 'badge--on' : 'badge--off'}`}>
                       {empresa.estadoHabilitacion ? 'Habilitada' : 'Deshabilitada'}
                     </span>
                   </td>
-                  <td style={{ display: 'flex', gap: '0.5rem' }}>
-                    <button
-                      className="primary"
-                      onClick={() => navigate(`/empresas/${empresa.id}/proyectos`)}
-                    >
-                      Proyectos
-                    </button>
-                    <button
-                      onClick={(e) => abrirModalEditar(empresa, e)}
-                    >
-                      Editar
-                    </button>
-                    <button className="danger" onClick={() => solicitarEliminar(empresa.id)}>
-                      Eliminar
-                    </button>
+                  <td>
+                    <div className="row-actions">
+                      <button
+                        className="primary"
+                        onClick={() => navigate(`/empresas/${empresa.id}/proyectos`)}
+                      >
+                        Proyectos
+                      </button>
+                      <button onClick={(e) => abrirModalEditar(empresa, e)}>
+                        Editar
+                      </button>
+                      <button className="danger" onClick={() => solicitarEliminar(empresa.id)}>
+                        Eliminar
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+          </div>
         </div>
       )}
 

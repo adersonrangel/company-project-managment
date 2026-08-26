@@ -141,25 +141,25 @@ function ProyectosPage() {
         onClose={handleCerrarNotificacion}
       />
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+      <div className="page-toolbar">
         <div>
-          <button
-            onClick={() => navigate('/empresas')}
-            style={{ background: 'none', color: 'var(--color-primary)', padding: 0, fontSize: '0.875rem', marginBottom: '0.5rem' }}
-          >
+          <button className="page-back" onClick={() => navigate('/empresas')}>
             ← Volver a Empresas
           </button>
-          <h1>Proyectos de Empresa #{empresaId}</h1>
+          <h1 className="page-toolbar__title">Proyectos de Empresa #{empresaId}</h1>
         </div>
-        <button className="primary" onClick={handleAbrirCrear}>
-          Agregar Proyecto
-        </button>
+        <div className="page-toolbar__actions">
+          <button className="primary" onClick={handleAbrirCrear}>
+            Agregar Proyecto
+          </button>
+        </div>
       </div>
 
       {proyectos.length === 0 ? (
-        <p style={{ color: 'var(--color-text-muted)' }}>No hay proyectos registrados para esta empresa.</p>
+        <p className="empty-state">No hay proyectos registrados para esta empresa.</p>
       ) : (
-        <div style={{ backgroundColor: 'var(--color-surface)', borderRadius: 'var(--radius)', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+        <div className="table-card">
+          <div className="table-scroll">
           <table>
             <thead>
               <tr>
@@ -175,32 +175,25 @@ function ProyectosPage() {
                   <td>{proyecto.nombre}</td>
                   <td>{new Date(proyecto.fechaHabilitacion + 'T00:00:00').toLocaleDateString('es')}</td>
                   <td>
-                    <span
-                      style={{
-                        display: 'inline-block',
-                        padding: '0.25rem 0.75rem',
-                        borderRadius: 'var(--radius)',
-                        fontSize: '0.85rem',
-                        fontWeight: 500,
-                        backgroundColor: proyecto.estadoHabilitacion ? 'var(--color-success-bg, #d4edda)' : 'var(--color-danger-bg, #f8d7da)',
-                        color: proyecto.estadoHabilitacion ? 'var(--color-success-text, #155724)' : 'var(--color-danger-text, #721c24)',
-                      }}
-                    >
+                    <span className={`badge ${proyecto.estadoHabilitacion ? 'badge--on' : 'badge--off'}`}>
                       {proyecto.estadoHabilitacion ? 'Habilitado' : 'Deshabilitado'}
                     </span>
                   </td>
                   <td>
-                    <button onClick={() => handleAbrirEditar(proyecto)} style={{ marginRight: '0.5rem' }}>
-                      Editar
-                    </button>
-                    <button className="danger" onClick={() => solicitarEliminar(proyecto.id)}>
-                      Eliminar
-                    </button>
+                    <div className="row-actions">
+                      <button onClick={() => handleAbrirEditar(proyecto)}>
+                        Editar
+                      </button>
+                      <button className="danger" onClick={() => solicitarEliminar(proyecto.id)}>
+                        Eliminar
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+          </div>
         </div>
       )}
 
