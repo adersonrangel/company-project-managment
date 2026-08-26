@@ -6,6 +6,7 @@
   margin-bottom: 1.5rem;
   font-size: 1.5rem;
   font-weight: 700;
+  color: hsl(var(--foreground));
 }
 
 /* Tarjetas de resumen */
@@ -24,10 +25,12 @@
 }
 
 .dashboard__grafica {
-  background: var(--color-surface, #fff);
-  border-radius: 8px;
-  padding: 1rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
 }
 
 .dashboard__grafica--full {

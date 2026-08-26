@@ -4,6 +4,19 @@ import { empresaService } from '@/services/empresaService';
 import EmpresaFormModal from '@/components/EmpresaFormModal';
 import ConfirmDialog from '@/components/ConfirmDialog';
 import Notificacion from '@/components/Notificacion';
+import {
+  Button,
+  Badge,
+  TableCard,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  EmptyState,
+  Spinner,
+} from '@/components/ui';
 import type { Empresa } from '@/types/empresa';
 
 interface ModalState {
@@ -104,8 +117,8 @@ function EmpresasPage() {
     }
   };
 
-  if (loading) return <p>Cargando...</p>;
-  if (error) return <p style={{ color: 'var(--color-danger)' }}>{error}</p>;
+  if (loading) return <Spinner label="Cargando empresas" />;
+  if (error) return <p className="text-danger">{error}</p>;
 
   return (
     <div>
@@ -115,65 +128,67 @@ function EmpresasPage() {
         visible={notificacion.visible}
         onClose={cerrarNotificacion}
       />
-      <div className="page-toolbar">
-        <h1 className="page-toolbar__title">Empresas</h1>
-        <div className="page-toolbar__actions">
-          <button className="primary" onClick={abrirModalCrear}>
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+        <h1 className="text-2xl font-bold text-foreground m-0">Empresas</h1>
+        <div className="flex flex-wrap items-center gap-2">
+          <Button variant="primary" onClick={abrirModalCrear}>
             Agregar Empresa
-          </button>
+          </Button>
         </div>
       </div>
 
       {empresas.length === 0 ? (
-        <p className="empty-state">No hay empresas registradas.</p>
+        <EmptyState
+          title="No hay empresas registradas."
+          description="Crea tu primera empresa para empezar a gestionar sus proyectos."
+        />
       ) : (
-        <div className="table-card">
-          <div className="table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Dirección</th>
-                <th>Teléfono</th>
-                <th>Estado</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
+        <TableCard>
+          <Table>
+            <Thead>
+              <Tr>
+                <Th>ID</Th>
+                <Th>Nombre</Th>
+                <Th>Dirección</Th>
+                <Th>Teléfono</Th>
+                <Th>Estado</Th>
+                <Th>Acciones</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
               {empresas.map((empresa) => (
-                <tr key={empresa.id}>
-                  <td>{empresa.id}</td>
-                  <td>{empresa.nombre}</td>
-                  <td>{empresa.direccion}</td>
-                  <td>{empresa.telefono}</td>
-                  <td>
-                    <span className={`badge ${empresa.estadoHabilitacion ? 'badge--on' : 'badge--off'}`}>
+                <Tr key={empresa.id}>
+                  <Td className="text-muted-foreground tabular-nums">{empresa.id}</Td>
+                  <Td className="font-medium">{empresa.nombre}</Td>
+                  <Td>{empresa.direccion}</Td>
+                  <Td className="tabular-nums">{empresa.telefono}</Td>
+                  <Td>
+                    <Badge tone={empresa.estadoHabilitacion ? 'success' : 'danger'}>
                       {empresa.estadoHabilitacion ? 'Habilitada' : 'Deshabilitada'}
-                    </span>
-                  </td>
-                  <td>
-                    <div className="row-actions">
-                      <button
-                        className="primary"
+                    </Badge>
+                  </Td>
+                  <Td>
+                    <div className="flex flex-wrap gap-2">
+                      <Button
+                        variant="primary"
+                        size="sm"
                         onClick={() => navigate(`/empresas/${empresa.id}/proyectos`)}
                       >
                         Proyectos
-                      </button>
-                      <button onClick={(e) => abrirModalEditar(empresa, e)}>
+                      </Button>
+                      <Button variant="secondary" size="sm" onClick={(e) => abrirModalEditar(empresa, e)}>
                         Editar
-                      </button>
-                      <button className="danger" onClick={() => solicitarEliminar(empresa.id)}>
+                      </Button>
+                      <Button variant="danger" size="sm" onClick={() => solicitarEliminar(empresa.id)}>
                         Eliminar
-                      </button>
+                      </Button>
                     </div>
-                  </td>
-                </tr>
+                  </Td>
+                </Tr>
               ))}
-            </tbody>
-          </table>
-          </div>
-        </div>
+            </Tbody>
+          </Table>
+        </TableCard>
       )}
 
       <EmpresaFormModal

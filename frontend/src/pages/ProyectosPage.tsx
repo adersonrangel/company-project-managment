@@ -5,6 +5,19 @@ import type { ProyectoListResponse, ProyectoResponse } from '@/types/proyecto';
 import ProyectoFormModal from '@/components/ProyectoFormModal';
 import ConfirmDialog from '@/components/ConfirmDialog';
 import Notificacion from '@/components/Notificacion';
+import {
+  Button,
+  Badge,
+  TableCard,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  EmptyState,
+  Spinner,
+} from '@/components/ui';
 
 function ProyectosPage() {
   const { empresaId } = useParams<{ empresaId: string }>();
@@ -129,8 +142,8 @@ function ProyectosPage() {
     setNotificacion((prev) => ({ ...prev, visible: false }));
   }, []);
 
-  if (loading) return <p>Cargando...</p>;
-  if (error) return <p style={{ color: 'var(--color-danger)' }}>{error}</p>;
+  if (loading) return <Spinner label="Cargando proyectos" />;
+  if (error) return <p className="text-danger">{error}</p>;
 
   return (
     <div>
@@ -141,60 +154,66 @@ function ProyectosPage() {
         onClose={handleCerrarNotificacion}
       />
 
-      <div className="page-toolbar">
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <div>
-          <button className="page-back" onClick={() => navigate('/empresas')}>
+          <button
+            className="mb-1 inline-flex items-center bg-transparent p-0 text-sm text-primary hover:underline outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
+            onClick={() => navigate('/empresas')}
+          >
             ← Volver a Empresas
           </button>
-          <h1 className="page-toolbar__title">Proyectos de Empresa #{empresaId}</h1>
+          <h1 className="text-2xl font-bold text-foreground m-0">Proyectos de Empresa #{empresaId}</h1>
         </div>
-        <div className="page-toolbar__actions">
-          <button className="primary" onClick={handleAbrirCrear}>
+        <div className="flex flex-wrap items-center gap-2">
+          <Button variant="primary" onClick={handleAbrirCrear}>
             Agregar Proyecto
-          </button>
+          </Button>
         </div>
       </div>
 
       {proyectos.length === 0 ? (
-        <p className="empty-state">No hay proyectos registrados para esta empresa.</p>
+        <EmptyState
+          title="No hay proyectos registrados para esta empresa."
+          description="Agrega un proyecto para comenzar."
+        />
       ) : (
-        <div className="table-card">
-          <div className="table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Fecha de Habilitación</th>
-                <th>Estado</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
+        <TableCard>
+          <Table>
+            <Thead>
+              <Tr>
+                <Th>Nombre</Th>
+                <Th>Fecha de Habilitación</Th>
+                <Th>Estado</Th>
+                <Th>Acciones</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
               {proyectos.map((proyecto) => (
-                <tr key={proyecto.id}>
-                  <td>{proyecto.nombre}</td>
-                  <td>{new Date(proyecto.fechaHabilitacion + 'T00:00:00').toLocaleDateString('es')}</td>
-                  <td>
-                    <span className={`badge ${proyecto.estadoHabilitacion ? 'badge--on' : 'badge--off'}`}>
+                <Tr key={proyecto.id}>
+                  <Td className="font-medium">{proyecto.nombre}</Td>
+                  <Td className="tabular-nums">
+                    {new Date(proyecto.fechaHabilitacion + 'T00:00:00').toLocaleDateString('es')}
+                  </Td>
+                  <Td>
+                    <Badge tone={proyecto.estadoHabilitacion ? 'success' : 'danger'}>
                       {proyecto.estadoHabilitacion ? 'Habilitado' : 'Deshabilitado'}
-                    </span>
-                  </td>
-                  <td>
-                    <div className="row-actions">
-                      <button onClick={() => handleAbrirEditar(proyecto)}>
+                    </Badge>
+                  </Td>
+                  <Td>
+                    <div className="flex flex-wrap gap-2">
+                      <Button variant="secondary" size="sm" onClick={() => handleAbrirEditar(proyecto)}>
                         Editar
-                      </button>
-                      <button className="danger" onClick={() => solicitarEliminar(proyecto.id)}>
+                      </Button>
+                      <Button variant="danger" size="sm" onClick={() => solicitarEliminar(proyecto.id)}>
                         Eliminar
-                      </button>
+                      </Button>
                     </div>
-                  </td>
-                </tr>
+                  </Td>
+                </Tr>
               ))}
-            </tbody>
-          </table>
-          </div>
-        </div>
+            </Tbody>
+          </Table>
+        </TableCard>
       )}
 
       <ProyectoFormModal

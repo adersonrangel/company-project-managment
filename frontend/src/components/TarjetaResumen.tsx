@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import './TarjetaResumen.css';
+import { Card } from '@/components/ui';
 
 interface TarjetaResumenProps {
   valor: number;
@@ -9,13 +9,21 @@ interface TarjetaResumenProps {
 
 function TarjetaResumen({ valor, etiqueta, icono }: TarjetaResumenProps) {
   return (
-    <div className="tarjeta-resumen">
-      {icono && <div className="tarjeta-resumen__icono">{icono}</div>}
-      <div className="tarjeta-resumen__contenido">
-        <span className="tarjeta-resumen__valor">{valor}</span>
-        <span className="tarjeta-resumen__etiqueta">{etiqueta}</span>
+    <Card className="tarjeta-resumen flex items-center gap-4 p-5">
+      {icono && (
+        <div className="tarjeta-resumen__icono flex h-11 w-11 items-center justify-center rounded-[var(--radius-md)] bg-primary/10 text-primary text-xl">
+          {icono}
+        </div>
+      )}
+      <div className="tarjeta-resumen__contenido flex flex-col">
+        <span className="tarjeta-resumen__valor text-3xl font-bold leading-tight text-foreground tabular-nums">
+          {valor}
+        </span>
+        <span className="tarjeta-resumen__etiqueta text-sm text-muted-foreground">
+          {etiqueta}
+        </span>
       </div>
-    </div>
+    </Card>
   );
 }
 

@@ -1,16 +1,17 @@
 import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
 import type { PieLabelRenderProps } from 'recharts';
 import { calcularPorcentaje } from '@/utils/dashboardUtils';
+import { getChartColors } from '@/utils/chartTheme';
 
 interface GraficaEstadoEmpresasProps {
   habilitadas: number;
   deshabilitadas: number;
 }
 
-const COLORES = ['#22c55e', '#6b7280'];
-
 function GraficaEstadoEmpresas({ habilitadas, deshabilitadas }: GraficaEstadoEmpresasProps) {
   const total = habilitadas + deshabilitadas;
+  const colores = getChartColors();
+  const COLORES = [colores.chart2, colores.chart3];
 
   if (total === 0) {
     return (
