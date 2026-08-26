@@ -3,12 +3,12 @@ using System;
 using CompanyProjectManagement.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace CompanyProjectManagement.Infrastructure.PostgreSQL.Migrations
+namespace CompanyProjectManagement.Infrastructure.SqlServer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -18,96 +18,81 @@ namespace CompanyProjectManagement.Infrastructure.PostgreSQL.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "10.0.10")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("CompanyProjectManagement.Domain.Entities.Empresa", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Direccion")
                         .IsRequired()
                         .HasMaxLength(300)
-                        .HasColumnType("character varying(300)")
-                        .HasColumnName("direccion");
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<bool>("EstadoHabilitacion")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(true)
-                        .HasColumnName("estado_habilitacion");
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.Property<string>("Identificacion")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("identificacion");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("character varying(200)")
-                        .HasColumnName("nombre");
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Telefono")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("character varying(20)")
-                        .HasColumnName("telefono");
+                        .HasColumnType("nvarchar(20)");
 
-                    b.HasKey("Id")
-                        .HasName("pk_empresas");
+                    b.HasKey("Id");
 
                     b.HasIndex("Identificacion")
-                        .IsUnique()
-                        .HasDatabaseName("ix_empresas_identificacion");
+                        .IsUnique();
 
-                    b.ToTable("empresas", (string)null);
+                    b.ToTable("Empresas");
                 });
 
             modelBuilder.Entity("CompanyProjectManagement.Domain.Entities.Proyecto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("EmpresaId")
-                        .HasColumnType("integer")
-                        .HasColumnName("empresa_id");
+                        .HasColumnType("int");
 
                     b.Property<bool>("EstadoHabilitacion")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(true)
-                        .HasColumnName("estado_habilitacion");
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.Property<DateOnly>("FechaHabilitacion")
-                        .HasColumnType("date")
-                        .HasColumnName("fecha_habilitacion");
+                        .HasColumnType("date");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("character varying(200)")
-                        .HasColumnName("nombre");
+                        .HasColumnType("nvarchar(200)");
 
-                    b.HasKey("Id")
-                        .HasName("pk_proyectos");
+                    b.HasKey("Id");
 
                     b.HasIndex("EmpresaId", "Nombre")
-                        .IsUnique()
-                        .HasDatabaseName("ix_proyectos_empresa_id_nombre");
+                        .IsUnique();
 
-                    b.ToTable("proyectos", (string)null);
+                    b.ToTable("Proyectos");
                 });
 
             modelBuilder.Entity("CompanyProjectManagement.Domain.Entities.Proyecto", b =>
@@ -116,8 +101,7 @@ namespace CompanyProjectManagement.Infrastructure.PostgreSQL.Migrations
                         .WithMany("Proyectos")
                         .HasForeignKey("EmpresaId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired()
-                        .HasConstraintName("fk_proyectos_empresas_empresa_id");
+                        .IsRequired();
 
                     b.Navigation("Empresa");
                 });
