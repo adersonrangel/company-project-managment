@@ -1,3 +1,4 @@
+using CompanyProjectManagement.Infrastructure.Providers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
@@ -6,8 +7,6 @@ namespace CompanyProjectManagement.Infrastructure.Data;
 
 public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
 {
-    private static readonly string[] ValidProviders = ["SqlServer", "PostgreSQL"];
-
     public ApplicationDbContext CreateDbContext(string[] args)
     {
         var configuration = BuildConfiguration();
@@ -15,26 +14,12 @@ public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<Applicatio
         var connectionString = configuration.GetConnectionString(provider)
             ?? throw new InvalidOperationException($"Connection string '{provider}' not found in configuration.");
 
-        var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-        var assemblyName = typeof(ApplicationDbContext).Assembly.FullName;
+        var registrar = DatabaseProviderRegistry.Find(provider)
+            ?? throw new InvalidOperationException(
+                $"Unsupported database provider: '{provider}'. Valid providers: {string.Join(", ", DatabaseProviderRegistry.SupportedProviders)}");
 
-        switch (provider)
-        {
-            case "PostgreSQL":
-                optionsBuilder.UseNpgsql(connectionString, npgsql =>
-                {
-                    npgsql.MigrationsAssembly(assemblyName);
-                    
-                })
-                .UseSnakeCaseNamingConvention();
-                break;
-            default: // SqlServer
-                optionsBuilder.UseSqlServer(connectionString, sql =>
-                {
-                    sql.MigrationsAssembly(assemblyName);
-                });
-                break;
-        }
+        var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+        registrar.Configure(optionsBuilder, connectionString);
 
         return new ApplicationDbContext(optionsBuilder.Options);
     }
@@ -58,12 +43,12 @@ public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<Applicatio
         if (providerArg is not null)
         {
             var value = providerArg.Split('=', 2)[1];
-            return ValidProviders.Contains(value) ? value : "SqlServer";
+            return DatabaseProviderRegistry.Find(value) is not null ? value : "SqlServer";
         }
 
         // Fall back to configuration
         var configProvider = configuration["DatabaseProvider"];
-        if (configProvider is not null && ValidProviders.Contains(configProvider))
+        if (configProvider is not null && DatabaseProviderRegistry.Find(configProvider) is not null)
         {
             return configProvider;
         }

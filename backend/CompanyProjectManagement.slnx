@@ -4,6 +4,9 @@
     <Project Path="src/CompanyProjectManagement.Application/CompanyProjectManagement.Application.csproj" />
     <Project Path="src/CompanyProjectManagement.Domain/CompanyProjectManagement.Domain.csproj" />
     <Project Path="src/CompanyProjectManagement.Infrastructure/CompanyProjectManagement.Infrastructure.csproj" />
+    <Project Path="src/CompanyProjectManagement.Infrastructure.Common/CompanyProjectManagement.Infrastructure.Common.csproj" />
+    <Project Path="src/CompanyProjectManagement.Infrastructure.PostgreSQL/CompanyProjectManagement.Infrastructure.PostgreSQL.csproj" />
+    <Project Path="src/CompanyProjectManagement.Infrastructure.SqlServer/CompanyProjectManagement.Infrastructure.SqlServer.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/CompanyProjectManagement.Tests/CompanyProjectManagement.Tests.csproj" />
