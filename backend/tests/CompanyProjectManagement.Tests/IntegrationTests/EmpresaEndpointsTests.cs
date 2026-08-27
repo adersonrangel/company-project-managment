@@ -19,7 +19,7 @@ public class EmpresaEndpointsTests : IClassFixture<CustomWebApplicationFactory>
 
     public EmpresaEndpointsTests(CustomWebApplicationFactory factory)
     {
-        _client = factory.CreateClient();
+        _client = factory.CreateAuthenticatedClient();
     }
 
     #region Helpers

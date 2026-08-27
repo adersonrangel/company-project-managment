@@ -26,7 +26,7 @@ public class EmpresaListadoConsistenciaPropertyTests : IDisposable
     public EmpresaListadoConsistenciaPropertyTests()
     {
         _factory = new CustomWebApplicationFactory();
-        _client = _factory.CreateClient();
+        _client = _factory.CreateAuthenticatedClient();
     }
 
     public void Dispose()

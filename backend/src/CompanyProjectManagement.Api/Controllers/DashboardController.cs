@@ -1,9 +1,11 @@
 namespace CompanyProjectManagement.Api.Controllers;
 
 using CompanyProjectManagement.Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
+[Authorize]
 [Route("api/dashboard")]
 public class DashboardController : ControllerBase
 {

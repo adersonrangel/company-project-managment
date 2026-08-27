@@ -34,7 +34,7 @@ public class EmpresaValidationPropertyTests
             invalidNombre =>
             {
                 using var factory = new CustomWebApplicationFactory();
-                using var client = factory.CreateClient();
+                using var client = factory.CreateAuthenticatedClient();
 
                 // Get initial count of empresas
                 var initialList = client.GetFromJsonAsync<List<EmpresaListResponse>>("/api/empresas")
@@ -68,7 +68,7 @@ public class EmpresaValidationPropertyTests
             invalidIdentificacion =>
             {
                 using var factory = new CustomWebApplicationFactory();
-                using var client = factory.CreateClient();
+                using var client = factory.CreateAuthenticatedClient();
 
                 // Get initial count of empresas
                 var initialList = client.GetFromJsonAsync<List<EmpresaListResponse>>("/api/empresas")
@@ -102,7 +102,7 @@ public class EmpresaValidationPropertyTests
             invalidDireccion =>
             {
                 using var factory = new CustomWebApplicationFactory();
-                using var client = factory.CreateClient();
+                using var client = factory.CreateAuthenticatedClient();
 
                 // Get initial count of empresas
                 var initialList = client.GetFromJsonAsync<List<EmpresaListResponse>>("/api/empresas")
@@ -137,7 +137,7 @@ public class EmpresaValidationPropertyTests
         return Prop.ForAll(invalidRequestArb, request =>
         {
             using var factory = new CustomWebApplicationFactory();
-            using var client = factory.CreateClient();
+            using var client = factory.CreateAuthenticatedClient();
 
             // Get initial count of empresas
             var initialList = client.GetFromJsonAsync<List<EmpresaListResponse>>("/api/empresas")

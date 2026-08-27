@@ -12,6 +12,7 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Empresa> Empresas => Set<Empresa>();
     public DbSet<Proyecto> Proyectos => Set<Proyecto>();
+    public DbSet<Usuario> Usuarios => Set<Usuario>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

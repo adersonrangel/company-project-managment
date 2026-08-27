@@ -27,7 +27,7 @@ public class ProyectoUnicidadNombrePropertyTests : IDisposable
     public ProyectoUnicidadNombrePropertyTests()
     {
         _factory = new CustomWebApplicationFactory();
-        _client = _factory.CreateClient();
+        _client = _factory.CreateAuthenticatedClient();
     }
 
     public void Dispose()

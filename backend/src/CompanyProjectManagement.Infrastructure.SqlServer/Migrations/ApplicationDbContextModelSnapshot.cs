@@ -95,6 +95,44 @@ namespace CompanyProjectManagement.Infrastructure.SqlServer.Migrations
                     b.ToTable("Proyectos");
                 });
 
+            modelBuilder.Entity("CompanyProjectManagement.Domain.Entities.Usuario", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordSalt")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Username")
+                        .IsUnique();
+
+                    b.ToTable("Usuarios");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            PasswordHash = "AONYG/t/ztweZl2M0DUbwEUpBcfeFWBmukI4PpIvpPU=",
+                            PasswordSalt = "QWRtaW5TZWVkU2FsdDAxIQ==",
+                            Username = "admin"
+                        });
+                });
+
             modelBuilder.Entity("CompanyProjectManagement.Domain.Entities.Proyecto", b =>
                 {
                     b.HasOne("CompanyProjectManagement.Domain.Entities.Empresa", "Empresa")

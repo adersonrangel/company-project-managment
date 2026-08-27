@@ -1,5 +1,23 @@
 @CompanyProjectManagement.Api_HostAddress = http://localhost:5113
 
+### Token JWT obtenido tras el login. Reemplázalo por el valor devuelto en /api/auth/login.
+@token = REEMPLAZAR_CON_TOKEN
+
+### ===========================
+### AUTH
+### ===========================
+
+### Login (obtener token JWT)
+POST {{CompanyProjectManagement.Api_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "Admin123!"
+}
+
+###
+
 ### ===========================
 ### DASHBOARD
 ### ===========================
@@ -7,6 +25,7 @@
 ### Obtener Estadísticas del Dashboard
 GET {{CompanyProjectManagement.Api_HostAddress}}/api/dashboard/estadisticas
 Accept: application/json
+Authorization: Bearer {{token}}
 
 ###
 
@@ -17,6 +36,7 @@ Accept: application/json
 ### Crear Empresa
 POST {{CompanyProjectManagement.Api_HostAddress}}/api/empresas
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "nombre": "Empresa Demo",
@@ -31,18 +51,21 @@ Content-Type: application/json
 ### Listar Empresas
 GET {{CompanyProjectManagement.Api_HostAddress}}/api/empresas
 Accept: application/json
+Authorization: Bearer {{token}}
 
 ###
 
 ### Obtener Empresa por Id
 GET {{CompanyProjectManagement.Api_HostAddress}}/api/empresas/1
 Accept: application/json
+Authorization: Bearer {{token}}
 
 ###
 
 ### Actualizar Empresa
 PUT {{CompanyProjectManagement.Api_HostAddress}}/api/empresas/1
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "nombre": "Empresa Demo Actualizada",
@@ -56,6 +79,7 @@ Content-Type: application/json
 
 ### Eliminar Empresa
 DELETE {{CompanyProjectManagement.Api_HostAddress}}/api/empresas/1
+Authorization: Bearer {{token}}
 
 ###
 
@@ -66,6 +90,7 @@ DELETE {{CompanyProjectManagement.Api_HostAddress}}/api/empresas/1
 ### Crear Proyecto
 POST {{CompanyProjectManagement.Api_HostAddress}}/api/empresas/1/proyectos
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "nombre": "Proyecto Alpha",
@@ -78,18 +103,21 @@ Content-Type: application/json
 ### Listar Proyectos de una Empresa
 GET {{CompanyProjectManagement.Api_HostAddress}}/api/empresas/1/proyectos
 Accept: application/json
+Authorization: Bearer {{token}}
 
 ###
 
 ### Obtener Proyecto por Id
 GET {{CompanyProjectManagement.Api_HostAddress}}/api/empresas/1/proyectos/1
 Accept: application/json
+Authorization: Bearer {{token}}
 
 ###
 
 ### Actualizar Proyecto
 PUT {{CompanyProjectManagement.Api_HostAddress}}/api/empresas/1/proyectos/1
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "nombre": "Proyecto Alpha v2",
@@ -101,5 +129,6 @@ Content-Type: application/json
 
 ### Eliminar Proyecto
 DELETE {{CompanyProjectManagement.Api_HostAddress}}/api/empresas/1/proyectos/1
+Authorization: Bearer {{token}}
 
 ###

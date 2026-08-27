@@ -27,7 +27,7 @@ public class EmpresaIntegridadReferencialPropertyTests : IDisposable
     public EmpresaIntegridadReferencialPropertyTests()
     {
         _factory = new CustomWebApplicationFactory();
-        _client = _factory.CreateClient();
+        _client = _factory.CreateAuthenticatedClient();
     }
 
     public void Dispose()

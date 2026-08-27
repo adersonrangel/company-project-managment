@@ -1,0 +1,759 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Crear la entidad `Usuario`, la interfaz `IUsuarioRepository` y la excepción `InvalidCredentialsException`": [
+      {
+        "executionId": "6f85a785-c9f4-4a7e-8124-b068ecfa122c",
+        "chatSessionId": "sess_d9690edd-e3a0-4bf4-9766-5a06b5fe9bcb",
+        "timestamp": 1787841471954
+      },
+      {
+        "executionId": "6f85a785-c9f4-4a7e-8124-b068ecfa122c",
+        "chatSessionId": "sess_d9690edd-e3a0-4bf4-9766-5a06b5fe9bcb",
+        "timestamp": 1787841782281
+      }
+    ],
+    "1. Capa de dominio: entidad, repositorio y excepción": [
+      {
+        "executionId": "6f85a785-c9f4-4a7e-8124-b068ecfa122c",
+        "chatSessionId": "sess_d9690edd-e3a0-4bf4-9766-5a06b5fe9bcb",
+        "timestamp": 1787841783782
+      }
+    ],
+    "2.1 Crear `JwtOptions`, los DTOs `LoginRequest`/`LoginResponse` y `LoginRequestValidator`": [
+      {
+        "executionId": "88da5e3b-c315-4032-89eb-5b38c0af5f79",
+        "chatSessionId": "sess_04efee32-de70-4bdc-94c0-028e550f1468",
+        "timestamp": 1787841851364
+      },
+      {
+        "executionId": "88da5e3b-c315-4032-89eb-5b38c0af5f79",
+        "chatSessionId": "sess_04efee32-de70-4bdc-94c0-028e550f1468",
+        "timestamp": 1787842033419
+      }
+    ],
+    "2. Capa de aplicación: opciones, DTOs y validador": [
+      {
+        "executionId": "88da5e3b-c315-4032-89eb-5b38c0af5f79",
+        "chatSessionId": "sess_04efee32-de70-4bdc-94c0-028e550f1468",
+        "timestamp": 1787842034582
+      }
+    ],
+    "2.2 Escribir prueba de propiedad para `LoginRequestValidator`": [
+      {
+        "executionId": "cd1117dc-ad4e-437f-8789-b93332f01fc3",
+        "chatSessionId": "sess_c0889a30-ddfa-48c8-9479-48bc7fd7e0d6",
+        "timestamp": 1787842105318
+      },
+      {
+        "executionId": "cd1117dc-ad4e-437f-8789-b93332f01fc3",
+        "chatSessionId": "sess_c0889a30-ddfa-48c8-9479-48bc7fd7e0d6",
+        "timestamp": 1787842358435
+      }
+    ],
+    "3.1 Implementar `IPasswordHasher` / `PasswordHasher` (PBKDF2)": [
+      {
+        "executionId": "beffbbf6-428b-4a0f-8ef3-a8480002d0f0",
+        "chatSessionId": "sess_757c27fa-fa61-43a6-87fd-f01f0a462ec7",
+        "timestamp": 1787842406789
+      },
+      {
+        "executionId": "beffbbf6-428b-4a0f-8ef3-a8480002d0f0",
+        "chatSessionId": "sess_757c27fa-fa61-43a6-87fd-f01f0a462ec7",
+        "timestamp": 1787842554488
+      }
+    ],
+    "3.2 Escribir prueba de propiedad: el hash no expone la contraseña": [
+      {
+        "executionId": "beffbbf6-428b-4a0f-8ef3-a8480002d0f0",
+        "chatSessionId": "sess_757c27fa-fa61-43a6-87fd-f01f0a462ec7",
+        "timestamp": 1787842560979
+      },
+      {
+        "executionId": "beffbbf6-428b-4a0f-8ef3-a8480002d0f0",
+        "chatSessionId": "sess_757c27fa-fa61-43a6-87fd-f01f0a462ec7",
+        "timestamp": 1787843356705
+      }
+    ],
+    "3.3 Escribir prueba de propiedad: round-trip de verificación de contraseña": [
+      {
+        "executionId": "beffbbf6-428b-4a0f-8ef3-a8480002d0f0",
+        "chatSessionId": "sess_757c27fa-fa61-43a6-87fd-f01f0a462ec7",
+        "timestamp": 1787842561927
+      },
+      {
+        "executionId": "beffbbf6-428b-4a0f-8ef3-a8480002d0f0",
+        "chatSessionId": "sess_757c27fa-fa61-43a6-87fd-f01f0a462ec7",
+        "timestamp": 1787843358236
+      }
+    ],
+    "3. Capa de aplicación: hashing de contraseñas": [
+      {
+        "executionId": "beffbbf6-428b-4a0f-8ef3-a8480002d0f0",
+        "chatSessionId": "sess_757c27fa-fa61-43a6-87fd-f01f0a462ec7",
+        "timestamp": 1787843373525
+      }
+    ],
+    "4.1 Implementar `ITokenService` / `JwtTokenService`": [
+      {
+        "executionId": "44725acc-66a9-4bab-ba80-e15516b76b6e",
+        "chatSessionId": "sess_c62dc4f4-07b2-4833-ac72-06cc3acc28f0",
+        "timestamp": 1787843721243
+      },
+      {
+        "executionId": "44725acc-66a9-4bab-ba80-e15516b76b6e",
+        "chatSessionId": "sess_c62dc4f4-07b2-4833-ac72-06cc3acc28f0",
+        "timestamp": 1787844965410
+      }
+    ],
+    "4.2 Escribir prueba de propiedad: round-trip de firma del token": [
+      {
+        "executionId": "44725acc-66a9-4bab-ba80-e15516b76b6e",
+        "chatSessionId": "sess_c62dc4f4-07b2-4833-ac72-06cc3acc28f0",
+        "timestamp": 1787844977117
+      }
+    ],
+    "4.3 Escribir prueba de propiedad: vigencia del token dentro de la tolerancia": [
+      {
+        "executionId": "44725acc-66a9-4bab-ba80-e15516b76b6e",
+        "chatSessionId": "sess_c62dc4f4-07b2-4833-ac72-06cc3acc28f0",
+        "timestamp": 1787844978713
+      },
+      {
+        "executionId": "44725acc-66a9-4bab-ba80-e15516b76b6e",
+        "chatSessionId": "sess_c62dc4f4-07b2-4833-ac72-06cc3acc28f0",
+        "timestamp": 1787845596906
+      }
+    ],
+    "4.4 Escribir prueba de propiedad: round-trip de claims": [
+      {
+        "executionId": "44725acc-66a9-4bab-ba80-e15516b76b6e",
+        "chatSessionId": "sess_c62dc4f4-07b2-4833-ac72-06cc3acc28f0",
+        "timestamp": 1787844980906
+      },
+      {
+        "executionId": "44725acc-66a9-4bab-ba80-e15516b76b6e",
+        "chatSessionId": "sess_c62dc4f4-07b2-4833-ac72-06cc3acc28f0",
+        "timestamp": 1787845599033
+      }
+    ],
+    "4.5 Escribir prueba de propiedad: datos de usuario vacíos impiden la emisión": [
+      {
+        "executionId": "44725acc-66a9-4bab-ba80-e15516b76b6e",
+        "chatSessionId": "sess_c62dc4f4-07b2-4833-ac72-06cc3acc28f0",
+        "timestamp": 1787844983685
+      },
+      {
+        "executionId": "44725acc-66a9-4bab-ba80-e15516b76b6e",
+        "chatSessionId": "sess_c62dc4f4-07b2-4833-ac72-06cc3acc28f0",
+        "timestamp": 1787845601359
+      }
+    ],
+    "4.6 Escribir prueba de ejemplo: fallo de firma no emite token": [
+      {
+        "executionId": "44725acc-66a9-4bab-ba80-e15516b76b6e",
+        "chatSessionId": "sess_c62dc4f4-07b2-4833-ac72-06cc3acc28f0",
+        "timestamp": 1787844984591
+      },
+      {
+        "executionId": "44725acc-66a9-4bab-ba80-e15516b76b6e",
+        "chatSessionId": "sess_c62dc4f4-07b2-4833-ac72-06cc3acc28f0",
+        "timestamp": 1787845603110
+      }
+    ],
+    "4. Capa de aplicación: servicio de token JWT": [
+      {
+        "executionId": "44725acc-66a9-4bab-ba80-e15516b76b6e",
+        "chatSessionId": "sess_c62dc4f4-07b2-4833-ac72-06cc3acc28f0",
+        "timestamp": 1787845614328
+      }
+    ],
+    "5.1 Implementar `IAuthService` / `AuthService`": [
+      {
+        "executionId": "ce1b2cfe-7cfa-48a8-a492-e7e3a478785a",
+        "chatSessionId": "sess_808cffc5-b24a-4ffc-9c89-cb7a9ce46ac4",
+        "timestamp": 1787845911313
+      },
+      {
+        "executionId": "ce1b2cfe-7cfa-48a8-a492-e7e3a478785a",
+        "chatSessionId": "sess_808cffc5-b24a-4ffc-9c89-cb7a9ce46ac4",
+        "timestamp": 1787846187701
+      }
+    ],
+    "5.2 Escribir prueba de propiedad: credenciales inválidas producen 401": [
+      {
+        "executionId": "ce1b2cfe-7cfa-48a8-a492-e7e3a478785a",
+        "chatSessionId": "sess_808cffc5-b24a-4ffc-9c89-cb7a9ce46ac4",
+        "timestamp": 1787846193590
+      },
+      {
+        "executionId": "ce1b2cfe-7cfa-48a8-a492-e7e3a478785a",
+        "chatSessionId": "sess_808cffc5-b24a-4ffc-9c89-cb7a9ce46ac4",
+        "timestamp": 1787847534527
+      }
+    ],
+    "5.3 Escribir prueba de propiedad: mensaje de credenciales indistinguible": [
+      {
+        "executionId": "ce1b2cfe-7cfa-48a8-a492-e7e3a478785a",
+        "chatSessionId": "sess_808cffc5-b24a-4ffc-9c89-cb7a9ce46ac4",
+        "timestamp": 1787846194811
+      },
+      {
+        "executionId": "ce1b2cfe-7cfa-48a8-a492-e7e3a478785a",
+        "chatSessionId": "sess_808cffc5-b24a-4ffc-9c89-cb7a9ce46ac4",
+        "timestamp": 1787847535294
+      }
+    ],
+    "5. Capa de aplicación: servicio de autenticación": [
+      {
+        "executionId": "ce1b2cfe-7cfa-48a8-a492-e7e3a478785a",
+        "chatSessionId": "sess_808cffc5-b24a-4ffc-9c89-cb7a9ce46ac4",
+        "timestamp": 1787847549022
+      }
+    ],
+    "6. Checkpoint - Ejecutar pruebas de la capa de aplicación": [
+      {
+        "executionId": "dcce567e-8bc4-46b2-9f3b-e30f1870c434",
+        "chatSessionId": "sess_376388e1-64dd-46c5-b463-6156d24fd879",
+        "timestamp": 1787847596685
+      },
+      {
+        "executionId": "dcce567e-8bc4-46b2-9f3b-e30f1870c434",
+        "chatSessionId": "sess_376388e1-64dd-46c5-b463-6156d24fd879",
+        "timestamp": 1787849007966
+      }
+    ],
+    "7.1 Registrar `Usuario` en el `ApplicationDbContext` y crear su configuración EF": [
+      {
+        "executionId": "8e95bfbc-8c37-4095-a2d9-2db33925d935",
+        "chatSessionId": "sess_d1094eb6-6be2-43f2-b5a0-4cc50d5d2bb2",
+        "timestamp": 1787849096413
+      },
+      {
+        "executionId": "8e95bfbc-8c37-4095-a2d9-2db33925d935",
+        "chatSessionId": "sess_d1094eb6-6be2-43f2-b5a0-4cc50d5d2bb2",
+        "timestamp": 1787849452969
+      },
+      {
+        "executionId": "548608d1-d0b3-4d96-afda-aa1cb04e0643",
+        "chatSessionId": "sess_f4b51bfd-3349-46ac-ac46-8b7945bb34c1",
+        "timestamp": 1787866235677
+      },
+      {
+        "executionId": "548608d1-d0b3-4d96-afda-aa1cb04e0643",
+        "chatSessionId": "sess_f4b51bfd-3349-46ac-ac46-8b7945bb34c1",
+        "timestamp": 1787868077102
+      }
+    ],
+    "7.2 Implementar `UsuarioRepository`": [
+      {
+        "executionId": "8e95bfbc-8c37-4095-a2d9-2db33925d935",
+        "chatSessionId": "sess_d1094eb6-6be2-43f2-b5a0-4cc50d5d2bb2",
+        "timestamp": 1787849464025
+      },
+      {
+        "executionId": "8e95bfbc-8c37-4095-a2d9-2db33925d935",
+        "chatSessionId": "sess_d1094eb6-6be2-43f2-b5a0-4cc50d5d2bb2",
+        "timestamp": 1787849826658
+      }
+    ],
+    "7.4 Generar migración EF y seed del usuario administrador para SqlServer": [
+      {
+        "executionId": "8e95bfbc-8c37-4095-a2d9-2db33925d935",
+        "chatSessionId": "sess_d1094eb6-6be2-43f2-b5a0-4cc50d5d2bb2",
+        "timestamp": 1787849836143
+      },
+      {
+        "executionId": "8e95bfbc-8c37-4095-a2d9-2db33925d935",
+        "chatSessionId": "sess_d1094eb6-6be2-43f2-b5a0-4cc50d5d2bb2",
+        "timestamp": 1787850376505
+      },
+      {
+        "executionId": "548608d1-d0b3-4d96-afda-aa1cb04e0643",
+        "chatSessionId": "sess_f4b51bfd-3349-46ac-ac46-8b7945bb34c1",
+        "timestamp": 1787866242524
+      },
+      {
+        "executionId": "548608d1-d0b3-4d96-afda-aa1cb04e0643",
+        "chatSessionId": "sess_f4b51bfd-3349-46ac-ac46-8b7945bb34c1",
+        "timestamp": 1787868079526
+      }
+    ],
+    "7.5 Generar migración EF y seed del usuario administrador para PostgreSQL": [
+      {
+        "executionId": "8e95bfbc-8c37-4095-a2d9-2db33925d935",
+        "chatSessionId": "sess_d1094eb6-6be2-43f2-b5a0-4cc50d5d2bb2",
+        "timestamp": 1787849837358
+      },
+      {
+        "executionId": "8e95bfbc-8c37-4095-a2d9-2db33925d935",
+        "chatSessionId": "sess_d1094eb6-6be2-43f2-b5a0-4cc50d5d2bb2",
+        "timestamp": 1787850790154
+      },
+      {
+        "executionId": "548608d1-d0b3-4d96-afda-aa1cb04e0643",
+        "chatSessionId": "sess_f4b51bfd-3349-46ac-ac46-8b7945bb34c1",
+        "timestamp": 1787866243395
+      },
+      {
+        "executionId": "548608d1-d0b3-4d96-afda-aa1cb04e0643",
+        "chatSessionId": "sess_f4b51bfd-3349-46ac-ac46-8b7945bb34c1",
+        "timestamp": 1787868081502
+      }
+    ],
+    "7.3 Escribir prueba de propiedad: rango de username en persistencia": [
+      {
+        "executionId": "347aa5b4-34bd-412f-b3ea-15b9fe8f7ea1",
+        "chatSessionId": "sess_7082666d-73cf-4d69-9131-50f891f7ccdf",
+        "timestamp": 1787850836494
+      },
+      {
+        "executionId": "347aa5b4-34bd-412f-b3ea-15b9fe8f7ea1",
+        "chatSessionId": "sess_7082666d-73cf-4d69-9131-50f891f7ccdf",
+        "timestamp": 1787851154807
+      }
+    ],
+    "7. Capa de infraestructura: persistencia de `Usuario` (ambos proveedores)": [
+      {
+        "executionId": "347aa5b4-34bd-412f-b3ea-15b9fe8f7ea1",
+        "chatSessionId": "sess_7082666d-73cf-4d69-9131-50f891f7ccdf",
+        "timestamp": 1787851156837
+      }
+    ],
+    "8.1 Añadir el paquete JWT Bearer y la sección `Jwt` de configuración": [
+      {
+        "executionId": "92e290f3-1d2c-4ff7-acff-b272562150a0",
+        "chatSessionId": "sess_b82d78fc-1f78-47c3-a058-ce1a56932c2a",
+        "timestamp": 1787853546515
+      },
+      {
+        "executionId": "92e290f3-1d2c-4ff7-acff-b272562150a0",
+        "chatSessionId": "sess_b82d78fc-1f78-47c3-a058-ce1a56932c2a",
+        "timestamp": 1787854117547
+      },
+      {
+        "executionId": "548608d1-d0b3-4d96-afda-aa1cb04e0643",
+        "chatSessionId": "sess_f4b51bfd-3349-46ac-ac46-8b7945bb34c1",
+        "timestamp": 1787866236855
+      },
+      {
+        "executionId": "548608d1-d0b3-4d96-afda-aa1cb04e0643",
+        "chatSessionId": "sess_f4b51bfd-3349-46ac-ac46-8b7945bb34c1",
+        "timestamp": 1787868082547
+      }
+    ],
+    "8.2 Crear `AuthController`": [
+      {
+        "executionId": "92e290f3-1d2c-4ff7-acff-b272562150a0",
+        "chatSessionId": "sess_b82d78fc-1f78-47c3-a058-ce1a56932c2a",
+        "timestamp": 1787853547307
+      },
+      {
+        "executionId": "92e290f3-1d2c-4ff7-acff-b272562150a0",
+        "chatSessionId": "sess_b82d78fc-1f78-47c3-a058-ce1a56932c2a",
+        "timestamp": 1787854118055
+      }
+    ],
+    "8.3 Configurar autenticación JWT y fail-fast en `Program.cs`": [
+      {
+        "executionId": "92e290f3-1d2c-4ff7-acff-b272562150a0",
+        "chatSessionId": "sess_b82d78fc-1f78-47c3-a058-ce1a56932c2a",
+        "timestamp": 1787854145820
+      },
+      {
+        "executionId": "92e290f3-1d2c-4ff7-acff-b272562150a0",
+        "chatSessionId": "sess_b82d78fc-1f78-47c3-a058-ce1a56932c2a",
+        "timestamp": 1787854659394
+      },
+      {
+        "executionId": "548608d1-d0b3-4d96-afda-aa1cb04e0643",
+        "chatSessionId": "sess_f4b51bfd-3349-46ac-ac46-8b7945bb34c1",
+        "timestamp": 1787866237879
+      },
+      {
+        "executionId": "548608d1-d0b3-4d96-afda-aa1cb04e0643",
+        "chatSessionId": "sess_f4b51bfd-3349-46ac-ac46-8b7945bb34c1",
+        "timestamp": 1787868084247
+      }
+    ],
+    "8.5 Proteger los controladores Dashboard, Empresa y Proyecto": [
+      {
+        "executionId": "92e290f3-1d2c-4ff7-acff-b272562150a0",
+        "chatSessionId": "sess_b82d78fc-1f78-47c3-a058-ce1a56932c2a",
+        "timestamp": 1787854147660
+      },
+      {
+        "executionId": "92e290f3-1d2c-4ff7-acff-b272562150a0",
+        "chatSessionId": "sess_b82d78fc-1f78-47c3-a058-ce1a56932c2a",
+        "timestamp": 1787854660615
+      },
+      {
+        "executionId": "548608d1-d0b3-4d96-afda-aa1cb04e0643",
+        "chatSessionId": "sess_f4b51bfd-3349-46ac-ac46-8b7945bb34c1",
+        "timestamp": 1787866241122
+      },
+      {
+        "executionId": "548608d1-d0b3-4d96-afda-aa1cb04e0643",
+        "chatSessionId": "sess_f4b51bfd-3349-46ac-ac46-8b7945bb34c1",
+        "timestamp": 1787868086725
+      }
+    ],
+    "8.4 Extender `GlobalExceptionMiddleware` y uniformar el 401 con `JwtBearerEvents`": [
+      {
+        "executionId": "92e290f3-1d2c-4ff7-acff-b272562150a0",
+        "chatSessionId": "sess_b82d78fc-1f78-47c3-a058-ce1a56932c2a",
+        "timestamp": 1787854670624
+      },
+      {
+        "executionId": "92e290f3-1d2c-4ff7-acff-b272562150a0",
+        "chatSessionId": "sess_b82d78fc-1f78-47c3-a058-ce1a56932c2a",
+        "timestamp": 1787854872148
+      },
+      {
+        "executionId": "548608d1-d0b3-4d96-afda-aa1cb04e0643",
+        "chatSessionId": "sess_f4b51bfd-3349-46ac-ac46-8b7945bb34c1",
+        "timestamp": 1787866238959
+      },
+      {
+        "executionId": "548608d1-d0b3-4d96-afda-aa1cb04e0643",
+        "chatSessionId": "sess_f4b51bfd-3349-46ac-ac46-8b7945bb34c1",
+        "timestamp": 1787868085728
+      }
+    ],
+    "8. Capa Api: paquete, controlador, configuración JWT y protección de endpoints": [
+      {
+        "executionId": "92e290f3-1d2c-4ff7-acff-b272562150a0",
+        "chatSessionId": "sess_b82d78fc-1f78-47c3-a058-ce1a56932c2a",
+        "timestamp": 1787854873875
+      }
+    ],
+    "9.1 Escribir pruebas de integración del pipeline de autenticación con `WebApplicationFactory`": [
+      {
+        "executionId": "eb61f5bb-687e-4df5-bf9d-f68cf21331fd",
+        "chatSessionId": "sess_522c61f5-6551-496a-86be-4838c51cf356",
+        "timestamp": 1787854987119
+      },
+      {
+        "executionId": "eb61f5bb-687e-4df5-bf9d-f68cf21331fd",
+        "chatSessionId": "sess_522c61f5-6551-496a-86be-4838c51cf356",
+        "timestamp": 1787858476339
+      }
+    ],
+    "9.2 Escribir pruebas de integración del `UsuarioRepository`": [
+      {
+        "executionId": "eb61f5bb-687e-4df5-bf9d-f68cf21331fd",
+        "chatSessionId": "sess_522c61f5-6551-496a-86be-4838c51cf356",
+        "timestamp": 1787854995310
+      },
+      {
+        "executionId": "eb61f5bb-687e-4df5-bf9d-f68cf21331fd",
+        "chatSessionId": "sess_522c61f5-6551-496a-86be-4838c51cf356",
+        "timestamp": 1787858477929
+      }
+    ],
+    "9.3 Escribir pruebas de arranque/configuración (smoke)": [
+      {
+        "executionId": "eb61f5bb-687e-4df5-bf9d-f68cf21331fd",
+        "chatSessionId": "sess_522c61f5-6551-496a-86be-4838c51cf356",
+        "timestamp": 1787854996781
+      },
+      {
+        "executionId": "eb61f5bb-687e-4df5-bf9d-f68cf21331fd",
+        "chatSessionId": "sess_522c61f5-6551-496a-86be-4838c51cf356",
+        "timestamp": 1787858479915
+      }
+    ],
+    "9. Pruebas de integración y arranque del backend": [
+      {
+        "executionId": "eb61f5bb-687e-4df5-bf9d-f68cf21331fd",
+        "chatSessionId": "sess_522c61f5-6551-496a-86be-4838c51cf356",
+        "timestamp": 1787858478799
+      },
+      {
+        "executionId": "eb61f5bb-687e-4df5-bf9d-f68cf21331fd",
+        "chatSessionId": "sess_522c61f5-6551-496a-86be-4838c51cf356",
+        "timestamp": 1787858480437
+      },
+      {
+        "executionId": "eb61f5bb-687e-4df5-bf9d-f68cf21331fd",
+        "chatSessionId": "sess_522c61f5-6551-496a-86be-4838c51cf356",
+        "timestamp": 1787858481209
+      }
+    ],
+    "10. Checkpoint - Ejecutar pruebas del backend": [
+      {
+        "executionId": "2635eac5-d0ee-4978-aa02-7d63f0f6cb20",
+        "chatSessionId": "sess_97ed2152-a11c-49de-8df9-0d55b29156b7",
+        "timestamp": 1787859979050
+      },
+      {
+        "executionId": "2635eac5-d0ee-4978-aa02-7d63f0f6cb20",
+        "chatSessionId": "sess_97ed2152-a11c-49de-8df9-0d55b29156b7",
+        "timestamp": 1787860363733
+      }
+    ],
+    "11.1 Añadir `zod` y crear los tipos de autenticación": [
+      {
+        "executionId": "1790942e-bcad-4772-b6f0-88f01080dec0",
+        "chatSessionId": "sess_b75c1e92-9d06-486d-ba1b-a6cc4f980240",
+        "timestamp": 1787860436070
+      },
+      {
+        "executionId": "1790942e-bcad-4772-b6f0-88f01080dec0",
+        "chatSessionId": "sess_b75c1e92-9d06-486d-ba1b-a6cc4f980240",
+        "timestamp": 1787861076929
+      }
+    ],
+    "11.2 Implementar `tokenStorage` sobre `localStorage`": [
+      {
+        "executionId": "1790942e-bcad-4772-b6f0-88f01080dec0",
+        "chatSessionId": "sess_b75c1e92-9d06-486d-ba1b-a6cc4f980240",
+        "timestamp": 1787860438524
+      },
+      {
+        "executionId": "1790942e-bcad-4772-b6f0-88f01080dec0",
+        "chatSessionId": "sess_b75c1e92-9d06-486d-ba1b-a6cc4f980240",
+        "timestamp": 1787861077940
+      }
+    ],
+    "11.3 Escribir pruebas de ejemplo para `tokenStorage`": [
+      {
+        "executionId": "c1cdcc65-fa7f-4f33-a4fd-d2c6f2dcca0f",
+        "chatSessionId": "sess_61536b64-1ea0-4f11-a5cd-0f71149b1640",
+        "timestamp": 1787861127868
+      },
+      {
+        "executionId": "c1cdcc65-fa7f-4f33-a4fd-d2c6f2dcca0f",
+        "chatSessionId": "sess_61536b64-1ea0-4f11-a5cd-0f71149b1640",
+        "timestamp": 1787861290912
+      }
+    ],
+    "11. Cliente: dependencia, tipos y almacenamiento del token": [
+      {
+        "executionId": "c1cdcc65-fa7f-4f33-a4fd-d2c6f2dcca0f",
+        "chatSessionId": "sess_61536b64-1ea0-4f11-a5cd-0f71149b1640",
+        "timestamp": 1787861292288
+      }
+    ],
+    "12.1 Crear `loginSchema` (Validador_Login)": [
+      {
+        "executionId": "71c79090-d211-4ab4-aa80-a4d3402a6310",
+        "chatSessionId": "sess_47c16c9b-e847-4a1f-a457-641bbae1db36",
+        "timestamp": 1787861353654
+      },
+      {
+        "executionId": "71c79090-d211-4ab4-aa80-a4d3402a6310",
+        "chatSessionId": "sess_47c16c9b-e847-4a1f-a457-641bbae1db36",
+        "timestamp": 1787861666738
+      }
+    ],
+    "12.2 Escribir prueba de propiedad para `loginSchema`": [
+      {
+        "executionId": "7fcc9f2b-bbf0-4aa9-b1f5-614db4ce4419",
+        "chatSessionId": "sess_b9e3bbae-7a9d-4889-9c4e-84af6fae3c63",
+        "timestamp": 1787861761567
+      },
+      {
+        "executionId": "7fcc9f2b-bbf0-4aa9-b1f5-614db4ce4419",
+        "chatSessionId": "sess_b9e3bbae-7a9d-4889-9c4e-84af6fae3c63",
+        "timestamp": 1787862001408
+      }
+    ],
+    "12. Cliente: esquema de validación Zod": [
+      {
+        "executionId": "7fcc9f2b-bbf0-4aa9-b1f5-614db4ce4419",
+        "chatSessionId": "sess_b9e3bbae-7a9d-4889-9c4e-84af6fae3c63",
+        "timestamp": 1787862002963
+      }
+    ],
+    "13.1 Añadir el interceptor de solicitud (Bearer) en `services/api.ts`": [
+      {
+        "executionId": "cf0ce20d-cc88-41f1-bfe0-e214ecd29a69",
+        "chatSessionId": "sess_a9e265f0-14f8-4980-aa9c-0929b849c044",
+        "timestamp": 1787862076403
+      },
+      {
+        "executionId": "cf0ce20d-cc88-41f1-bfe0-e214ecd29a69",
+        "chatSessionId": "sess_a9e265f0-14f8-4980-aa9c-0929b849c044",
+        "timestamp": 1787862270644
+      }
+    ],
+    "13.2 Escribir prueba de propiedad para el interceptor de solicitud": [
+      {
+        "executionId": "cf0ce20d-cc88-41f1-bfe0-e214ecd29a69",
+        "chatSessionId": "sess_a9e265f0-14f8-4980-aa9c-0929b849c044",
+        "timestamp": 1787862281184
+      },
+      {
+        "executionId": "cf0ce20d-cc88-41f1-bfe0-e214ecd29a69",
+        "chatSessionId": "sess_a9e265f0-14f8-4980-aa9c-0929b849c044",
+        "timestamp": 1787862816489
+      }
+    ],
+    "13.3 Ampliar el interceptor de respuesta para el manejo de 401 deduplicado en `services/api.ts`": [
+      {
+        "executionId": "cf0ce20d-cc88-41f1-bfe0-e214ecd29a69",
+        "chatSessionId": "sess_a9e265f0-14f8-4980-aa9c-0929b849c044",
+        "timestamp": 1787862282435
+      },
+      {
+        "executionId": "cf0ce20d-cc88-41f1-bfe0-e214ecd29a69",
+        "chatSessionId": "sess_a9e265f0-14f8-4980-aa9c-0929b849c044",
+        "timestamp": 1787862438310
+      }
+    ],
+    "13.4 Escribir prueba de propiedad de deduplicación de 401": [
+      {
+        "executionId": "cf0ce20d-cc88-41f1-bfe0-e214ecd29a69",
+        "chatSessionId": "sess_a9e265f0-14f8-4980-aa9c-0929b849c044",
+        "timestamp": 1787862446037
+      },
+      {
+        "executionId": "cf0ce20d-cc88-41f1-bfe0-e214ecd29a69",
+        "chatSessionId": "sess_a9e265f0-14f8-4980-aa9c-0929b849c044",
+        "timestamp": 1787862819889
+      }
+    ],
+    "13.5 Escribir pruebas de ejemplo del interceptor de respuesta": [
+      {
+        "executionId": "cf0ce20d-cc88-41f1-bfe0-e214ecd29a69",
+        "chatSessionId": "sess_a9e265f0-14f8-4980-aa9c-0929b849c044",
+        "timestamp": 1787862447511
+      },
+      {
+        "executionId": "cf0ce20d-cc88-41f1-bfe0-e214ecd29a69",
+        "chatSessionId": "sess_a9e265f0-14f8-4980-aa9c-0929b849c044",
+        "timestamp": 1787862820849
+      }
+    ],
+    "13. Cliente: interceptores de axios": [
+      {
+        "executionId": "cf0ce20d-cc88-41f1-bfe0-e214ecd29a69",
+        "chatSessionId": "sess_a9e265f0-14f8-4980-aa9c-0929b849c044",
+        "timestamp": 1787862833401
+      }
+    ],
+    "14. Cliente: servicio de autenticación, contexto y hook": [
+      {
+        "executionId": "1611a86c-859d-4dbf-a5c7-6c6829c87141",
+        "chatSessionId": "sess_45878db2-5cc3-489c-aa64-a3375af173c9",
+        "timestamp": 1787862881803
+      },
+      {
+        "executionId": "1611a86c-859d-4dbf-a5c7-6c6829c87141",
+        "chatSessionId": "sess_45878db2-5cc3-489c-aa64-a3375af173c9",
+        "timestamp": 1787863297428
+      }
+    ],
+    "14.1 Implementar `authService`, `AuthContext` y `useAuth`": [
+      {
+        "executionId": "1611a86c-859d-4dbf-a5c7-6c6829c87141",
+        "chatSessionId": "sess_45878db2-5cc3-489c-aa64-a3375af173c9",
+        "timestamp": 1787863295840
+      }
+    ],
+    "15.1 Implementar `ProtectedRoute` (Guardia_Ruta)": [
+      {
+        "executionId": "c56ba32d-d17b-4058-9a00-c765739270dd",
+        "chatSessionId": "sess_0260de18-08ab-43c5-bb88-1ed3d2d7c8a2",
+        "timestamp": 1787863356530
+      },
+      {
+        "executionId": "c56ba32d-d17b-4058-9a00-c765739270dd",
+        "chatSessionId": "sess_0260de18-08ab-43c5-bb88-1ed3d2d7c8a2",
+        "timestamp": 1787863830554
+      }
+    ],
+    "15.3 Implementar `LoginPage` (Formulario_Login)": [
+      {
+        "executionId": "c56ba32d-d17b-4058-9a00-c765739270dd",
+        "chatSessionId": "sess_0260de18-08ab-43c5-bb88-1ed3d2d7c8a2",
+        "timestamp": 1787863358508
+      },
+      {
+        "executionId": "c56ba32d-d17b-4058-9a00-c765739270dd",
+        "chatSessionId": "sess_0260de18-08ab-43c5-bb88-1ed3d2d7c8a2",
+        "timestamp": 1787863832420
+      }
+    ],
+    "15.2 Escribir prueba de propiedad para `ProtectedRoute`": [
+      {
+        "executionId": "c56ba32d-d17b-4058-9a00-c765739270dd",
+        "chatSessionId": "sess_0260de18-08ab-43c5-bb88-1ed3d2d7c8a2",
+        "timestamp": 1787863844730
+      },
+      {
+        "executionId": "c56ba32d-d17b-4058-9a00-c765739270dd",
+        "chatSessionId": "sess_0260de18-08ab-43c5-bb88-1ed3d2d7c8a2",
+        "timestamp": 1787864213813
+      }
+    ],
+    "15.4 Escribir pruebas de ejemplo de `LoginPage`": [
+      {
+        "executionId": "c56ba32d-d17b-4058-9a00-c765739270dd",
+        "chatSessionId": "sess_0260de18-08ab-43c5-bb88-1ed3d2d7c8a2",
+        "timestamp": 1787863846759
+      },
+      {
+        "executionId": "c56ba32d-d17b-4058-9a00-c765739270dd",
+        "chatSessionId": "sess_0260de18-08ab-43c5-bb88-1ed3d2d7c8a2",
+        "timestamp": 1787864231207
+      }
+    ],
+    "15. Cliente: guardia de ruta y página de login": [
+      {
+        "executionId": "c56ba32d-d17b-4058-9a00-c765739270dd",
+        "chatSessionId": "sess_0260de18-08ab-43c5-bb88-1ed3d2d7c8a2",
+        "timestamp": 1787864233845
+      }
+    ],
+    "16.1 Actualizar `App.tsx` con la ruta pública y las rutas protegidas": [
+      {
+        "executionId": "7a8709f7-29ea-4f71-bf07-84d4db864a78",
+        "chatSessionId": "sess_4dc10743-497d-430d-8c00-5a9c01b6447a",
+        "timestamp": 1787864287192
+      },
+      {
+        "executionId": "7a8709f7-29ea-4f71-bf07-84d4db864a78",
+        "chatSessionId": "sess_4dc10743-497d-430d-8c00-5a9c01b6447a",
+        "timestamp": 1787864703676
+      }
+    ],
+    "16.2 Escribir pruebas de ejemplo de enrutado": [
+      {
+        "executionId": "7a8709f7-29ea-4f71-bf07-84d4db864a78",
+        "chatSessionId": "sess_4dc10743-497d-430d-8c00-5a9c01b6447a",
+        "timestamp": 1787864709587
+      },
+      {
+        "executionId": "7a8709f7-29ea-4f71-bf07-84d4db864a78",
+        "chatSessionId": "sess_4dc10743-497d-430d-8c00-5a9c01b6447a",
+        "timestamp": 1787864992507
+      }
+    ],
+    "16. Cliente: cableado del enrutado": [
+      {
+        "executionId": "7a8709f7-29ea-4f71-bf07-84d4db864a78",
+        "chatSessionId": "sess_4dc10743-497d-430d-8c00-5a9c01b6447a",
+        "timestamp": 1787864994020
+      }
+    ],
+    "17. Checkpoint final - Ejecutar todas las pruebas (backend y frontend)": [
+      {
+        "executionId": "548608d1-d0b3-4d96-afda-aa1cb04e0643",
+        "chatSessionId": "sess_f4b51bfd-3349-46ac-ac46-8b7945bb34c1",
+        "timestamp": 1787865756333
+      },
+      {
+        "executionId": "548608d1-d0b3-4d96-afda-aa1cb04e0643",
+        "chatSessionId": "sess_f4b51bfd-3349-46ac-ac46-8b7945bb34c1",
+        "timestamp": 1787870492826
+      },
+      {
+        "executionId": "b4cdd304-c8f4-4f98-8cc6-8e44a4f67844",
+        "chatSessionId": "sess_2a173bc2-a197-411a-bf39-f55bff50072f",
+        "timestamp": 1787870544526
+      }
+    ]
+  }
+}

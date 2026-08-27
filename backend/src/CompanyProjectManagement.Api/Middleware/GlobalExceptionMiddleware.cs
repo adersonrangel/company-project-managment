@@ -35,6 +35,8 @@ public class GlobalExceptionMiddleware
             ValidationException validationEx => HandleValidationException(validationEx),
             EntityNotFoundException notFoundEx => (StatusCodes.Status404NotFound,
                 new ErrorResponse(notFoundEx.Message)),
+            InvalidCredentialsException invalidCredentialsEx => (StatusCodes.Status401Unauthorized,
+                new ErrorResponse(invalidCredentialsEx.Message)),
             DuplicateIdentificationException duplicateEx => (StatusCodes.Status409Conflict,
                 new ErrorResponse(duplicateEx.Message)),
             ReferentialIntegrityException referentialEx => (StatusCodes.Status409Conflict,

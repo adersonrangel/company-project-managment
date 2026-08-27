@@ -110,6 +110,50 @@ namespace CompanyProjectManagement.Infrastructure.PostgreSQL.Migrations
                     b.ToTable("proyectos", (string)null);
                 });
 
+            modelBuilder.Entity("CompanyProjectManagement.Domain.Entities.Usuario", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("password_hash");
+
+                    b.Property<string>("PasswordSalt")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("password_salt");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)")
+                        .HasColumnName("username");
+
+                    b.HasKey("Id")
+                        .HasName("pk_usuarios");
+
+                    b.HasIndex("Username")
+                        .IsUnique()
+                        .HasDatabaseName("ix_usuarios_username");
+
+                    b.ToTable("usuarios", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            PasswordHash = "AONYG/t/ztweZl2M0DUbwEUpBcfeFWBmukI4PpIvpPU=",
+                            PasswordSalt = "QWRtaW5TZWVkU2FsdDAxIQ==",
+                            Username = "admin"
+                        });
+                });
+
             modelBuilder.Entity("CompanyProjectManagement.Domain.Entities.Proyecto", b =>
                 {
                     b.HasOne("CompanyProjectManagement.Domain.Entities.Empresa", "Empresa")

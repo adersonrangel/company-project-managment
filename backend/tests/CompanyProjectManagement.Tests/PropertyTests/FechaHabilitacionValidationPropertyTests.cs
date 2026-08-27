@@ -37,7 +37,7 @@ public class FechaHabilitacionValidationPropertyTests
         return Prop.ForAll(invalidFormatDates, invalidDate =>
         {
             using var factory = new CustomWebApplicationFactory();
-            using var client = factory.CreateClient();
+            using var client = factory.CreateAuthenticatedClient();
 
             // Create empresa first
             var empresaRequest = new CrearEmpresaRequest(
@@ -65,7 +65,7 @@ public class FechaHabilitacionValidationPropertyTests
         return Prop.ForAll(outOfRangeDates, outOfRangeDate =>
         {
             using var factory = new CustomWebApplicationFactory();
-            using var client = factory.CreateClient();
+            using var client = factory.CreateAuthenticatedClient();
 
             // Create empresa first
             var empresaRequest = new CrearEmpresaRequest(

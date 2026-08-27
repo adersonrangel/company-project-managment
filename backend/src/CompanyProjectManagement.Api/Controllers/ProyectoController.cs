@@ -2,9 +2,11 @@ namespace CompanyProjectManagement.Api.Controllers;
 
 using CompanyProjectManagement.Application.DTOs.Requests;
 using CompanyProjectManagement.Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
+[Authorize]
 [Route("api/empresas/{empresaId:int}/proyectos")]
 public class ProyectoController : ControllerBase
 {

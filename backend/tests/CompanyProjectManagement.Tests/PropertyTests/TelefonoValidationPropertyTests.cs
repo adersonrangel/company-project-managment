@@ -28,7 +28,7 @@ public class TelefonoValidationPropertyTests
             invalidPhone =>
             {
                 using var factory = new CustomWebApplicationFactory();
-                using var client = factory.CreateClient();
+                using var client = factory.CreateAuthenticatedClient();
 
                 var request = new CrearEmpresaRequest(
                     "Empresa Válida",

@@ -13,7 +13,7 @@ public class ProyectoEndpointsTests : IClassFixture<CustomWebApplicationFactory>
 
     public ProyectoEndpointsTests(CustomWebApplicationFactory factory)
     {
-        _client = factory.CreateClient();
+        _client = factory.CreateAuthenticatedClient();
     }
 
     private async Task<EmpresaResponse> CrearEmpresaAsync(string? identificacion = null)
