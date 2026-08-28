@@ -1,7 +1,7 @@
 @CompanyProjectManagement.Api_HostAddress = http://localhost:5113
 
 ### Token JWT obtenido tras el login. Reemplázalo por el valor devuelto en /api/auth/login.
-@token = REEMPLAZAR_CON_TOKEN
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiIxIiwidW5pcXVlX25hbWUiOiJhZG1pbiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJhZG1pbiIsImp0aSI6IjM2ZjEwYmI2LWMyN2MtNGUwMS1iOGM1LTEyODViNjNlMDUyZSIsIm5iZiI6MTc4Nzg3MzIxOSwiZXhwIjoxNzg3ODc2ODE5LCJpc3MiOiJDb21wYW55UHJvamVjdE1hbmFnZW1lbnQiLCJhdWQiOiJDb21wYW55UHJvamVjdE1hbmFnZW1lbnRDbGllbnQifQ.CM0UISId3PtZLa0nn1DJlvmXn9T_Pk_AN-xezmjaeuk
 
 ### ===========================
 ### AUTH
