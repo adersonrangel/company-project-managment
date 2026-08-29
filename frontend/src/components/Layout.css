@@ -5,6 +5,12 @@
   --topbar-height: 60px;
   min-height: 100vh;
   background-color: hsl(var(--background));
+  /*
+    Evita el desplazamiento horizontal provocado por el sidebar fijo cuando
+    está colapsado u oculto fuera de pantalla (translateX(-100%) en móvil),
+    manteniendo el Control_Cierre_Sesion dentro del viewport (Req 1.3).
+  */
+  overflow-x: hidden;
 }
 
 /* ===== Sidebar ===== */
@@ -105,11 +111,28 @@
 }
 
 .sidebar__footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
   padding: 0.85rem 1.25rem;
   font-size: 0.72rem;
   color: hsl(var(--sidebar-muted));
   border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/*
+  Control_Cierre_Sesion (variante sidebar) en el pie de la barra lateral
+  (Req 1.2). El botón ocupa todo el ancho del pie; se limita al ancho
+  disponible del sidebar para evitar desbordes que provoquen scroll horizontal.
+*/
+.sidebar__footer > button {
+  max-width: 100%;
+}
+
+.sidebar__footer-brand {
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* ===== Sidebar colapsado (desktop) ===== */
@@ -189,6 +212,16 @@
 
 .topbar__spacer {
   flex: 1;
+}
+
+/*
+  Control_Cierre_Sesion (variante topbar) en la barra superior, visible en
+  móvil (Req 1.2, 1.3). Es un botón de solo icono que no se contrae, de modo
+  que permanece dentro del viewport y enfocable por teclado sin provocar
+  desplazamiento horizontal en la barra superior.
+*/
+.topbar > button {
+  flex-shrink: 0;
 }
 
 .content {

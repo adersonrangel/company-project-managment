@@ -52,7 +52,7 @@ const RAW_CSS = readFileSync(CSS_PATH, 'utf8');
  */
 function preprocess(css: string): string {
   // Remove /* ... */ comments.
-  let out = css.replace(/\/\*[\s\S]*?\*\//g, '');
+  const out = css.replace(/\/\*[\s\S]*?\*\//g, '');
   // Unwrap @media blocks: replace the "@media (...) {" opener and its matching
   // closing brace with nothing, leaving the nested rules inline.
   let result = '';
@@ -108,8 +108,8 @@ function ruleBody(selector: string): string | undefined {
   const ruleRe = /([^{}]+)\{([^}]*)\}/g;
   let m: RegExpExecArray | null;
   while ((m = ruleRe.exec(CSS)) !== null) {
-    const prelude = m[1];
-    const body = m[2];
+    const prelude = m[1] ?? '';
+    const body = m[2] ?? '';
     // @media wrappers are unwrapped in preprocess(); skip any residual at-rules.
     if (prelude.trimStart().startsWith('@')) continue;
     const members = prelude.split(',').map(normSelector);

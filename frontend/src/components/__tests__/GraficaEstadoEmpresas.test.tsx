@@ -3,7 +3,7 @@ import { describe, it, expect, beforeAll } from 'vitest';
 import GraficaEstadoEmpresas from '../GraficaEstadoEmpresas';
 
 beforeAll(() => {
-  global.ResizeObserver = class {
+  globalThis.ResizeObserver = class {
     observe() {}
     unobserve() {}
     disconnect() {}

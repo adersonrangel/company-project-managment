@@ -47,12 +47,7 @@ function ProyectosPage() {
 
   const id = Number(empresaId);
 
-  useEffect(() => {
-    if (!empresaId || isNaN(id)) return;
-    cargarProyectos();
-  }, [empresaId]);
-
-  const cargarProyectos = async () => {
+  const cargarProyectos = useCallback(async () => {
     try {
       setLoading(true);
       const data = await proyectoService.listar(id);
@@ -62,7 +57,12 @@ function ProyectosPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    if (!empresaId || isNaN(id)) return;
+    cargarProyectos();
+  }, [empresaId, id, cargarProyectos]);
 
   const solicitarEliminar = (proyectoId: number) => {
     setConfirmState({ isOpen: true, proyectoId });

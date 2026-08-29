@@ -1,0 +1,243 @@
+{
+  "pbtResults": {
+    "3.3 Escribir prueba de propiedad para la invocación única de `logout`": {
+      "status": "passed",
+      "lastRunTimestamp": 1787955853967
+    },
+    "3.4 Escribir prueba de propiedad para el gating del borrado por confirmación": {
+      "status": "passed",
+      "lastRunTimestamp": 1787956263379
+    },
+    "3.5 Escribir prueba de propiedad para la redirección condicionada al resultado": {
+      "status": "passed",
+      "lastRunTimestamp": 1787956702571
+    }
+  },
+  "executionHistory": {
+    "1. Crear el componente `LogoutControl` y su lógica base": [
+      {
+        "executionId": "bd5c94a6-01db-436c-b611-83608cf546c0",
+        "chatSessionId": "sess_0e2f5268-62ed-4cb9-8490-ce7adf988cc1",
+        "timestamp": 1787951998455
+      },
+      {
+        "executionId": "bd5c94a6-01db-436c-b611-83608cf546c0",
+        "chatSessionId": "sess_0e2f5268-62ed-4cb9-8490-ce7adf988cc1",
+        "timestamp": 1787952441282
+      }
+    ],
+    "2. Implementar la lógica de apertura, guardas y confirmación del diálogo": [
+      {
+        "executionId": "5018bb3f-0ece-4040-bee7-3e995c6fb5ae",
+        "chatSessionId": "sess_43b46270-53d0-48de-a615-6e2510404c9e",
+        "timestamp": 1787952559465
+      },
+      {
+        "executionId": "5018bb3f-0ece-4040-bee7-3e995c6fb5ae",
+        "chatSessionId": "sess_43b46270-53d0-48de-a615-6e2510404c9e",
+        "timestamp": 1787953314948
+      }
+    ],
+    "2.1 Implementar la activación del control y las guardas de duplicación": [
+      {
+        "executionId": "27e0d7b2-e7a6-4483-8133-0d9129473e23",
+        "chatSessionId": "sess_07a1e37d-bbf0-4503-8318-440fcd883820",
+        "timestamp": 1787953391039
+      },
+      {
+        "executionId": "27e0d7b2-e7a6-4483-8133-0d9129473e23",
+        "chatSessionId": "sess_07a1e37d-bbf0-4503-8318-440fcd883820",
+        "timestamp": 1787953584903
+      }
+    ],
+    "2.2 Integrar `ConfirmDialog` con labels de logout y manejo de cancelación": [
+      {
+        "executionId": "fe2200b2-2f89-497c-b453-a7a335befc5b",
+        "chatSessionId": "sess_4c57c5bc-8ee2-40c2-8927-b8bf7ea62f0f",
+        "timestamp": 1787953644099
+      },
+      {
+        "executionId": "fe2200b2-2f89-497c-b453-a7a335befc5b",
+        "chatSessionId": "sess_4c57c5bc-8ee2-40c2-8927-b8bf7ea62f0f",
+        "timestamp": 1787954087811
+      }
+    ],
+    "2.3 Escribir prueba de propiedad para la unicidad del diálogo": [
+      {
+        "executionId": "f69a3771-4083-4b8b-b58b-eb6247654f8e",
+        "chatSessionId": "sess_5ed1edd8-6d8d-4e0a-ac1c-ab1fa315c77a",
+        "timestamp": 1787954139559
+      },
+      {
+        "executionId": "f69a3771-4083-4b8b-b58b-eb6247654f8e",
+        "chatSessionId": "sess_5ed1edd8-6d8d-4e0a-ac1c-ab1fa315c77a",
+        "timestamp": 1787954502392
+      }
+    ],
+    "3.1 Implementar la confirmación y la ejecución del cierre de sesión": [
+      {
+        "executionId": "df84dd73-451f-4bb3-9653-7ef6c9dbeb6b",
+        "chatSessionId": "sess_196ca0ba-5e9c-472e-a196-53dd7a0a4724",
+        "timestamp": 1787954595910
+      },
+      {
+        "executionId": "df84dd73-451f-4bb3-9653-7ef6c9dbeb6b",
+        "chatSessionId": "sess_196ca0ba-5e9c-472e-a196-53dd7a0a4724",
+        "timestamp": 1787954994229
+      }
+    ],
+    "3.2 Implementar el manejo de fallo/timeout y el mensaje de error accesible": [
+      {
+        "executionId": "8a8bc984-4d65-45b9-be8b-f19dc38ac2b2",
+        "chatSessionId": "sess_d3681138-d5bb-457a-b192-50761ded1932",
+        "timestamp": 1787955033584
+      },
+      {
+        "executionId": "8a8bc984-4d65-45b9-be8b-f19dc38ac2b2",
+        "chatSessionId": "sess_d3681138-d5bb-457a-b192-50761ded1932",
+        "timestamp": 1787955344831
+      }
+    ],
+    "3.3 Escribir prueba de propiedad para la invocación única de `logout`": [
+      {
+        "executionId": "0f7a2f45-8a1f-4427-88f5-534b3e4c5a6d",
+        "chatSessionId": "sess_027e9f6e-2e3d-44a9-9d9d-508b1539a329",
+        "timestamp": 1787955425308
+      },
+      {
+        "executionId": "0f7a2f45-8a1f-4427-88f5-534b3e4c5a6d",
+        "chatSessionId": "sess_027e9f6e-2e3d-44a9-9d9d-508b1539a329",
+        "timestamp": 1787955931123
+      }
+    ],
+    "3.4 Escribir prueba de propiedad para el gating del borrado por confirmación": [
+      {
+        "executionId": "94d307a0-da48-4902-946d-b265809a8246",
+        "chatSessionId": "sess_a3fbd9c0-aa46-462a-9078-565d2d164f83",
+        "timestamp": 1787955977768
+      },
+      {
+        "executionId": "94d307a0-da48-4902-946d-b265809a8246",
+        "chatSessionId": "sess_a3fbd9c0-aa46-462a-9078-565d2d164f83",
+        "timestamp": 1787956330357
+      }
+    ],
+    "3.5 Escribir prueba de propiedad para la redirección condicionada al resultado": [
+      {
+        "executionId": "507e2232-596d-42c4-ad71-fec087e02def",
+        "chatSessionId": "sess_567c917b-cf97-4209-81a6-8bff30edfbee",
+        "timestamp": 1787956400423
+      },
+      {
+        "executionId": "507e2232-596d-42c4-ad71-fec087e02def",
+        "chatSessionId": "sess_567c917b-cf97-4209-81a6-8bff30edfbee",
+        "timestamp": 1787956867142
+      }
+    ],
+    "3. Implementar `performLogout` con guardián de timeout y ramas de resultado": [
+      {
+        "executionId": "507e2232-596d-42c4-ad71-fec087e02def",
+        "chatSessionId": "sess_567c917b-cf97-4209-81a6-8bff30edfbee",
+        "timestamp": 1787956868408
+      }
+    ],
+    "4. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "0a275c1c-ffcb-4881-96f5-8b7b173ac60f",
+        "chatSessionId": "sess_23bd09e1-c1de-4980-a590-68a697ccc574",
+        "timestamp": 1787956918690
+      },
+      {
+        "executionId": "0a275c1c-ffcb-4881-96f5-8b7b173ac60f",
+        "chatSessionId": "sess_23bd09e1-c1de-4980-a590-68a697ccc574",
+        "timestamp": 1787957272614
+      }
+    ],
+    "5.1 Montar las dos instancias en `Layout.tsx`": [
+      {
+        "executionId": "406b5ecc-3f4f-4fa7-bb80-07aafc293b1a",
+        "chatSessionId": "sess_37b4ad38-e89d-43c5-99d1-c89afa56b8ef",
+        "timestamp": 1787957354795
+      },
+      {
+        "executionId": "406b5ecc-3f4f-4fa7-bb80-07aafc293b1a",
+        "chatSessionId": "sess_37b4ad38-e89d-43c5-99d1-c89afa56b8ef",
+        "timestamp": 1787957794820
+      }
+    ],
+    "5.2 Ajustar `Layout.css` para el posicionamiento del control": [
+      {
+        "executionId": "4fbf0621-810c-42c5-8cc0-d872c083e474",
+        "chatSessionId": "sess_d4ad71c6-7b27-4f39-b4ea-226d1741990f",
+        "timestamp": 1787959840187
+      },
+      {
+        "executionId": "4fbf0621-810c-42c5-8cc0-d872c083e474",
+        "chatSessionId": "sess_d4ad71c6-7b27-4f39-b4ea-226d1741990f",
+        "timestamp": 1787960265345
+      }
+    ],
+    "5.3 Escribir pruebas de ejemplo de renderizado y posicionamiento": [
+      {
+        "executionId": "dbd2c37f-2023-4540-b7de-a886903fdf65",
+        "chatSessionId": "sess_190666ce-9bbf-4a4c-8db4-38d55ff3083d",
+        "timestamp": 1787960489045
+      },
+      {
+        "executionId": "dbd2c37f-2023-4540-b7de-a886903fdf65",
+        "chatSessionId": "sess_190666ce-9bbf-4a4c-8db4-38d55ff3083d",
+        "timestamp": 1787963143101
+      }
+    ],
+    "5. Integrar `LogoutControl` en el `Layout` con visibilidad por viewport": [
+      {
+        "executionId": "dbd2c37f-2023-4540-b7de-a886903fdf65",
+        "chatSessionId": "sess_190666ce-9bbf-4a4c-8db4-38d55ff3083d",
+        "timestamp": 1787963144029
+      }
+    ],
+    "1.1 Crear el esqueleto de `LogoutControl` con el `Control_Cierre_Sesion` accesible": [
+      {
+        "executionId": "0dce771e-a6e6-4882-809a-0753d198313c",
+        "chatSessionId": "sess_aafebc2d-fa72-4d2a-b5f1-5c3d172e3110",
+        "timestamp": 1787963173529
+      },
+      {
+        "executionId": "0dce771e-a6e6-4882-809a-0753d198313c",
+        "chatSessionId": "sess_aafebc2d-fa72-4d2a-b5f1-5c3d172e3110",
+        "timestamp": 1787963438617
+      }
+    ],
+    "6.1 Escribir prueba de integración con `AuthProvider` real": [
+      {
+        "executionId": "3e5e9188-d804-4c05-b5a4-3f7ab3cdb948",
+        "chatSessionId": "sess_5f303c66-7b7f-4cd8-9864-e56469e0b6bb",
+        "timestamp": 1787963631217
+      },
+      {
+        "executionId": "3e5e9188-d804-4c05-b5a4-3f7ab3cdb948",
+        "chatSessionId": "sess_5f303c66-7b7f-4cd8-9864-e56469e0b6bb",
+        "timestamp": 1787964024973
+      }
+    ],
+    "6. Añadir prueba de integración del estado consistente tras el cierre de sesión": [
+      {
+        "executionId": "3e5e9188-d804-4c05-b5a4-3f7ab3cdb948",
+        "chatSessionId": "sess_5f303c66-7b7f-4cd8-9864-e56469e0b6bb",
+        "timestamp": 1787964026971
+      }
+    ],
+    "7. Checkpoint final - Verificación de la suite del frontend": [
+      {
+        "executionId": "ee07d7da-1a5b-4571-85b5-4e094c78348a",
+        "chatSessionId": "sess_7414e2d5-ba07-4b36-b2b7-aa022436ea1a",
+        "timestamp": 1787964089965
+      },
+      {
+        "executionId": "ee07d7da-1a5b-4571-85b5-4e094c78348a",
+        "chatSessionId": "sess_7414e2d5-ba07-4b36-b2b7-aa022436ea1a",
+        "timestamp": 1787965918680
+      }
+    ]
+  }
+}

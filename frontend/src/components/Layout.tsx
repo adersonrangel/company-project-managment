@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import ThemeToggle from './ui/ThemeToggle';
+import LogoutControl from './LogoutControl';
 import './Layout.css';
 
 const NAV_ITEMS = [
@@ -95,7 +96,16 @@ function Layout() {
           ))}
         </nav>
 
-        <div className="sidebar__footer">Company Project Management</div>
+        <div className="sidebar__footer">
+          {/*
+            Control_Cierre_Sesion en el pie del sidebar (Req 1.2). Visible en
+            escritorio (>=1024px); en móvil la variante topbar cubre la
+            accesibilidad, por lo que aquí se omite para evitar duplicar el
+            control en el DOM.
+          */}
+          {!isMobile && <LogoutControl variant="sidebar" />}
+          <span className="sidebar__footer-brand">Company Project Management</span>
+        </div>
       </aside>
 
       {/* Overlay para cerrar el menú en móvil */}
@@ -128,6 +138,13 @@ function Layout() {
           <h2 className="topbar__title">{getPageTitle(location.pathname)}</h2>
           <div className="topbar__spacer" />
           <ThemeToggle />
+          {/*
+            Control_Cierre_Sesion en la barra superior (Req 1.2, 1.3). Visible en
+            móvil (<=1023px), junto a ThemeToggle tras el topbar__spacer. En este
+            viewport permanece dentro del área visible sin scroll horizontal y es
+            enfocable por teclado (Req 1.3).
+          */}
+          {isMobile && <LogoutControl variant="topbar" />}
         </header>
 
         <main className="content">

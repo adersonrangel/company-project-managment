@@ -90,8 +90,8 @@ describe('dashboardUtils - Property-Based Tests', () => {
           const resultado = prepararDatosBarras(datos, 10);
 
           for (let i = 0; i < resultado.length - 1; i++) {
-            expect(resultado[i].cantidadProyectos).toBeGreaterThanOrEqual(
-              resultado[i + 1].cantidadProyectos
+            expect(resultado[i]!.cantidadProyectos).toBeGreaterThanOrEqual(
+              resultado[i + 1]!.cantidadProyectos
             );
           }
         }),
@@ -103,9 +103,6 @@ describe('dashboardUtils - Property-Based Tests', () => {
       fc.assert(
         fc.property(proyectosPorEmpresaArb, (datos: ProyectosPorEmpresa[]) => {
           const resultado = prepararDatosBarras(datos, 10);
-
-          // The minimum value in the result should be >= all values NOT in the result
-          const minEnResultado = resultado[resultado.length - 1].cantidadProyectos;
 
           // Sort original descending to get the actual top 10 values
           const ordenadoOriginal = [...datos].sort(

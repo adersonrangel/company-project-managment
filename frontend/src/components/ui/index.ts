@@ -1,8 +1,10 @@
-export { default as Button, buttonVariants } from './Button';
+export { default as Button } from './Button';
+export { buttonVariants } from './buttonVariants';
 export type { ButtonProps } from './Button';
 export { Card, CardHeader, CardTitle, CardBody } from './Card';
 export { TableCard, Table, Thead, Tbody, Tr, Th, Td } from './Table';
-export { default as Badge, badgeVariants } from './Badge';
+export { default as Badge } from './Badge';
+export { badgeVariants } from './badgeVariants';
 export type { BadgeProps } from './Badge';
 export { default as Dialog } from './Dialog';
 export { Input, Field } from './Field';

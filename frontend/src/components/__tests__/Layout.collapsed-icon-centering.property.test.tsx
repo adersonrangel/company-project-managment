@@ -66,7 +66,7 @@ function decl(selector: string, prop: string): string | undefined {
 /** Parses a CSS length token to px. Supports px and rem (root font-size 16px). */
 function toPx(value: string | undefined, remBase = 16): number {
   if (!value) return 0;
-  const token = value.trim().split(/\s+/)[0]; // first token (e.g. shorthand)
+  const token = value.trim().split(/\s+/)[0] ?? ''; // first token (e.g. shorthand)
   if (token.endsWith('rem')) return parseFloat(token) * remBase;
   if (token.endsWith('px')) return parseFloat(token);
   const n = parseFloat(token);

@@ -4,7 +4,7 @@ import GraficaProyectosPorEmpresa from '../GraficaProyectosPorEmpresa';
 import type { ProyectosPorEmpresa } from '@/types/dashboard';
 
 beforeAll(() => {
-  global.ResizeObserver = class {
+  globalThis.ResizeObserver = class {
     observe() {}
     unobserve() {}
     disconnect() {}
