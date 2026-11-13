@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "comments": [
+    {
+      "id": "6oq66050",
+      "file": "01-split-command.html",
+      "selector": "body > main > section:nth-of-type(2)",
+      "excerpt": "Iniciar sesión Accede a tu panel de gestión Nombre de usuario Contraseña Entrar al panel ¿No tienes cuenta? Solicitar acceso",
+      "comment": "Esto deberia esar en un lateral para el tamaño en el que esta renderizado.",
+      "createdAt": "2026-11-13T01:09:16.540Z",
+      "status": "resolved",
+      "sentAt": "2026-11-13T01:09:16.577Z",
+      "resolvedAt": "2026-11-13T01:09:34.895Z"
+    }
+  ]
+}

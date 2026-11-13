@@ -11,7 +11,7 @@ function App() {
   return (
     <AuthProvider>
       <Routes>
-        {/* Ruta pública de inicio de sesión (Req 7.4). */}
+        {/* Ruta pública de aterrizaje/login (Req 7.4). */}
         <Route path="/login" element={<LoginPage />} />
 
         {/* Rutas protegidas: el Guardia_Ruta exige un token válido y, en su

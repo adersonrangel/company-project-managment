@@ -1,201 +1,248 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { LogIn } from 'lucide-react';
-import { loginSchema } from '@/schemas/loginSchema';
+import { Navigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
-import { Button, Card, CardBody, CardHeader, CardTitle, Field, Input } from '@/components/ui';
-import type { LoginRequest } from '@/types/auth';
-
-/** Ruta protegida por defecto a la que se redirige tras autenticarse (Req 7.5). */
-const DEFAULT_PROTECTED_ROUTE = '/';
-
-/** Retardo de la revalidación en modo `onChange` (Req 8.6). */
-const VALIDATION_DEBOUNCE_MS = 500;
-
-type LoginFormData = LoginRequest;
-type LoginFormErrors = Partial<Record<keyof LoginFormData, string>>;
-
-const INITIAL_FORM_DATA: LoginFormData = { username: '', password: '' };
+import { Badge, Card } from '@/components/ui';
+import LoginForm from '@/components/LoginForm';
 
 /**
- * Valida los datos del formulario con `loginSchema` y devuelve los mensajes de
- * error por campo (vacío si es válido).
- */
-function validarLogin(data: LoginFormData): LoginFormErrors {
-  const resultado = loginSchema.safeParse(data);
-  if (resultado.success) {
-    return {};
-  }
-
-  const errores: LoginFormErrors = {};
-  for (const issue of resultado.error.issues) {
-    const campo = issue.path[0] as keyof LoginFormData | undefined;
-    // Conservar el primer mensaje por campo.
-    if (campo && !errores[campo]) {
-      errores[campo] = issue.message;
-    }
-  }
-  return errores;
-}
-
-/**
- * LoginPage (Formulario_Login): captura nombre de usuario y contraseña, valida
- * con `loginSchema` en modo `onChange` con debounce de ~500 ms (Req 8.6) y, con
- * datos válidos, invoca `authService.login` a través del contexto de
- * autenticación (Req 8.5). Si un usuario ya autenticado la visita, se le
- * redirige a la ruta protegida por defecto (Req 7.5).
+ * LoginPage — точка входа в приложение с дизайном «ops cockpit».
+ *
+ * Всегда рендерится в тёмной теме (`data-theme="dark"`) и содержит:
+ * верхнюю панель статуса, консольную карточку входа и превью панели
+ * управления. Если пользователь уже аутентифицирован, он перенаправляется
+ * на защищённую главную (Req 7.5).
  */
 function LoginPage() {
-  const { isAuthenticated, login } = useAuth();
-  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
-  const [formData, setFormData] = useState<LoginFormData>(INITIAL_FORM_DATA);
-  const [errores, setErrores] = useState<LoginFormErrors>({});
-  const [errorServidor, setErrorServidor] = useState<string | null>(null);
-  const [submitting, setSubmitting] = useState(false);
-
-  // Temporizadores de debounce por campo para la revalidación en `onChange`.
-  const debounceTimersRef = useRef<Partial<Record<keyof LoginFormData, ReturnType<typeof setTimeout>>>>({});
-
-  // Limpiar cualquier temporizador pendiente al desmontar.
-  useEffect(() => {
-    const timers = debounceTimersRef.current;
-    return () => {
-      Object.values(timers).forEach((timer) => {
-        if (timer) clearTimeout(timer);
-      });
-    };
-  }, []);
-
-  const handleChange = useCallback((campo: keyof LoginFormData, valor: string) => {
-    setFormData((prev) => ({ ...prev, [campo]: valor }));
-    setErrorServidor(null);
-
-    // Revalidar el campo modificado tras ~500 ms desde el último cambio (Req 8.6).
-    const timers = debounceTimersRef.current;
-    if (timers[campo]) {
-      clearTimeout(timers[campo]);
-    }
-    timers[campo] = setTimeout(() => {
-      setFormData((current) => {
-        const erroresActuales = validarLogin(current);
-        setErrores((prev) => ({ ...prev, [campo]: erroresActuales[campo] }));
-        return current;
-      });
-    }, VALIDATION_DEBOUNCE_MS);
-  }, []);
-
-  const handleSubmit = useCallback(async () => {
-    // Validación completa antes de enviar; con errores no se envía (Req 8.1-8.4).
-    const erroresValidacion = validarLogin(formData);
-    if (Object.keys(erroresValidacion).length > 0) {
-      setErrores(erroresValidacion);
-      return;
-    }
-
-    setErrores({});
-    setErrorServidor(null);
-    setSubmitting(true);
-
-    try {
-      // Datos válidos → invocar el login (que a su vez llama a authService.login
-      // hacia `api/auth/login`) y persistir el token (Req 8.5).
-      await login({ username: formData.username.trim(), password: formData.password });
-      navigate(DEFAULT_PROTECTED_ROUTE, { replace: true });
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        const status = error.response?.status;
-        if (status === 401) {
-          setErrorServidor('Usuario o contraseña incorrectos.');
-        } else if (status === 400) {
-          setErrorServidor('Revisa los datos ingresados e intenta de nuevo.');
-        } else {
-          setErrorServidor('Ocurrió un error al iniciar sesión. Intenta nuevamente.');
-        }
-      } else if (error instanceof Error) {
-        // Errores no HTTP (p. ej. fallo al persistir la sesión, Req 5.2).
-        setErrorServidor(error.message);
-      } else {
-        setErrorServidor('Ocurrió un error al iniciar sesión. Intenta nuevamente.');
-      }
-    } finally {
-      setSubmitting(false);
-    }
-  }, [formData, login, navigate]);
-
-  // Un usuario ya autenticado no debe ver el formulario (Req 7.5).
   if (isAuthenticated) {
-    return <Navigate to={DEFAULT_PROTECTED_ROUTE} replace />;
+    return <Navigate to="/" replace />;
   }
 
+  const kpiData = [
+    {
+      label: 'Empresas activas',
+      value: '12',
+      delta: '▲ +2 este mes',
+      colorVar: '--chart-1',
+      points: '0,28 15,24 30,26 45,18 60,20 75,12 90,8 100,5',
+    },
+    {
+      label: 'Proyectos activos',
+      value: '47',
+      delta: '▲ +8 este mes',
+      colorVar: '--chart-2',
+      points: '0,26 15,22 30,24 45,16 60,18 75,10 90,12 100,6',
+    },
+    {
+      label: 'Tasa de cumplimiento',
+      value: '94%',
+      delta: '▲ +3 pp',
+      colorVar: '--chart-4',
+      points: '0,20 15,18 30,22 45,14 60,12 75,8 90,6 100,4',
+    },
+  ] as const;
+
+  const barHeights = [45, 65, 50, 80, 70, 90, 60] as const;
+  const barOpacities = [0.7, 0.8, 0.7, 1, 0.85, 1, 0.75] as const;
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <Card className="w-full max-w-sm">
-        <CardHeader>
-          <CardTitle>Iniciar sesión</CardTitle>
-        </CardHeader>
-        <CardBody>
-          {errorServidor && (
-            <div
-              role="alert"
-              className="mb-4 rounded-[var(--radius-md)] border border-danger bg-danger/10 px-3 py-2 text-sm text-danger"
-            >
-              {errorServidor}
+    <div
+      data-theme="dark"
+      className="flex min-h-screen flex-col bg-background text-foreground"
+    >
+      <header
+        className="flex items-center justify-between border-b border-border bg-sidebar px-6 py-4 lg:px-10"
+        aria-label="Barra superior"
+      >
+        <div className="flex items-center gap-2 font-bold text-sidebar-foreground">
+          <span
+            className="h-2 w-2 rounded-full bg-success"
+            aria-hidden="true"
+          />
+          Kiro Dashboard
+        </div>
+        <div className="text-xs text-sidebar-muted">
+          Sistema operativo —{' '}
+          <span className="text-success">Todos los servicios en línea</span>
+        </div>
+      </header>
+
+      <main className="flex flex-1 flex-col gap-6 p-6 lg:flex-row lg:gap-10 lg:p-10">
+        <section
+          className="flex w-full max-w-[380px] flex-col"
+          aria-label="Acceso al sistema"
+        >
+          <Card className="flex flex-1 flex-col p-6 shadow-[var(--shadow-md)] lg:p-8">
+            <div className="mb-6 flex items-center gap-2 border-b border-border pb-4">
+              <div className="flex gap-1.5" aria-hidden="true">
+                <span className="h-2.5 w-2.5 rounded-full bg-danger" />
+                <span className="h-2.5 w-2.5 rounded-full bg-warning" />
+                <span className="h-2.5 w-2.5 rounded-full bg-success" />
+              </div>
+              <span className="ml-2 font-mono text-xs text-muted-foreground">
+                kiro@dashboard:~$ auth
+              </span>
             </div>
-          )}
 
-          <form
-            className="flex flex-col gap-4"
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleSubmit();
-            }}
-            noValidate
-          >
-            <Field
-              label="Nombre de usuario"
-              htmlFor="login-username"
-              error={errores.username}
-              errorId="error-username"
-            >
-              <Input
-                id="login-username"
-                type="text"
-                autoComplete="username"
-                maxLength={50}
-                value={formData.username}
-                onChange={(e) => handleChange('username', e.target.value)}
-                aria-invalid={!!errores.username}
-                aria-describedby={errores.username ? 'error-username' : undefined}
-              />
-            </Field>
+            <h2 className="mb-1 text-lg font-bold">Autenticación segura</h2>
+            <p className="mb-6 text-sm text-muted-foreground">
+              Verificación de token JWT · Control de acceso
+            </p>
 
-            <Field
-              label="Contraseña"
-              htmlFor="login-password"
-              error={errores.password}
-              errorId="error-password"
-            >
-              <Input
-                id="login-password"
-                type="password"
-                autoComplete="current-password"
-                maxLength={64}
-                value={formData.password}
-                onChange={(e) => handleChange('password', e.target.value)}
-                aria-invalid={!!errores.password}
-                aria-describedby={errores.password ? 'error-password' : undefined}
-              />
-            </Field>
+            <LoginForm />
 
-            <Button type="submit" disabled={submitting} className="mt-2 w-full">
-              <LogIn size={18} aria-hidden="true" />
-              {submitting ? 'Iniciando sesión...' : 'Iniciar sesión'}
-            </Button>
-          </form>
-        </CardBody>
-      </Card>
+            <div className="mt-auto flex justify-between border-t border-border pt-4 text-xs text-muted-foreground">
+              <span>v2.4.1 · .NET 10</span>
+              <span>Cifrado · TLS 1.3</span>
+            </div>
+          </Card>
+        </section>
+
+        <section
+          className="flex flex-1 flex-col gap-5"
+          aria-label="Vista previa del panel"
+        >
+          <Card className="flex items-center justify-between px-6 py-4">
+            <h2 className="text-lg font-bold">Panel de control</h2>
+            <Badge tone="success">● En tiempo real</Badge>
+          </Card>
+
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            {kpiData.map((kpi) => (
+              <Card
+                key={kpi.label}
+                className="relative overflow-hidden p-5"
+              >
+                <div
+                  className="absolute left-0 right-0 top-0 h-[3px]"
+                  style={{ backgroundColor: `hsl(var(${kpi.colorVar}))` }}
+                  aria-hidden="true"
+                />
+                <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                  {kpi.label}
+                </div>
+                <div className="my-1 text-3xl font-bold">{kpi.value}</div>
+                <div className="text-xs text-success">{kpi.delta}</div>
+                <svg
+                  className="mt-3"
+                  width="100%"
+                  height="32"
+                  viewBox="0 0 100 32"
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                >
+                  <polyline
+                    points={kpi.points}
+                    fill="none"
+                    stroke={`hsl(var(${kpi.colorVar}))`}
+                    strokeWidth="2"
+                  />
+                </svg>
+              </Card>
+            ))}
+          </div>
+
+          <Card className="flex-1 p-6">
+            <h3 className="mb-4 text-sm font-semibold">
+              Proyectos por estado — Últimos 7 días
+            </h3>
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-[2fr_1fr]">
+              <div
+                className="flex h-32 items-end gap-1.5"
+                aria-label="Gráfico de barras de proyectos por día"
+              >
+                {barHeights.map((height, index) => (
+                  <div
+                    key={index}
+                    className="w-full rounded-t-[3px]"
+                    style={{
+                      height: `${height}%`,
+                      backgroundColor: `hsl(var(--chart-1) / ${barOpacities[index]})`,
+                    }}
+                  />
+                ))}
+              </div>
+
+              <div className="flex flex-col items-center justify-center">
+                <svg
+                  width="100"
+                  height="100"
+                  viewBox="0 0 42 42"
+                  aria-label="Distribución de proyectos por estado"
+                >
+                  <circle
+                    cx="21"
+                    cy="21"
+                    r="15.9"
+                    fill="none"
+                    stroke="hsl(var(--chart-grid))"
+                    strokeWidth="4"
+                  />
+                  <circle
+                    cx="21"
+                    cy="21"
+                    r="15.9"
+                    fill="none"
+                    stroke="hsl(var(--chart-1))"
+                    strokeWidth="4"
+                    strokeDasharray="55 45"
+                    strokeDashoffset="25"
+                    strokeLinecap="round"
+                  />
+                  <circle
+                    cx="21"
+                    cy="21"
+                    r="15.9"
+                    fill="none"
+                    stroke="hsl(var(--chart-2))"
+                    strokeWidth="4"
+                    strokeDasharray="30 70"
+                    strokeDashoffset="0"
+                    strokeLinecap="round"
+                  />
+                  <circle
+                    cx="21"
+                    cy="21"
+                    r="15.9"
+                    fill="none"
+                    stroke="hsl(var(--chart-4))"
+                    strokeWidth="4"
+                    strokeDasharray="15 85"
+                    strokeDashoffset="-30"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <div className="mt-3 flex flex-col gap-1 text-xs text-muted-foreground">
+                  <span className="flex items-center gap-2">
+                    <span
+                      className="h-2 w-2 rounded-sm"
+                      style={{ backgroundColor: 'hsl(var(--chart-1))' }}
+                      aria-hidden="true"
+                    />
+                    En progreso (55%)
+                  </span>
+                  <span className="flex items-center gap-2">
+                    <span
+                      className="h-2 w-2 rounded-sm"
+                      style={{ backgroundColor: 'hsl(var(--chart-2))' }}
+                      aria-hidden="true"
+                    />
+                    Completados (30%)
+                  </span>
+                  <span className="flex items-center gap-2">
+                    <span
+                      className="h-2 w-2 rounded-sm"
+                      style={{ backgroundColor: 'hsl(var(--chart-4))' }}
+                      aria-hidden="true"
+                    />
+                    Pendientes (15%)
+                  </span>
+                </div>
+              </div>
+            </div>
+          </Card>
+        </section>
+      </main>
     </div>
   );
 }

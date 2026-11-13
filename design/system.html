@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Kiro Dashboard — Design System</title>
+<style>
+:root {
+  --background: 210 40% 98%;
+  --foreground: 222 47% 11%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215 16% 47%;
+  --border: 214 32% 91%;
+  --input: 214 32% 91%;
+  --primary: 243 75% 54%;
+  --primary-hover: 243 70% 47%;
+  --primary-foreground: 0 0% 100%;
+  --ring: 243 75% 54%;
+  --success: 142 71% 45%;
+  --success-foreground: 0 0% 100%;
+  --success-soft: 142 71% 92%;
+  --success-soft-foreground: 142 64% 24%;
+  --danger: 0 72% 51%;
+  --danger-hover: 0 74% 42%;
+  --danger-foreground: 0 0% 100%;
+  --danger-soft: 0 86% 95%;
+  --danger-soft-foreground: 0 70% 35%;
+  --warning: 38 92% 50%;
+  --warning-foreground: 0 0% 100%;
+  --sidebar: 222 47% 11%;
+  --sidebar-foreground: 210 40% 96%;
+  --sidebar-muted: 215 20% 65%;
+  --sidebar-active: 243 75% 59%;
+  --chart-1: 243 75% 59%;
+  --chart-2: 142 71% 45%;
+  --chart-3: 215 16% 55%;
+  --chart-4: 38 92% 50%;
+  --chart-grid: 214 32% 91%;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1.125rem;
+  --shadow-sm: 0 1px 2px hsl(222 47% 11% / 0.06);
+  --shadow-md: 0 4px 16px hsl(222 47% 11% / 0.08);
+  --shadow-lg: 0 12px 32px hsl(222 47% 11% / 0.12);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  line-height: 1.6;
+  padding: 2.5rem;
+  width: 1440px;
+}
+h1 { font-size: 1.75rem; margin-bottom: 1.5rem; font-weight: 700; }
+h2 { font-size: 1.2rem; margin: 2rem 0 0.75rem; font-weight: 600; color: hsl(var(--muted-foreground)); text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.8rem; }
+.grid { display: grid; gap: 0.75rem; }
+.swatches { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+.swatch { border-radius: var(--radius-md); overflow: hidden; border: 1px solid hsl(var(--border)); }
+.swatch-color { height: 56px; }
+.swatch-label { padding: 0.5rem 0.6rem; font-size: 0.72rem; background: hsl(var(--card)); }
+.swatch-label .name { font-weight: 600; display: block; }
+.swatch-label .val { color: hsl(var(--muted-foreground)); font-size: 0.65rem; }
+.type-scale div { margin-bottom: 0.4rem; }
+.type-scale .label { font-size: 0.7rem; color: hsl(var(--muted-foreground)); margin-bottom: 0.15rem; }
+.radii { display: flex; gap: 1.5rem; align-items: flex-end; flex-wrap: wrap; }
+.radius-item { text-align: center; }
+.radius-box { background: hsl(var(--primary) / 0.15); border: 2px solid hsl(var(--primary)); width: 48px; height: 48px; margin: 0 auto 0.3rem; }
+.radius-item span { font-size: 0.7rem; color: hsl(var(--muted-foreground)); }
+.shadows { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.shadow-item { width: 120px; height: 80px; background: hsl(var(--card)); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: hsl(var(--muted-foreground)); }
+.components { display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-start; }
+.comp-card { background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: var(--radius-lg); padding: 1.25rem; flex: 1; min-width: 240px; box-shadow: var(--shadow-sm); }
+.comp-card h3 { font-size: 0.85rem; margin-bottom: 0.75rem; font-weight: 600; }
+button { cursor: pointer; border: 1px solid transparent; border-radius: var(--radius-md); padding: 0.5rem 1rem; font-size: 0.875rem; font-weight: 500; color: hsl(var(--foreground)); background-color: hsl(var(--card)); font-family: inherit; }
+button:hover { border-color: hsl(var(--border)); box-shadow: var(--shadow-sm); }
+button:focus-visible { outline: none; box-shadow: 0 0 0 3px hsl(var(--ring) / 0.35); }
+button.primary { background: hsl(var(--primary)); border-color: hsl(var(--primary)); color: #fff; }
+button.primary:hover { background: hsl(var(--primary-hover)); border-color: hsl(var(--primary-hover)); }
+button.danger { background: hsl(var(--danger)); border-color: hsl(var(--danger)); color: #fff; }
+button.danger:hover { background: hsl(var(--danger-hover)); border-color: hsl(var(--danger-hover)); }
+button.ghost { background: transparent; border-color: transparent; color: hsl(var(--primary)); padding: 0.35rem 0.5rem; }
+button.ghost:hover { background: hsl(var(--primary) / 0.1); box-shadow: none; }
+input, select { padding: 0.55rem 0.75rem; border: 1px solid hsl(var(--border)); border-radius: var(--radius-md); font-size: 0.875rem; width: 100%; background: hsl(var(--card)); color: hsl(var(--foreground)); font-family: inherit; }
+input:focus, select:focus { outline: none; border-color: hsl(var(--primary)); box-shadow: 0 0 0 3px hsl(var(--ring) / 0.2); }
+.btn-row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<h1>Kiro Dashboard — Design System</h1>
+
+<h2>Colors</h2>
+<div class="grid swatches">
+  <div class="swatch"><div class="swatch-color" style="background:hsl(210 40% 98%)"></div><div class="swatch-label"><span class="name">--background</span><span class="val">210 40% 98%</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:hsl(222 47% 11%)"></div><div class="swatch-label"><span class="name">--foreground</span><span class="val">222 47% 11%</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:hsl(0 0% 100%)"></div><div class="swatch-label"><span class="name">--card</span><span class="val">0 0% 100%</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:hsl(210 40% 96%)"></div><div class="swatch-label"><span class="name">--muted</span><span class="val">210 40% 96%</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:hsl(215 16% 47%)"></div><div class="swatch-label"><span class="name">--muted-foreground</span><span class="val">215 16% 47%</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:hsl(214 32% 91%)"></div><div class="swatch-label"><span class="name">--border</span><span class="val">214 32% 91%</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:hsl(243 75% 54%)"></div><div class="swatch-label"><span class="name">--primary</span><span class="val">243 75% 54%</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:hsl(243 70% 47%)"></div><div class="swatch-label"><span class="name">--primary-hover</span><span class="val">243 70% 47%</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:hsl(0 0% 100%);border:1px solid hsl(var(--border))"></div><div class="swatch-label"><span class="name">--primary-foreground</span><span class="val">0 0% 100%</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:hsl(142 71% 45%)"></div><div class="swatch-label"><span class="name">--success</span><span class="val">142 71% 45%</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:hsl(142 71% 92%)"></div><div class="swatch-label"><span class="name">--success-soft</span><span class="val">142 71% 92%</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:hsl(0 72% 51%)"></div><div class="swatch-label"><span class="name">--danger</span><span class="val">0 72% 51%</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:hsl(0 86% 95%)"></div><div class="swatch-label"><span class="name">--danger-soft</span><span class="val">0 86% 95%</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:hsl(38 92% 50%)"></div><div class="swatch-label"><span class="name">--warning</span><span class="val">38 92% 50%</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:hsl(222 47% 11%)"></div><div class="swatch-label"><span class="name">--sidebar</span><span class="val">222 47% 11%</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:hsl(210 40% 96%)"></div><div class="swatch-label"><span class="name">--sidebar-foreground</span><span class="val">210 40% 96%</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:hsl(243 75% 59%)"></div><div class="swatch-label"><span class="name">--sidebar-active</span><span class="val">243 75% 59%</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:hsl(243 75% 59%)"></div><div class="swatch-label"><span class="name">--chart-1</span><span class="val">243 75% 59%</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:hsl(142 71% 45%)"></div><div class="swatch-label"><span class="name">--chart-2</span><span class="val">142 71% 45%</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:hsl(215 16% 55%)"></div><div class="swatch-label"><span class="name">--chart-3</span><span class="val">215 16% 55%</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:hsl(38 92% 50%)"></div><div class="swatch-label"><span class="name">--chart-4</span><span class="val">38 92% 50%</span></div></div>
+</div>
+
+<h2>Typography</h2>
+<div class="type-scale">
+  <div><div class="label">Heading 1 — 1.75rem / 700</div><div style="font-size:1.75rem;font-weight:700">Company Project Dashboard</div></div>
+  <div><div class="label">Heading 2 — 1.4rem / 700</div><div style="font-size:1.4rem;font-weight:700">Active Projects</div></div>
+  <div><div class="label">Heading 3 — 1.1rem / 600</div><div style="font-size:1.1rem;font-weight:600">Project Overview</div></div>
+  <div><div class="label">Body — 0.875rem / 400</div><div style="font-size:0.875rem">Track companies, manage projects, and monitor progress in real time.</div></div>
+  <div><div class="label">Label — 0.7rem / 600 / uppercase</div><div style="font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:hsl(215 16% 47%)">Section Label</div></div>
+</div>
+
+<h2>Radius</h2>
+<div class="radii">
+  <div class="radius-item"><div class="radius-box" style="border-radius:0.375rem"></div><span>sm 0.375</span></div>
+  <div class="radius-item"><div class="radius-box" style="border-radius:0.625rem"></div><span>md 0.625</span></div>
+  <div class="radius-item"><div class="radius-box" style="border-radius:0.875rem"></div><span>lg 0.875</span></div>
+  <div class="radius-item"><div class="radius-box" style="border-radius:1.125rem"></div><span>xl 1.125</span></div>
+</div>
+
+<h2>Shadows</h2>
+<div class="shadows">
+  <div class="shadow-item" style="box-shadow:var(--shadow-sm)">sm</div>
+  <div class="shadow-item" style="box-shadow:var(--shadow-md)">md</div>
+  <div class="shadow-item" style="box-shadow:var(--shadow-lg)">lg</div>
+</div>
+
+<h2>Components</h2>
+<div class="components">
+  <div class="comp-card">
+    <h3>Buttons</h3>
+    <div class="btn-row">
+      <button class="primary">Iniciar sesión</button>
+      <button>Secondary</button>
+      <button class="danger">Delete</button>
+      <button class="ghost">Learn more</button>
+    </div>
+  </div>
+  <div class="comp-card">
+    <h3>Inputs</h3>
+    <div style="display:flex;flex-direction:column;gap:0.6rem">
+      <input type="text" placeholder="Nombre de usuario" aria-label="Username">
+      <input type="password" placeholder="Contraseña" aria-label="Password">
+    </div>
+  </div>
+  <div class="comp-card">
+    <h3>Card</h3>
+    <div style="background:hsl(var(--muted));border:1px solid hsl(var(--border));border-radius:var(--radius-md);padding:0.75rem;font-size:0.8rem;color:hsl(var(--muted-foreground))">
+      Card surface with muted background and standard border.
+    </div>
+  </div>
+</div>
+</body>
+</html>

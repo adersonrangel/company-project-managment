@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Kiro Dashboard — Minimal Trust</title>
+<style>
+:root {
+  --background: hsl(210 40% 98%);
+  --foreground: hsl(222 47% 11%);
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(222 47% 11%);
+  --muted: hsl(210 40% 96%);
+  --muted-foreground: hsl(215 16% 47%);
+  --border: hsl(214 32% 91%);
+  --primary: hsl(243 75% 54%);
+  --primary-hover: hsl(243 70% 47%);
+  --primary-foreground: hsl(0 0% 100%);
+  --success: hsl(142 71% 45%);
+  --success-soft: hsl(142 71% 92%);
+  --success-soft-foreground: hsl(142 64% 24%);
+  --warning: hsl(38 92% 50%);
+  --sidebar: hsl(222 47% 11%);
+  --sidebar-foreground: hsl(210 40% 96%);
+  --sidebar-muted: hsl(215 20% 65%);
+  --sidebar-active: hsl(243 75% 59%);
+  --chart-1: hsl(243 75% 59%);
+  --chart-2: hsl(142 71% 45%);
+  --chart-3: hsl(215 16% 55%);
+  --chart-4: hsl(38 92% 50%);
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1.125rem;
+  --shadow-sm: 0 1px 2px hsl(222 47% 11% / 0.06);
+  --shadow-md: 0 4px 16px hsl(222 47% 11% / 0.08);
+  --shadow-lg: 0 12px 32px hsl(222 47% 11% / 0.12);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--background);
+  color: var(--foreground);
+  line-height: 1.6;
+  width: 1440px;
+  min-height: 900px;
+}
+
+/* Top nav */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 3rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--card);
+}
+.nav-brand { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 1.1rem; }
+.nav-brand .icon { width: 28px; height: 28px; background: var(--primary); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; }
+.nav-brand .icon svg { width: 16px; height: 16px; }
+.nav-links { display: flex; gap: 1.5rem; font-size: 0.85rem; color: var(--muted-foreground); }
+.nav-links a { color: inherit; text-decoration: none; }
+.nav-links a:hover { color: var(--primary); }
+
+/* Hero */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  padding: 4rem 3rem 3rem;
+}
+.hero-text { max-width: 520px; }
+.hero-text h1 { font-size: 2.5rem; font-weight: 700; line-height: 1.15; margin-bottom: 1rem; letter-spacing: -0.03em; }
+.hero-text h1 em { font-style: normal; color: var(--primary); }
+.hero-text p { font-size: 1rem; color: var(--muted-foreground); margin-bottom: 2rem; }
+
+/* Login card */
+.login-panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  padding: 2.25rem 2rem;
+  width: 360px;
+}
+.login-panel h2 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.25rem; }
+.login-panel .sub { font-size: 0.82rem; color: var(--muted-foreground); margin-bottom: 1.5rem; }
+.field { margin-bottom: 1rem; }
+.field label { display: block; font-size: 0.78rem; font-weight: 500; margin-bottom: 0.3rem; }
+.field input {
+  width: 100%; padding: 0.6rem 0.8rem;
+  border: 1px solid var(--border); border-radius: var(--radius-md);
+  font-size: 0.875rem; background: var(--muted); color: var(--foreground);
+  font-family: inherit; transition: border-color 0.15s, box-shadow 0.15s;
+}
+.field input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px hsl(243 75% 54% / 0.18); }
+.btn-primary {
+  width: 100%; padding: 0.65rem 1rem;
+  background: var(--primary); color: var(--primary-foreground);
+  border: none; border-radius: var(--radius-md);
+  font-size: 0.875rem; font-weight: 600; font-family: inherit;
+  cursor: pointer; margin-top: 0.5rem; transition: background 0.15s;
+}
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 3px hsl(243 75% 54% / 0.35); }
+.login-footer { margin-top: 1rem; font-size: 0.75rem; color: var(--muted-foreground); text-align: center; }
+.login-footer a { color: var(--primary); text-decoration: none; }
+
+/* Feature strip */
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  padding: 0 3rem 3rem;
+}
+.feature-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+.feature-card .icon-circle {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 0.75rem;
+}
+.feature-card h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.35rem; }
+.feature-card p { font-size: 0.8rem; color: var(--muted-foreground); line-height: 1.5; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<nav aria-label="Navegación">
+  <div class="nav-brand">
+    <div class="icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    </div>
+    Kiro Dashboard
+  </div>
+  <div class="nav-links">
+    <a href="#">Características</a>
+    <a href="#">Precios</a>
+    <a href="#">Documentación</a>
+    <a href="#">Soporte</a>
+  </div>
+</nav>
+
+<main>
+  <section class="hero" aria-label="Acceso al panel">
+    <div class="hero-text">
+      <h1>Tu empresa, <em>organizada</em>.<br>Tus proyectos, <em>controlados</em>.</h1>
+      <p>Kiro Dashboard centraliza la gestión de empresas y proyectos con métricas en tiempo real, seguridad JWT y una interfaz limpia diseñada para equipos profesionales.</p>
+      <svg width="200" height="4" aria-hidden="true"><defs><linearGradient id="g1"><stop offset="0%" stop-color="hsl(243 75% 54%)"/><stop offset="100%" stop-color="hsl(142 71% 45%)"/></linearGradient></defs><rect width="200" height="4" rx="2" fill="url(#g1)"/></svg>
+    </div>
+    <div class="login-panel">
+      <h2>Acceso al panel</h2>
+      <p class="sub">Introduce tus credenciales para continuar</p>
+      <form>
+        <div class="field">
+          <label for="username">Nombre de usuario</label>
+          <input id="username" type="text" autocomplete="username" placeholder="tu.usuario@empresa.com">
+        </div>
+        <div class="field">
+          <label for="password">Contraseña</label>
+          <input id="password" type="password" autocomplete="current-password" placeholder="••••••••">
+        </div>
+        <button type="submit" class="btn-primary">Iniciar sesión</button>
+      </form>
+      <p class="login-footer">¿Problemas para acceder? <a href="#">Contactar soporte</a></p>
+    </div>
+  </section>
+
+  <section class="features" aria-label="Características">
+    <div class="feature-card">
+      <div class="icon-circle" style="background:hsl(243 75% 54% / 0.12)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="hsl(243 75% 54%)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <h3>Gestión multi-empresa</h3>
+      <p>Administra múltiples empresas y sus proyectos desde un único panel unificado con vistas jerárquicas.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon-circle" style="background:hsl(142 71% 45% / 0.12)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="hsl(142 71% 45%)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>Seguridad JWT</h3>
+      <p>Autenticación robusta con tokens JWT, validación estricta y protección contra accesos no autorizados.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon-circle" style="background:hsl(38 92% 50% / 0.12)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="hsl(38 92% 50%)" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+      </div>
+      <h3>Métricas en vivo</h3>
+      <p>Gráficos y KPIs actualizados en tiempo real para tomar decisiones basadas en datos actualizados.</p>
+    </div>
+  </section>
+</main>
+</body>
+</html>

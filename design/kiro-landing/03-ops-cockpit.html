@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Kiro Dashboard — Ops Cockpit</title>
+<style>
+:root {
+  --background: hsl(222 47% 7%);
+  --foreground: hsl(210 40% 96%);
+  --card: hsl(222 47% 11%);
+  --card-foreground: hsl(210 40% 96%);
+  --muted: hsl(217 33% 17%);
+  --muted-foreground: hsl(215 20% 65%);
+  --border: hsl(217 33% 20%);
+  --primary: hsl(239 84% 74%);
+  --primary-hover: hsl(239 84% 80%);
+  --primary-foreground: hsl(222 47% 11%);
+  --success: hsl(142 69% 58%);
+  --success-soft: hsl(142 40% 18%);
+  --success-soft-foreground: hsl(142 69% 75%);
+  --warning: hsl(38 92% 60%);
+  --warning-foreground: hsl(222 47% 11%);
+  --sidebar: hsl(222 47% 5%);
+  --sidebar-foreground: hsl(210 40% 96%);
+  --sidebar-muted: hsl(215 20% 65%);
+  --sidebar-active: hsl(239 84% 74%);
+  --chart-1: hsl(239 84% 74%);
+  --chart-2: hsl(142 69% 58%);
+  --chart-3: hsl(215 20% 55%);
+  --chart-4: hsl(38 92% 60%);
+  --chart-grid: hsl(217 33% 20%);
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1.125rem;
+  --shadow-sm: 0 1px 2px hsl(0 0% 0% / 0.3);
+  --shadow-md: 0 4px 16px hsl(0 0% 0% / 0.4);
+  --shadow-lg: 0 12px 32px hsl(0 0% 0% / 0.5);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--background);
+  color: var(--foreground);
+  line-height: 1.6;
+  width: 1440px;
+  min-height: 900px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top bar */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2.5rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--sidebar);
+}
+.topbar-brand { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 1rem; }
+.topbar-brand .dot { width: 8px; height: 8px; background: var(--success); border-radius: 50%; }
+.topbar-status { font-size: 0.72rem; color: var(--muted-foreground); }
+.topbar-status span { color: var(--success); }
+
+/* Main split */
+.main {
+  display: flex;
+  flex: 1;
+  padding: 2.5rem;
+  gap: 2.5rem;
+}
+
+/* Left: Login as console */
+.login-console {
+  flex: 0 0 380px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+}
+.console-header {
+  display: flex; align-items: center; gap: 0.5rem;
+  margin-bottom: 1.5rem; padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.console-header .dots { display: flex; gap: 5px; }
+.console-header .dots span { width: 10px; height: 10px; border-radius: 50%; }
+.console-header .dots span:nth-child(1) { background: hsl(0 72% 51%); }
+.console-header .dots span:nth-child(2) { background: hsl(38 92% 50%); }
+.console-header .dots span:nth-child(3) { background: hsl(142 71% 45%); }
+.console-header .title { font-size: 0.75rem; color: var(--muted-foreground); margin-left: 0.5rem; }
+.login-console h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.25rem; }
+.login-console .sub { font-size: 0.8rem; color: var(--muted-foreground); margin-bottom: 1.5rem; }
+.field { margin-bottom: 1rem; }
+.field label { display: block; font-size: 0.75rem; font-weight: 500; margin-bottom: 0.3rem; color: var(--muted-foreground); text-transform: uppercase; letter-spacing: 0.04em; }
+.field input {
+  width: 100%; padding: 0.6rem 0.8rem;
+  border: 1px solid var(--border); border-radius: var(--radius-md);
+  font-size: 0.875rem; background: var(--muted); color: var(--foreground);
+  font-family: inherit; transition: border-color 0.15s, box-shadow 0.15s;
+}
+.field input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px hsl(239 84% 74% / 0.2); }
+.btn-primary {
+  width: 100%; padding: 0.65rem 1rem;
+  background: var(--primary); color: var(--primary-foreground);
+  border: none; border-radius: var(--radius-md);
+  font-size: 0.875rem; font-weight: 600; font-family: inherit;
+  cursor: pointer; margin-top: 0.5rem; transition: background 0.15s;
+}
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 3px hsl(239 84% 74% / 0.35); }
+.console-footer { margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.72rem; color: var(--muted-foreground); display: flex; justify-content: space-between; }
+
+/* Right: Dashboard preview */
+.dash-preview {
+  flex: 1;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 1.25rem;
+}
+.dash-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+.dash-header h2 { font-size: 1.1rem; font-weight: 700; }
+.dash-header .badge { font-size: 0.7rem; background: var(--success-soft); color: var(--success-soft-foreground); padding: 0.2rem 0.6rem; border-radius: 99px; }
+
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.kpi-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  position: relative;
+  overflow: hidden;
+}
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.kpi-card:nth-child(1)::before { background: var(--chart-1); }
+.kpi-card:nth-child(2)::before { background: var(--chart-2); }
+.kpi-card:nth-child(3)::before { background: var(--chart-4); }
+.kpi-card .label { font-size: 0.72rem; color: var(--muted-foreground); text-transform: uppercase; letter-spacing: 0.04em; }
+.kpi-card .value { font-size: 1.8rem; font-weight: 700; margin: 0.3rem 0; }
+.kpi-card .delta { font-size: 0.75rem; color: var(--success); }
+.kpi-card .sparkline { margin-top: 0.75rem; }
+
+/* Chart area */
+.chart-area {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+}
+.chart-area h3 { font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem; }
+.chart-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+}
+.bar-chart { display: flex; align-items: flex-end; gap: 6px; height: 120px; }
+.bar-chart .bar {
+  flex: 1; border-radius: 3px 3px 0 0;
+  min-width: 12px;
+}
+.donut-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.donut-wrap .legend { margin-top: 0.75rem; font-size: 0.7rem; color: var(--muted-foreground); display: flex; flex-direction: column; gap: 0.3rem; }
+.donut-wrap .legend span { display: flex; align-items: center; gap: 0.4rem; }
+.donut-wrap .legend .dot { width: 8px; height: 8px; border-radius: 2px; }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<header class="topbar" aria-label="Barra superior">
+  <div class="topbar-brand">
+    <div class="dot" aria-hidden="true"></div>
+    Kiro Dashboard
+  </div>
+  <div class="topbar-status">Sistema operativo — <span>Todos los servicios en línea</span></div>
+</header>
+
+<main class="main">
+  <section class="login-console" aria-label="Acceso al sistema">
+    <div class="console-header">
+      <div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>
+      <span class="title">kiro@dashboard:~$ auth</span>
+    </div>
+    <h2>Autenticación segura</h2>
+    <p class="sub">JWT token verification · Access control</p>
+    <form>
+      <div class="field">
+        <label for="username">Usuario</label>
+        <input id="username" type="text" autocomplete="username" placeholder="admin@kiro.dev">
+      </div>
+      <div class="field">
+        <label for="password">Contraseña</label>
+        <input id="password" type="password" autocomplete="current-password" placeholder="••••••••••••">
+      </div>
+      <button type="submit" class="btn-primary">Autenticar →</button>
+    </form>
+    <div class="console-footer">
+      <span>v2.4.1 · .NET 10</span>
+      <span>Encrypted · TLS 1.3</span>
+    </div>
+  </section>
+
+  <section class="dash-preview" aria-label="Vista previa del dashboard">
+    <div class="dash-header">
+      <h2>Panel de control</h2>
+      <span class="badge">● En tiempo real</span>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="label">Empresas activas</div>
+        <div class="value">12</div>
+        <div class="delta">▲ +2 este mes</div>
+        <svg class="sparkline" width="100%" height="32" viewBox="0 0 100 32" preserveAspectRatio="none" aria-hidden="true">
+          <polyline points="0,28 15,24 30,26 45,18 60,20 75,12 90,8 100,5" fill="none" stroke="hsl(239 84% 74%)" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="kpi-card">
+        <div class="label">Proyectos activos</div>
+        <div class="value">47</div>
+        <div class="delta">▲ +8 este mes</div>
+        <svg class="sparkline" width="100%" height="32" viewBox="0 0 100 32" preserveAspectRatio="none" aria-hidden="true">
+          <polyline points="0,26 15,22 30,24 45,16 60,18 75,10 90,12 100,6" fill="none" stroke="hsl(142 69% 58%)" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="kpi-card">
+        <div class="label">Tasa cumplimiento</div>
+        <div class="value">94%</div>
+        <div class="delta">▲ +3 pp</div>
+        <svg class="sparkline" width="100%" height="32" viewBox="0 0 100 32" preserveAspectRatio="none" aria-hidden="true">
+          <polyline points="0,20 15,18 30,22 45,14 60,12 75,8 90,6 100,4" fill="none" stroke="hsl(38 92% 60%)" stroke-width="2"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="chart-area">
+      <h3>Proyectos por estado — Últimos 7 días</h3>
+      <div class="chart-grid">
+        <div class="bar-chart" aria-label="Gráfico de barras de proyectos por día">
+          <div class="bar" style="height:45%;background:hsl(239 84% 74% / 0.7)"></div>
+          <div class="bar" style="height:65%;background:hsl(239 84% 74% / 0.8)"></div>
+          <div class="bar" style="height:50%;background:hsl(239 84% 74% / 0.7)"></div>
+          <div class="bar" style="height:80%;background:hsl(239 84% 74%)"></div>
+          <div class="bar" style="height:70%;background:hsl(239 84% 74% / 0.85)"></div>
+          <div class="bar" style="height:90%;background:hsl(239 84% 74%)"></div>
+          <div class="bar" style="height:60%;background:hsl(239 84% 74% / 0.75)"></div>
+        </div>
+        <div class="donut-wrap">
+          <svg width="100" height="100" viewBox="0 0 42 42" aria-label="Distribución de proyectos por estado">
+            <circle cx="21" cy="21" r="15.9" fill="none" stroke="hsl(217 33% 20%)" stroke-width="4"/>
+            <circle cx="21" cy="21" r="15.9" fill="none" stroke="hsl(239 84% 74%)" stroke-width="4" stroke-dasharray="55 45" stroke-dashoffset="25" stroke-linecap="round"/>
+            <circle cx="21" cy="21" r="15.9" fill="none" stroke="hsl(142 69% 58%)" stroke-width="4" stroke-dasharray="30 70" stroke-dashoffset="0" stroke-linecap="round"/>
+            <circle cx="21" cy="21" r="15.9" fill="none" stroke="hsl(38 92% 60%)" stroke-width="4" stroke-dasharray="15 85" stroke-dashoffset="-30" stroke-linecap="round"/>
+          </svg>
+          <div class="legend">
+            <span><span class="dot" style="background:hsl(239 84% 74%)"></span> En progreso (55%)</span>
+            <span><span class="dot" style="background:hsl(142 69% 58%)"></span> Completados (30%)</span>
+            <span><span class="dot" style="background:hsl(38 92% 60%)"></span> Pendientes (15%)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+</body>
+</html>

@@ -28,9 +28,9 @@ import { tokenStorage } from '@/utils/tokenStorage';
 // La `LoginPage` NO se mockea: la redirección de un usuario autenticado que
 // visita `/login` (Req 7.5) la implementa la propia `LoginPage`, por lo que
 // sustituirla eliminaría el comportamiento bajo prueba. Se identifica por su
-// encabezado "Iniciar sesión".
+// encabezado "Autenticación segura" (diseño ops-cockpit).
 const PROTECTED_HOME_TEXT = 'CONTENIDO_HOME_PROTEGIDO';
-const LOGIN_HEADING = 'Iniciar sesión';
+const LOGIN_HEADING = 'Autenticación segura';
 
 vi.mock('@/components/Layout', async () => {
   const { Outlet } = await vi.importActual<typeof import('react-router-dom')>(

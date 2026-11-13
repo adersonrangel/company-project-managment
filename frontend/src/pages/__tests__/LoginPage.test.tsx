@@ -80,6 +80,23 @@ describe('LoginPage', () => {
         username: 'usuarioValido',
         password: 'contrasenaSegura',
       });
+      expect(mockNavigate).toHaveBeenCalledWith('/', { replace: true });
+    });
+  });
+
+  describe('Renderizado del diseño ops-cockpit', () => {
+    it('muestra la consola de autenticación y el panel de control', () => {
+      renderLoginPage();
+
+      expect(
+        screen.getByRole('heading', { name: /Autenticación segura/i })
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole('heading', { name: /Panel de control/i })
+      ).toBeInTheDocument();
+      expect(
+        screen.getByLabelText('Nombre de usuario')
+      ).toBeInTheDocument();
     });
   });
 

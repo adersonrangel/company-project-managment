@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "chosen": "03-ops-cockpit.html",
+  "handoffs": {
+    "03-ops-cockpit.html": {
+      "status": "implemented",
+      "queued": false,
+      "sentAt": "2026-11-13T01:11:17.716Z",
+      "startedAt": "2026-11-13T01:11:22.880Z",
+      "implementedAt": "2026-11-13T02:16:57.375Z",
+      "note": "Landing ops-cockpit integrated as /login entry point; 184/184 tests green; tsc + lint clean.",
+      "previewUrl": "http://localhost:5173/login"
+    }
+  }
+}

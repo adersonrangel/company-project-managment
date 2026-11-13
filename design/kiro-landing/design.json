@@ -1,0 +1,9 @@
+{
+  "title": "Kiro Dashboard — Landing con Login",
+  "brief": "Landing page profesional para Kiro Dashboard (gestión de empresas y proyectos) con el login integrado en la misma página. Colores profesionales, vista corporativa.",
+  "artboards": [
+    { "file": "01-split-command.html", "title": "Split Command", "tradeoff": "Panel oscuro a la izquierda con KPIs + login a la derecha; transmite solidez y demo del producto, pero el login es secundario al visual", "width": 1440, "height": 900 },
+    { "file": "02-minimal-trust.html", "title": "Minimal Trust", "tradeoff": "Layout editorial limpio con hero centrado y tarjeta de login; elegante y accesible, pero menos informativo para visitantes nuevos", "width": 1440, "height": 900 },
+    { "file": "03-ops-cockpit.html", "title": "Ops Cockpit", "tradeoff": "Tema oscuro tipo consola de operaciones con login como panel de autenticación terminal; muy impactante visualmente pero puede intimidar a audiencias no técnicas", "width": 1440, "height": 900 }
+  ]
+}
